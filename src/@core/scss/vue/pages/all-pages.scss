@@ -1,0 +1,240 @@
+.Login-card-title {
+  font-size: 3rem !important;
+  font-weight: 1000 !important;
+}
+
+.register-card-title {
+  font-size: 2rem !important;
+  font-weight: 1000 !important;
+}
+
+.frogot-password-card-title {
+  font-size: 2rem !important;
+  font-weight: 1000 !important;
+}
+
+.New-Password-card-title {
+  font-size: 2rem !important;
+  font-weight: 1000 !important;
+}
+
+.ReportButton {
+  width: 200px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.Search {
+  width: 150px;
+}
+
+.good-aline-table th {
+  text-align: center;
+}
+
+.text {
+  text-align: center;
+}
+
+.light-success {
+  border-radius: 50rem !important;
+}
+
+.start-date {
+  min-width: 15vw !important;
+}
+
+.card-header {
+  height: 0 !important;
+}
+
+.page-padding {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+// .header-margin-top {
+//   @media (min-width: 575px) {
+//     margin-top: 90px !important;
+//   }
+// }
+.margin_left_12 {
+  margin-left: 0px;
+}
+
+@media (max-width: 991px) {
+  .frogot-password-card-title {
+    font-size: 1.4rem !important;
+    font-weight: 1000 !important;
+  }
+}
+
+@media (max-width: 460px) {
+  .ReportButton {
+    width: 60px;
+  }
+}
+
+.buy-card-div {
+  margin-bottom: 0px !important;
+
+  .card-body {
+    padding: 0px !important;
+  }
+}
+
+.Crad-height {
+  min-height: calc(var(--vh, 1vh) * 77);
+}
+
+@media (max-width: 1024px) {
+  .max-width-address {
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .max-width-address {
+    max-width: 320px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .max-width-address {
+    max-width: 100vw;
+  }
+}
+
+.fill-filer-color {
+  color: #7367f0;
+  fill: #7367f0;
+}
+
+.clear-filter {
+  width: 24;
+}
+
+.parent-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgb(255 255 255 / 60%);
+
+  .loading-logo {
+    position: relative;
+  }
+
+  .loading {
+    position: relative;
+    left: calc(50% - 0px);
+  }
+}
+
+.input-group:not(.bootstrap-touchspin):focus-within .form-control.is-invalid {
+  padding-right: 30px;
+}
+
+.form-control.is-invalid {
+  padding-right: 30px !important;
+}
+
+.auth-wrapper.auth-v1.Crad-height.hide-visible {
+  overflow: visible;
+}
+
+.hide-visible.auth-wrapper.auth-v1 .auth-inner:before,
+.hide-visible.auth-wrapper.auth-v1 .auth-inner:after {
+  display: none;
+}
+
+.w-45 {
+  width: 45%;
+}
+
+.new-title {
+  font-size: 28px;
+  line-height: 34px;
+  text-align: center;
+  color: #5E5873;
+  margin-top: 16px;
+}
+
+.new-modal-title {
+  font-size: 28px;
+  line-height: 34px;
+  text-align: center;
+  color: #5e5873;
+}
+
+.modal-message {
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  color: #6E6B7B;
+  margin-top: 14px;
+}
+
+.modal-message-name {
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  color: #6e6b7b;
+  font-weight: 600;
+}
+
+.danger-color {
+  color: #ea5455;
+}
+
+.margin-right-6px {
+  margin-right: 6px;
+}
+
+.margin-top-8px {
+  margin-top: 8px;
+}
+
+.margin-bottom-8px {
+  margin-bottom: 8px;
+}
+
+.primary-color {
+  color: #7367f0;
+}
+
+.border-bottom-1px:not(:last-child) {
+  border-bottom: 1px solid #d8d6de;
+  border-radius: 0.1rem;
+}
+.w-10{
+  width: 10% !important;
+}
+.text-nowrap {
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+}
+.card_min_higth_home{
+  min-height: 16vh;
+}
+.lang .btn-group .dropdown-toggle{
+  display: flex !important;
+  align-items: center;
+ 
+}
+
+.lang .btn-group .dropdown-toggle::after{
+  margin-top: 5px !important;
+  margin-left: 6px !important;
+ }
+ .main-nav{
+  display: flex;
+ }
+ .lang .btn-group .dropdown-toggle::after {
+    margin-top: 5px !important;
+    margin-left: 6px !important;
+    visibility: hidden;
+}
