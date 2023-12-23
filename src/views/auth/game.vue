@@ -191,7 +191,7 @@
 
               me.recoverAccount();
             } else {
-              me.captchaErr = 'Captcha check required';
+              me.captchaErr = 'Captcha check required  ';
             }
           }
         });
