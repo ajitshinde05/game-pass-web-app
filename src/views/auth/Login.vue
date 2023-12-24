@@ -242,6 +242,11 @@
         });
       },
       async login() {
+        this.$router.push({
+          name: 'home',
+          params: { lang: this.lang || undefined },
+        });
+        return;
         this.isLoading = true;
         const res = await new APIService().api(
           { method: 'post', url: 'user/login' },

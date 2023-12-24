@@ -5,7 +5,7 @@
     :data-col="isNavMenuHidden ? '1-column' : null"
   >
     <!-- Navbar -->
-    <b-navbar
+    <!-- <b-navbar
       :toggleable="false"
       :variant="navbarBackgroundColor"
       class="header-navbar navbar navbar-shadow align-items-center"
@@ -24,7 +24,7 @@
           :toggle-vertical-menu-active="toggleVerticalMenuActive"
         />
       </slot>
-    </b-navbar>
+    </b-navbar> -->
     <!--/ Navbar -->
 
     <!-- Vertical Nav Menu -->
@@ -70,11 +70,11 @@
     <!--/ Content -->
 
     <!-- Footer -->
-    <footer class="footer750" :class="[footerTypeClass]">
+    <!-- <footer class="footer750" :class="[footerTypeClass]">
       <slot name="footer">
         <app-footer />
       </slot>
-    </footer>
+    </footer> -->
     <!-- /Footer -->
 
     <slot name="customizer" />
@@ -84,7 +84,7 @@
 <script>
   import { onUnmounted } from '@vue/composition-api';
   import AppNavbarVerticalLayout from '@core/layouts/components/app-navbar/AppNavbarVerticalLayout.vue';
-  import AppFooter from '@core/layouts/components/AppFooter.vue';
+  // import AppFooter from '@core/layouts/components/AppFooter.vue';
   import useAppConfig from '@core/app-config/useAppConfig';
   import { BNavbar } from 'bootstrap-vue';
   import LayoutContentRendererDefault from '@core/layouts/components/layout-content-renderer/LayoutContentRendererDefault.vue';
@@ -98,7 +98,7 @@
     components: {
       // AppBreadcrumb,
       AppNavbarVerticalLayout,
-      AppFooter,
+      // AppFooter,
       VerticalNavMenu,
       BNavbar,
       LayoutContentRendererLeftDetached,
