@@ -78,8 +78,8 @@ export default {
     },
     RefreshBtn: 'Refresh',
   },
-  PaymentHistoryPage: {
-    Title: 'Payment history',
+  GameHistoryPage: {
+    Title: 'Game History',
     RefreshBtn: 'Refresh',
     Statuses: {
       COMPLETED: 'COMPLETED',
@@ -87,15 +87,30 @@ export default {
       EXPIRED: 'EXPIRED',
     },
     Columns: {
-      TransactionID: 'Transaction ID',
-      PayAddress: 'Pay Address',
-      Plan: 'Plan',
-      PayAmount: 'Pay Amount',
-      PayTxId: 'Pay Tx ID',
-      RequestPoints: 'Request Points',
-      Status: 'Status',
-      CreatedTime: 'Created Time',
+      Game: 'Game',
+      Amount: 'Amount',
+      Win: 'Win',
+      Loss: 'Loss',   
     },
+  },
+  WithDrawal: {
+    Title: 'WithDrawal',
+    RefreshBtn: 'Refresh',
+    Statuses: {
+      COMPLETED: 'COMPLETED',
+      PENDING: 'PENDING',
+      EXPIRED: 'EXPIRED',
+    },
+    Columns: {
+      Game: 'Game',
+      Amount: 'Amount',
+      Win: 'Win',
+      Loss: 'Loss',   
+    },
+  },
+  Amount:{
+    Title:'Amount',
+    PlaceHolder:'Enter Amount'
   },
   TxCostReportPage: {
     Title: 'Wallet Statements',

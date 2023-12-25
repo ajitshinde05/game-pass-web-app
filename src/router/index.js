@@ -168,7 +168,7 @@ const router = new VueRouter({
     {
       path: '/balance-report',
       name: 'balance-report',
-      beforeEnter: protectedRoute,
+      // beforeEnter: protectedRoute,
       component: () => import('@/views/BalanceReport/BalanceReportPage.vue'),
       meta: {
         pageTitle: 'BalanceReport',
@@ -346,36 +346,36 @@ const router = new VueRouter({
         ],
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/payment-history`,
-      name: 'payment-history',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/PaymentHistoryPage.vue'),
-      meta: {
-        pageTitle: 'PaymentList',
-        breadcrumb: [
-          {
-            text: 'PaymentList',
-            active: true,
-          },
-        ],
-      },
-    },
-    {
-      path: '/payment-history',
-      name: 'payment-history',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/PaymentHistoryPage.vue'),
-      meta: {
-        pageTitle: 'PaymentList',
-        breadcrumb: [
-          {
-            text: 'PaymentList',
-            active: true,
-          },
-        ],
-      },
-    },
+    // {
+    //   path: `/${LANGUAGES_STRING}/payment-history`,
+    //   name: 'payment-history',
+    //   beforeEnter: protectedRoute,
+    //   component: () => import('@/views/PaymentHistoryPage.vue'),
+    //   meta: {
+    //     pageTitle: 'PaymentList',
+    //     breadcrumb: [
+    //       {
+    //         text: 'PaymentList',
+    //         active: true,
+    //       },
+    //     ],
+    //   },
+    // },
+    // {
+    //   path: '/payment-history',
+    //   name: 'payment-history',
+    //   beforeEnter: protectedRoute,
+    //   component: () => import('@/views/PaymentHistoryPage.vue'),
+    //   meta: {
+    //     pageTitle: 'PaymentList',
+    //     breadcrumb: [
+    //       {
+    //         text: 'PaymentList',
+    //         active: true,
+    //       },
+    //     ],
+    //   },
+    // },
     {
       path: `/${LANGUAGES_STRING}/generate-tx-cost-report`,
       name: 'generate-tx-cost-report',
@@ -499,6 +499,30 @@ const router = new VueRouter({
             active: true,
           },
         ],
+      },
+    },
+    {
+      path: `/game-history`,
+      name: 'game-history',
+      component: () => import('@/views/GameHistoryPage.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: `/withdrawal`,
+      name: 'withdrawal',
+      component: () => import('@/views/withdrawal/WithDrawal.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: `/view-profile`,
+      name: 'view-history',
+      component: () => import('@/views/profile/ViewProfile.vue'),
+      meta: {
+        layout: 'full',
       },
     },
     {
