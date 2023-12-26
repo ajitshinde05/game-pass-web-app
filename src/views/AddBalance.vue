@@ -220,6 +220,10 @@
           </div>
         </div>
       </div>
+      <div class="form-inline my-2 mx-lg-5 d-sm-flex d-flex">
+        <input type="checkbox" id="inputPassword6" class="mx-sm-2" />
+        I have read and agree with the terms of payment and withdrawal policy.
+      </div>
       <b-button
         class="mx-sm-auto m-auto m-md-auto m-sm-auto d-lg-flex d-sm-flex d-md-flex justify-content-center"
         variant="primary"
@@ -247,6 +251,7 @@
       return {
         mainProps: { width: 25, height: 25, class: 'm1' },
         isImpsSelected: true,
+        status: false,
       };
     },
     methods: {
