@@ -642,6 +642,14 @@ const router = new VueRouter({
       path: '*',
       redirect: 'error-404',
     },
+    {
+      path: `/add-balance`,
+      name: 'add-balance',
+      component: () => import('@/views/AddBalance.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
   ],
 });
 

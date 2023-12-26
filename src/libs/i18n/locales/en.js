@@ -351,4 +351,7 @@ export default {
   SearchComponent: {
     SearchFiledPlaceholder: 'Select or type a address',
   },
+  AddBalance:{
+    title: 'Add Balance'
+  }
 };
