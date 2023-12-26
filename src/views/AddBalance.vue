@@ -3,119 +3,153 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-md-10 ml-auto col-xl-6 mr-auto">
-          <p class="category">Tabs with Icons on Card</p>
-          <!-- Nav tabs -->
+          <p class="category h4">Add Balance:</p>
           <div>
-            <b-card no-body>
-              <b-tabs pills card>
-                <b-tab title="Tab 1" active>
-                  <template #title>
+            <div class="flex">
+              <b-button
+                class="mr-1"
+                variant="outline-secondary"
+                @click="switchImps()"
+              >
+                <b-img
+                  src="@/assets/images/icons/phonepe-logo-icon.svg"
+                  style="height: 20px; width: 20px"
+                  rounded="circle"
+                  alt="Circle image"
+                  class="bg-danger"
+                ></b-img>
+              </b-button>
+              <b-button
+                class="mr-1"
+                variant="outline-secondary"
+                @click="switchMode()"
+              >
+                <b-img
+                  src="@/assets/images/icons/phonepe-logo-icon.svg"
+                  style="height: 20px; width: 20px"
+                  rounded="circle"
+                  alt="Circle image"
+                  class="bg-danger"
+                ></b-img>
+              </b-button>
+              <b-button
+                class="mr-1"
+                variant="outline-secondary"
+                @click="switchMode()"
+              >
+                <b-img
+                  src="@/assets/images/icons/phonepe-logo-icon.svg"
+                  style="height: 20px; width: 20px"
+                  rounded="circle"
+                  alt="Circle image"
+                  class="bg-danger"
+                ></b-img>
+              </b-button>
+            </div>
+            <b-card no-body v-if="isImpsSelected">
+              <div class="dropdown-divider"></div>
+              <b-card-text>
+                <p class="font-weight-light">
+                  Bank Name: Union Bank of India
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-copy"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"
+                    />
+                  </svg>
+                </p>
+                <p class="font-weight-light">
+                  A/C No: 507501510037769
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-copy"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"
+                    />
+                  </svg>
+                </p>
+                <p class="font-weight-light">
+                  IFSC Code: UBIN0550738
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-copy"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"
+                    />
+                  </svg>
+                </p>
+                <p class="font-weight-light">
+                  Account Name: Rohit Sales and Service
+                </p>
+                <p class="font-weight-light">Min. Amount: 100</p>
+                <p class="font-weight-light">Max. Amount: 2000000</p>
+              </b-card-text>
+              <div class="dropdown-divider"></div>
+              <form class="form-inline">
+                <div class="form-group">
+                  <label for="inputPassword6" class="h5 font-weight-normal">
+                    Upload Payment Proof:
+                  </label>
+                  <input type="file" id="inputPassword6" class="mx-sm-2" />
+                </div>
+                <div class="form-group mt-2">
+                  <label for="inputEmail4" class="h5 font-weight-normal mr-2">
+                    Amount*:
+                  </label>
+                  <input type="email" class="form-control" id="inputEmail4" />
+                </div>
+              </form>
+            </b-card>
+            <b-card v-else>
+              <form class="form">
+                <div class="form-inline">
+                  <label for="inputEmail4" class="h5 font-weight-normal mr-2">
+                    Amount*:
+                  </label>
+                  <input type="email" class="form-control" id="inputEmail4" />
+                </div>
+                <div
+                  class="border border-primary d-flex d-lg-flex d-md-flex d-sm-flex justify-content-center mx-auto my-2 mx-sm-auto my-sm-2"
+                  style="height: 150px; width: 150px"
+                >
+                  <div
+                    class="form-group block border-1 m-auto m-md-auto m-sm-auto"
+                  >
                     <b-img
                       src="@/assets/images/icons/phonepe-logo-icon.svg"
-                      style="height: 20px; width: 20px"
+                      style="height: 100px; width: 100px"
                       rounded="circle"
                       alt="Circle image"
                       class="bg-danger"
                     ></b-img>
-                    
-                  </template>
-                  <div class="dropdown-divider"></div>
-                  <b-card-text>
-                    <p class="font-weight-light">
-                      Bank Name: Union Bank of India
-                    </p>
-                    <p class="font-weight-light">A/C No: 507501510037769</p>
-                    <p class="font-weight-light">IFSC Code: UBIN0550738</p>
-                    <p class="font-weight-light">
-                      Account Name: Rohit Sales and Service
-                    </p>
-                    <p class="font-weight-light">Min. Amount: 100</p>
-                    <p class="font-weight-light">Max. Amount: 2000000</p>
-                  </b-card-text>
-                  <div class="dropdown-divider"></div>
-                  <form class="form-inline">
-                    <div class="form-group">
-                      <label for="inputPassword6" class="h5 font-weight-normal">
-                        Upload Payment Proof:
-                      </label>
-                      <input type="file" id="inputPassword6" class="mx-sm-2" />
-                    </div>
-                    <div class="form-group mt-2">
-                      <label
-                        for="inputEmail4"
-                        class="h5 font-weight-normal mr-2"
-                      >
-                        Amount*:
-                      </label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="inputEmail4"
-                      />
-                    </div>
-                  </form>
-                </b-tab>
-                <b-tab title="Tab 1">
-                  <template #title>
-                    <b-img
-                      src="@/assets/images/icons/phonepe-logo-icon.svg"
-                      style="height: 20px; width: 20px"
-                      rounded="circle"
-                      alt="Circle image"
-                      class="bg-danger"
-                    ></b-img>
-                  </template>
-                  <b-card-text>Tab contents 1</b-card-text>
-                </b-tab>
-                <b-tab title="Tab 1">
-                  <template #title>
-                    <b-img
-                      src="@/assets/images/icons/phonepe-logo-icon.svg"
-                      style="height: 20px; width: 20px"
-                      rounded="circle"
-                      alt="Circle image"
-                      class="bg-danger"
-                    ></b-img>
-                  </template>
-                  <b-card-text>Tab contents 1</b-card-text>
-                </b-tab>
-                <b-tab title="Tab 1">
-                  <template #title>
-                    <b-img
-                      src="@/assets/images/icons/phonepe-logo-icon.svg"
-                      style="height: 20px; width: 20px"
-                      rounded="circle"
-                      alt="Circle image"
-                      class="bg-danger"
-                    ></b-img>
-                  </template>
-                  <b-card-text>Tab contents 1</b-card-text>
-                </b-tab>
-                <b-tab title="Tab 1">
-                  <template #title>
-                    <b-img
-                      src="@/assets/images/icons/phonepe-logo-icon.svg"
-                      style="height: 20px; width: 20px"
-                      rounded="circle"
-                      alt="Circle image"
-                      class="bg-danger"
-                    ></b-img>
-                  </template>
-                  <b-card-text>Tab contents 1</b-card-text>
-                </b-tab>
-                <b-tab title="Tab 1">
-                  <template #title>
-                    <b-img
-                      src="@/assets/images/icons/phonepe-logo-icon.svg"
-                      style="height: 20px; width: 20px"
-                      rounded="circle"
-                      alt="Circle image"
-                      class="bg-danger"
-                    ></b-img>
-                  </template>
-                  <b-card-text>Tab contents 1</b-card-text>
-                </b-tab>
-              </b-tabs>
+                  </div>
+                </div>
+                <div class="form-group mt-2">
+                  <label for="inputPassword6" class="h5 font-weight-normal">
+                    Upload Payment Proof:
+                  </label>
+                  <input type="file" id="inputPassword6" class="mx-sm-2" />
+                </div>
+              </form>
             </b-card>
           </div>
         </div>
@@ -184,15 +218,20 @@
               </div>
             </div>
           </div>
-          <!-- End Tabs on plain Card -->
         </div>
       </div>
+      <b-button
+        class="mx-sm-auto m-auto m-md-auto m-sm-auto d-lg-flex d-sm-flex d-md-flex justify-content-center"
+        variant="primary"
+      >
+        Submit
+      </b-button>
     </div>
   </div>
 </template>
 
 <script>
-  import { BImg, BCard, BTabs, BTab, BCardText } from 'bootstrap-vue';
+  import { BImg, BCard, BTabs, BTab, BCardText, BButton } from 'bootstrap-vue';
   export default {
     name: '',
     props: [],
@@ -202,11 +241,21 @@
       BTabs,
       BTab,
       BCardText,
+      BButton,
     },
     data() {
       return {
         mainProps: { width: 25, height: 25, class: 'm1' },
+        isImpsSelected: true,
       };
+    },
+    methods: {
+      switchMode() {
+        this.isImpsSelected = false;
+      },
+      switchImps() {
+        this.isImpsSelected = true;
+      },
     },
   };
 </script>
