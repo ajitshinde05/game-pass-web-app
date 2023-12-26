@@ -1,19 +1,19 @@
 <template>
   <div>
-    <div class="container mt-5">
-      <div class="row">
+    <b-container class="mt-sm-5">
+      <b-row>
         <div class="col-md-10 ml-auto col-xl-6 mr-auto">
           <p class="category h4">Add Balance:</p>
           <div>
-            <div class="flex">
+            <div class="flex d-sm-flex">
               <b-button
                 class="mr-1"
                 variant="outline-secondary"
                 @click="switchImps()"
               >
                 <b-img
-                  src="@/assets/images/icons/phonepe-logo-icon.svg"
-                  style="height: 20px; width: 20px"
+                  src="@/assets/images/icons/upi.svg"
+                  style="height: 30px; width: 30px"
                   rounded="circle"
                   alt="Circle image"
                   class="bg-danger"
@@ -25,8 +25,8 @@
                 @click="switchMode()"
               >
                 <b-img
-                  src="@/assets/images/icons/phonepe-logo-icon.svg"
-                  style="height: 20px; width: 20px"
+                  src="@/assets/images/icons/phonepe.svg"
+                  style="height: 30px; width: 30px"
                   rounded="circle"
                   alt="Circle image"
                   class="bg-danger"
@@ -38,15 +38,15 @@
                 @click="switchMode()"
               >
                 <b-img
-                  src="@/assets/images/icons/phonepe-logo-icon.svg"
-                  style="height: 20px; width: 20px"
+                  src="@/assets/images/icons/gpay.svg"
+                  style="height: 30px; width: 30px"
                   rounded="circle"
                   alt="Circle image"
                   class="bg-danger"
                 ></b-img>
               </b-button>
             </div>
-            <b-card no-body v-if="isImpsSelected">
+            <b-card no-body v-if="isImpsSelected" class="mt-sm-2">
               <div class="dropdown-divider"></div>
               <b-card-text>
                 <p class="font-weight-light">
@@ -104,10 +104,10 @@
                 <p class="font-weight-light">Max. Amount: 2000000</p>
               </b-card-text>
               <div class="dropdown-divider"></div>
-              <form class="form-inline">
-                <div class="form-group">
+              <form class="form-group" @submit="addBalance()">
+                <div class="form-inline">
                   <label for="inputPassword6" class="h5 font-weight-normal">
-                    Upload Payment Proof:
+                    Upload Payment Proof*:
                   </label>
                   <input type="file" id="inputPassword6" class="mx-sm-2" />
                 </div>
@@ -115,17 +115,41 @@
                   <label for="inputEmail4" class="h5 font-weight-normal mr-2">
                     Amount*:
                   </label>
-                  <input type="email" class="form-control" id="inputEmail4" />
+                  <input
+                    type="text"
+                    v-model="amount"
+                    class="form-control"
+                    id="inputEmail4"
+                  />
+                  <span v-if="error" class="text-danger">
+                    {{ error.amount }}
+                  </span>
+                </div>
+                <div class="form-group my-2">
+                  <input type="checkbox" id="inputPassword6" />
+                  &nbsp;
+                  <label for="inputEmail4" class="h5 font-weight-normal">
+                    I have read and agree with the terms of payment and
+                    withdrawal policy.
+                  </label>
                 </div>
               </form>
             </b-card>
-            <b-card v-else>
-              <form class="form">
-                <div class="form-inline">
+            <b-card no-body class="mt-sm-2" v-else>
+              <form class="form-group" onsubmit="addBalance()">
+                <div class="form-group mt-2">
                   <label for="inputEmail4" class="h5 font-weight-normal mr-2">
                     Amount*:
                   </label>
-                  <input type="email" class="form-control" id="inputEmail4" />
+                  <input
+                    type="text"
+                    v-model="amount"
+                    class="form-control"
+                    id="inputEmail4"
+                  />
+                  <span v-if="error && error.amount" class="text-danger">
+                    {{ error.amount }}
+                  </span>
                 </div>
                 <div
                   class="border border-primary d-flex d-lg-flex d-md-flex d-sm-flex justify-content-center mx-auto my-2 mx-sm-auto my-sm-2"
@@ -143,11 +167,19 @@
                     ></b-img>
                   </div>
                 </div>
-                <div class="form-group mt-2">
+                <div class="form-inline">
                   <label for="inputPassword6" class="h5 font-weight-normal">
-                    Upload Payment Proof:
+                    Upload Payment Proof*:
                   </label>
                   <input type="file" id="inputPassword6" class="mx-sm-2" />
+                </div>
+                <div class="form-group my-2">
+                  <input type="checkbox" id="inputPassword6" />
+                  &nbsp;
+                  <label for="inputEmail4" class="h5 font-weight-normal">
+                    I have read and agree with the terms of payment and
+                    withdrawal policy.
+                  </label>
                 </div>
               </form>
             </b-card>
@@ -156,7 +188,6 @@
         <div class="col-md-10 ml-auto col-xl-6 mr-auto">
           <div class="card">
             <div class="card-body">
-              <!-- Tab panes -->
               <div class="tab-content text-left">
                 <div class="tab-pane active" id="home1" role="tabpanel">
                   <ol class="list-group">
@@ -184,58 +215,34 @@
                     </li>
                   </ol>
                 </div>
-                <div class="tab-pane" id="profile1" role="tabpanel">
-                  <p>
-                    I will be the leader of a company that ends up being worth
-                    billions of dollars, because I got the answers. I understand
-                    culture. I am the nucleus. I think that’s a responsibility
-                    that I have, to push possibilities, to show people, this is
-                    the level that things could be at. I think that’s a
-                    responsibility that I have, to push possibilities, to show
-                    people, this is the level that things could be at.
-                  </p>
-                </div>
-                <div class="tab-pane" id="messages1" role="tabpanel">
-                  <p>
-                    I think that’s a responsibility that I have, to push
-                    possibilities, to show people, this is the level that things
-                    could be at. So when you get something that has the name
-                    Kanye West on it, it’s supposed to be pushing the furthest
-                    possibilities. I will be the leader of a company that ends
-                    up being worth billions of dollars, because I got the
-                    answers. I understand culture. I am the nucleus.
-                  </p>
-                </div>
-                <div class="tab-pane" id="settings1" role="tabpanel">
-                  <p>
-                    "I will be the leader of a company that ends up being worth
-                    billions of dollars, because I got the answers. I understand
-                    culture. I am the nucleus. I think that’s a responsibility
-                    that I have, to push possibilities, to show people, this is
-                    the level that things could be at."
-                  </p>
-                </div>
               </div>
             </div>
           </div>
         </div>
+      </b-row>
+    </b-container>
+    <div class="container mt-5">
+      <div class="col-md-4 col-lg-2 m-md-auto m-sm-auto">
+        <button class="btn btn-primary btn-block" @click="addBalance()">
+          Submit
+        </button>
       </div>
-      <div class="form-inline my-2 mx-lg-5 d-sm-flex d-flex">
-        <input type="checkbox" id="inputPassword6" class="mx-sm-2" />
-        I have read and agree with the terms of payment and withdrawal policy.
-      </div>
-      <b-button
-        class="mx-sm-auto m-auto m-md-auto m-sm-auto d-lg-flex d-sm-flex d-md-flex justify-content-center"
-        variant="primary"
-      >
-        Submit
-      </b-button>
     </div>
   </div>
 </template>
 
 <script>
-  import { BImg, BCard, BTabs, BTab, BCardText, BButton } from 'bootstrap-vue';
+  import axios from 'axios';
+  import {
+    BImg,
+    BCard,
+    BTabs,
+    BTab,
+    BCardText,
+    BButton,
+    BContainer,
+    BRow,
+  } from 'bootstrap-vue';
   export default {
     name: '',
     props: [],
@@ -246,12 +253,16 @@
       BTab,
       BCardText,
       BButton,
+      BContainer,
+      BRow,
     },
     data() {
       return {
         mainProps: { width: 25, height: 25, class: 'm1' },
         isImpsSelected: true,
         status: false,
+        amount: 100,
+        error: {},
       };
     },
     methods: {
@@ -260,6 +271,30 @@
       },
       switchImps() {
         this.isImpsSelected = true;
+      },
+      isValidate() {
+        let isValid = true;
+        if (!this.amount) {
+          this.error.amount = 'Please add amount.';
+          isValid = false;
+        } else if (this.amount < 100) {
+          this.error.amount = 'Please add minimum 100 Rs.';
+          isValid = false;
+        }
+        if (!this.status) {
+          isValid = false;
+        }
+        return isValid;
+      },
+      addBalance() {
+        console.log('test');
+        if (this.isValidate()) {
+          let reqData = {
+            acceptTerms: this.status,
+            amount: this.amount,
+          };
+          //API Integration
+        }
       },
     },
   };
@@ -279,5 +314,11 @@
   .nav-pills .nav-link.active {
     background-color: #bedfff;
     border-color: #ecf0f1;
+  }
+  @media (max-width: 767px) {
+    /* Styles for screens smaller than 768px (e.g., mobile devices) */
+    .col-md-10 {
+      width: 100%;
+    }
   }
 </style>
