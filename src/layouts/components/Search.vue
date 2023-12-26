@@ -156,7 +156,7 @@
         border-bottom: 1px solid #ddd;
         &:hover {
           background-color: rgba(115, 103, 240, 0.12);
-          color: #7367f0;
+          color: #0081ff;
         }
         &:last-child {
           border-bottom: none;

@@ -21,18 +21,18 @@ export default {
   },
   Login: {
     Title: 'Login',
-    Subtitle: 'Please sign-in to your account and start the adventure',
+    Subtitle: 'Please login to your account and start the adventure',
     LoginBtn: 'Login',
     PasswordLabel: 'Password',
     RememberMe: 'Remember me',
     ForgotPassword: 'Forgot password?',
-    NewOnPlatform: 'New on platform?',
+    NewOnPlatform: 'New on our platform?',
     CreateAccountBtn: 'Create an account',
     AllRightsReserved: 'All rights reserved',
   },
   Register: {
     CreateAccount: 'Create Account',
-    PleaseSignin: 'Please sign-in to your account and start the adventure',
+    PleaseSignin: 'Please Sign-up to your account and start the adventure',
     SigninAccount: 'Sign in instead',
     Password: 'Password',
     ConfirmPassword: 'Confirm Password',
@@ -40,14 +40,31 @@ export default {
     AlreadyHaveAccount: 'Already have an account?',
     SubmitButton: 'Create Account',
     AllRightsReserved: 'All rights reserved',
+    Login: 'Login',
   },
   ForgotPassword: {
     ForgotPassword: 'Forgot password',
     ResetPasswordInstructions:
-      "Enter your email and we'll send you instructions to reset your password",
+      'Enter your Mobile Number, and we will send you instructions on to change your password',
     SendResetLink: 'Send Reset Link',
     BackToLogin: 'Back to login',
     AllRightsReserved: 'All rights reserved',
+    Send: 'Send',
+  },
+  VerificationCode: {
+    VerificationCode: 'Enter Verification Code',
+    VerificationCodeInstructions:
+      'Please enter the 6-digit code sent to your mobile no {mobile} for verification.',
+    Verify: 'Verify',
+    DidNotReceiveCode: 'Didn’t receive any code?',
+    ResendAgain: 'ResendAgain',
+    RequestNewCodeIn: 'Request new code in {time}s',
+  },
+  PasswordUpdated: {
+    PasswordUpdated: 'Password Updated!',
+    PasswordUpdatedInstructions:
+      'Your password has been changed successfully. Remember to use new password to access your account in the future.',
+    BackToLogin: 'Back to login',
   },
   SetNewPassword: {
     Title: 'Set New Password',

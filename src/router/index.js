@@ -9,6 +9,7 @@ import es from '@/router/PageTitleLocales/es';
 const titleLocales = { ru, en, es };
 
 function checkToken() {
+  console.log(localStorage.getItem(useJwt.jwtConfig.storageTokenKeyName));
   const isUserLoggedIn = localStorage.getItem(
     useJwt.jwtConfig.storageTokenKeyName,
   );
@@ -53,6 +54,15 @@ const router = new VueRouter({
             active: true,
           },
         ],
+      },
+    },
+    {
+      path: `/wallet`,
+      name: 'wallet',
+      beforeEnter: protectedRoute,
+      component: () => import('@/views/wallet/Wallet.vue'),
+      meta: {
+        layout: 'full',
       },
     },
 
@@ -283,6 +293,32 @@ const router = new VueRouter({
         } else next();
       },
       component: () => import('@/views/auth/Register.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: '/auth/code-verify',
+      name: 'code-verify',
+      beforeEnter(to, from, next) {
+        if (checkToken()) {
+          next('/');
+        } else next();
+      },
+      component: () => import('@/views/auth/VerificationCode.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: '/auth/password-updated',
+      name: 'password-updated',
+      beforeEnter(to, from, next) {
+        if (checkToken()) {
+          next('/');
+        } else next();
+      },
+      component: () => import('@/views/auth/PasswordUpdated.vue'),
       meta: {
         layout: 'full',
       },

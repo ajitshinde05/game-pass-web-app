@@ -2,10 +2,12 @@
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner m-0">
       <!-- Left Text-->
-      <PricingPlans />
+
+      <VerificationCodeImage
+        :srcImg="require('@/assets/images/pages/login/forgot-password.svg')"
+      />
       <!-- /Left Text-->
 
-      <!-- Forgot password-->
       <b-col
         lg="4"
         class="d-flex align-items-center auth-bg px-2 p-lg-5 card-padding"
@@ -15,10 +17,14 @@
             title-tag="h1"
             class="frogot-password-card-title font-weight-bold mb-3 d-flex align-items-center justify-content-center"
           >
-            {{ $t('ForgotPassword.ForgotPassword') }}
+            {{ $t('VerificationCode.VerificationCode') }}
           </b-card-title>
           <b-card-text class="mb-2">
-            {{ $t('ForgotPassword.ResetPasswordInstructions') }}
+            {{
+              $t('VerificationCode.VerificationCodeInstructions', {
+                mobile: `46577`,
+              })
+            }}
           </b-card-text>
 
           <!-- form -->
@@ -29,79 +35,53 @@
             >
               <b-form-group
                 class="font-weight-bold"
-                label="Email"
-                label-for="forgot-password-email"
+                label="Enter OTP"
+                label-for="mobile-number"
               >
                 <validation-provider
                   #default="{ errors }"
-                  name="Email"
-                  rules="required|email"
+                  name="OTP"
+                  rules="required"
                 >
-                  <b-form-input
-                    id="forgot-password-email"
-                    v-model="userEmail"
-                    :state="errors.length > 0 ? false : null"
-                    name="forgot-password-email"
-                    placeholder="john@example.com"
-                  />
+                  <div class="otp-input-container">
+                    <input
+                      v-for="(digit, index) in otpDigits"
+                      :key="index"
+                      :ref="`otpInput${index}`"
+                      v-model="otpDigits[index]"
+                      @input="handleInput(index)"
+                      class="form-control otp-input"
+                      maxlength="1"
+                      type="text"
+                    />
+                  </div>
+
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
-              <vue-recaptcha
-                class="mb-1"
-                sitekey="6LdW5_MjAAAAAIltY9EXuuTxdhccunK2y-QJF2zd"
-                @verify="onCaptchaVerified"
-                @expired="onCaptchaExpired"
-              ></vue-recaptcha>
-              <small class="text-danger">{{ captchaErr }}</small>
+
               <b-button
                 :disabled="isLoading"
                 type="submit"
                 variant="primary"
                 block
               >
-                {{ $t('ForgotPassword.SendResetLink') }}
+                {{ $t('VerificationCode.Verify ') }}
               </b-button>
             </b-form>
           </validation-observer>
 
-          <p class="text-center mt-2">
-            <b-link
-              :to="{
-                name: 'auth-login',
-                params: { lang: this.lang || undefined },
-              }"
-            >
-              <feather-icon icon="ChevronLeftIcon" />
-              {{ $t('ForgotPassword.BackToLogin') }}
+          <b-card-text class="text-center mt-2 mb-0">
+            <span>{{ $t('VerificationCode.DidNotReceiveCode') }}</span>
+            <b-link>
+              <span>&nbsp;{{ $t('VerificationCode.ResendAgain') }}</span>
             </b-link>
-          </p>
-          <footer class="page-footer font-small blue mt-4 pt-3">
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center">
-              <div>
-                <h3 class="free d-flex justify-content-center">
-                  <b-img
-                    src="@/assets/images/illustration/Support.svg"
-                    class="Support mr-2"
-                    alt="basic svg img"
-                  />
-                </h3>
-                <span class="fill-filer-color">support@coinrex.in</span>
-              </div>
-            </div>
-
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center pt-1">
-              <div>
-                <p class="copyright">
-                  Copyright &copy;{{ new Date().getFullYear() }}
-                  {{ $t('ForgotPassword.AllRightsReserved') }}
-                </p>
-              </div>
-            </div>
-          </footer>
+          </b-card-text>
+          <b-card-text class="text-center">
+            <span>{{ $t('VerificationCode.RequestNewCodeIn', { time }) }}</span>
+          </b-card-text>
         </b-col>
       </b-col>
-      <!-- /Forgot password-->
     </b-row>
     <Loader :show="isLoading" />
   </div>
@@ -130,8 +110,8 @@
   import { VueRecaptcha } from 'vue-recaptcha';
   import APIService from '@/libs/api/api.js';
   import Ripple from 'vue-ripple-directive';
-  import qs from 'qs';
-  import PricingPlans from '@core/components/PricingPlans/pricingplans.vue';
+
+  import VerificationCodeImage from '@/@core/components/PricingPlans/VerificationCodeImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
 
   export default {
@@ -151,7 +131,7 @@
       ValidationObserver,
       BCard,
       BBadge,
-      PricingPlans,
+      VerificationCodeImage,
       Loader,
     },
     directives: {
@@ -160,11 +140,13 @@
     data() {
       return {
         isLoading: false,
-        userEmail: '',
+        mobileNumber: 1000101011,
+        time: 30,
         sideImg: require('@/assets/images/pages/forgot-password-v2.svg'),
         status: false,
         captchaErr: '',
         captcha: '',
+        otpDigits: Array(6).fill(''),
         lang: this.$route.params.lang,
         required,
         email,
@@ -181,18 +163,24 @@
       },
     },
     methods: {
+      handleInput(index) {
+        // Move to the next input field when a digit is entered
+        if (this.otpDigits[index] !== '' && index < this.otpDigits.length - 1) {
+          this.$refs[`otpInput${index + 1}`][0].focus();
+        }
+      },
       validationForm() {
         const me = this;
         this.$refs.simpleRules.validate().then((success) => {
           if (success) {
-            // this.recoverAccount();
-            if (me.status) {
-              me.captchaErr = '';
+            this.recoverAccount();
+            // if (me.status) {
+            //   me.captchaErr = '';
 
-              me.recoverAccount();
-            } else {
-              me.captchaErr = 'Captcha check required  ';
-            }
+            //   me.recoverAccount();
+            // } else {
+            //   me.captchaErr = 'Captcha check required';
+            // }
           }
         });
       },
@@ -209,7 +197,7 @@
 
         const res = await new APIService().api(
           { method: 'post', url: 'user/recoverAccount' },
-          { email: this.userEmail, recaptchaResponse: this.captcha },
+          { username: this.mobileNumber },
           {},
         );
         if (res && res.message) {

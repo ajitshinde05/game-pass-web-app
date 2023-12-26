@@ -107,8 +107,8 @@
 }
 
 .fill-filer-color {
-  color: #7367f0;
-  fill: #7367f0;
+  color:#0081FF;
+  fill:#0081FF;
 }
 
 .clear-filter {
@@ -202,7 +202,7 @@
 }
 
 .primary-color {
-  color: #7367f0;
+  color: #0081FF;
 }
 
 .border-bottom-1px:not(:last-child) {
@@ -238,3 +238,12 @@
     margin-left: 6px !important;
     visibility: hidden;
 }
+.otp-input-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Adjust as needed */
+  }
+  .otp-input {
+    text-align: center;
+    width: 14%;
+  }

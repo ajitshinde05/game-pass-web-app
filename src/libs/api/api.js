@@ -51,8 +51,17 @@ export default class APIService {
         },
       };
     } catch (err) {
+      console.log(JSON.stringify(err));
+
+      if (err && err.message && !err.response.data.message) {
+        return {
+          error: {
+            message: err.message,
+          },
+        };
+      }
       if (err.response) {
-        return err.response.data;
+        return { error: { ...err.response.data } };
       }
       console.log(JSON.stringify(err));
       return {

@@ -2,10 +2,12 @@
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner m-0">
       <!-- Left Text-->
-      <ForgotPasswordImage />
+
+      <VerificationCodeImage
+        :srcImg="require('@/assets/images/pages/login/password-updated.svg')"
+      />
       <!-- /Left Text-->
 
-      <!-- Forgot password-->
       <b-col
         lg="4"
         class="d-flex align-items-center auth-bg px-2 p-lg-5 card-padding"
@@ -15,56 +17,15 @@
             title-tag="h1"
             class="frogot-password-card-title font-weight-bold mb-3 d-flex align-items-center justify-content-center"
           >
-            {{ $t('ForgotPassword.ForgotPassword') }}
+            {{ $t('PasswordUpdated.PasswordUpdated') }}
           </b-card-title>
           <b-card-text class="mb-2">
-            {{ $t('ForgotPassword.ResetPasswordInstructions') }}
+            {{
+              $t('PasswordUpdated.PasswordUpdatedInstructions', {
+                mobile: `46577`,
+              })
+            }}
           </b-card-text>
-
-          <!-- form -->
-          <validation-observer ref="simpleRules">
-            <b-form
-              class="auth-forgot-password-form mt-2"
-              @submit.prevent="validationForm"
-            >
-              <b-form-group
-                class="font-weight-bold"
-                label="Enter Mobile Number"
-                label-for="mobile-number"
-              >
-                <validation-provider
-                  #default="{ errors }"
-                  name="Mobile Number"
-                  rules="required|regex:^[0-9]{10}$"
-                >
-                  <b-form-input
-                    type="number"
-                    id="mobile-number"
-                    v-model="mobileNumber"
-                    :state="errors.length > 0 ? false : null"
-                    name="mobile-number"
-                    placeholder="Enter Mobile Number"
-                  />
-                  <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider>
-              </b-form-group>
-              <!-- <vue-recaptcha
-                class="mb-1"
-                sitekey="6LdW5_MjAAAAAIltY9EXuuTxdhccunK2y-QJF2zd"
-                @verify="onCaptchaVerified"
-                @expired="onCaptchaExpired"
-              ></vue-recaptcha>
-              <small class="text-danger">{{ captchaErr }}</small> -->
-              <b-button
-                :disabled="isLoading"
-                type="submit"
-                variant="primary"
-                block
-              >
-                {{ $t('ForgotPassword.Send') }}
-              </b-button>
-            </b-form>
-          </validation-observer>
 
           <p class="text-center mt-2">
             <b-link
@@ -74,35 +35,11 @@
               }"
             >
               <feather-icon icon="ChevronLeftIcon" />
-              {{ $t('ForgotPassword.BackToLogin') }}
+              {{ $t('PasswordUpdated.BackToLogin') }}
             </b-link>
           </p>
-          <!-- <footer class="page-footer font-small blue mt-4 pt-3">
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center">
-              <div>
-                <h3 class="free d-flex justify-content-center">
-                  <b-img
-                    src="@/assets/images/illustration/Support.svg"
-                    class="Support mr-2"
-                    alt="basic svg img"
-                  />
-                </h3>
-                <span class="fill-filer-color">support@coinrex.in</span>
-              </div>
-            </div>
-
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center pt-1">
-              <div>
-                <p class="copyright">
-                  Copyright &copy;{{ new Date().getFullYear() }}
-                  {{ $t('ForgotPassword.AllRightsReserved') }}
-                </p>
-              </div>
-            </div>
-          </footer> -->
         </b-col>
       </b-col>
-      <!-- /Forgot password-->
     </b-row>
     <Loader :show="isLoading" />
   </div>
@@ -132,7 +69,7 @@
   import APIService from '@/libs/api/api.js';
   import Ripple from 'vue-ripple-directive';
 
-  import ForgotPasswordImage from '@/@core/components/PricingPlans/ForgotPasswordImage.vue';
+  import VerificationCodeImage from '@/@core/components/PricingPlans/VerificationCodeImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
 
   export default {
@@ -152,7 +89,7 @@
       ValidationObserver,
       BCard,
       BBadge,
-      ForgotPasswordImage,
+      VerificationCodeImage,
       Loader,
     },
     directives: {
@@ -161,11 +98,13 @@
     data() {
       return {
         isLoading: false,
-        mobileNumber: '',
+        mobileNumber: 1000101011,
+        time: 30,
         sideImg: require('@/assets/images/pages/forgot-password-v2.svg'),
         status: false,
         captchaErr: '',
         captcha: '',
+        otpDigits: Array(6).fill(''),
         lang: this.$route.params.lang,
         required,
         email,
@@ -182,6 +121,12 @@
       },
     },
     methods: {
+      handleInput(index) {
+        // Move to the next input field when a digit is entered
+        if (this.otpDigits[index] !== '' && index < this.otpDigits.length - 1) {
+          this.$refs[`otpInput${index + 1}`][0].focus();
+        }
+      },
       validationForm() {
         const me = this;
         this.$refs.simpleRules.validate().then((success) => {

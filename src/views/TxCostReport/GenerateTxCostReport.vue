@@ -117,8 +117,8 @@
                     :format="'YYYY-MM-DD HH:mm'"
                     :formatted="'DD/MM/YYYY HH:mm'"
                     no-label
-                    color="#7367f0"
-                    button-color="#7367f0"
+                    color="#0081FF"
+                    button-color="#0081FF"
                     :max-date="new Date().toString()"
                     position="top"
                   />
@@ -144,8 +144,8 @@
                     :format="'YYYY-MM-DD HH:mm'"
                     :formatted="'DD/MM/YYYY HH:mm'"
                     no-label
-                    color="#7367f0"
-                    button-color="#7367f0"
+                    color="#0081FF"
+                    button-color="#0081FF"
                     :max-date="new Date().toString()"
                     position="top"
                   />

@@ -2,7 +2,7 @@
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner m-0">
       <!-- Left Text-->
-      <PricingPlans />
+      <LoginImage />
       <!-- /Left Text-->
 
       <!-- Login-->
@@ -164,7 +164,7 @@
   import store from '@/store/index';
   import ToastificationContent from '@core/components/toastification/ToastificationContent.vue';
   import APIService from '@/libs/api/api';
-  import PricingPlans from '@core/components/PricingPlans/pricingplans.vue';
+  import LoginImage from '@/@core/components/PricingPlans/LoginImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
 
   export default {
@@ -182,7 +182,7 @@
       BButton,
       ValidationProvider,
       ValidationObserver,
-      PricingPlans,
+      LoginImage,
       Loader,
     },
     mixins: [togglePasswordVisibility],
