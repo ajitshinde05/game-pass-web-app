@@ -510,6 +510,14 @@ const router = new VueRouter({
       },
     },
     {
+      path: `/profile`,
+      name: 'profile',
+      component: () => import('@/views/profile/ViewProfile.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
       path: `/withdrawal`,
       name: 'withdrawal',
       component: () => import('@/views/withdrawal/WithDrawal.vue'),

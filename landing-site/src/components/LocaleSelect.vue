@@ -4,9 +4,10 @@
       <template #button-content>
         <div class="d-flex align-items-center img-fluid1">
           <img
-            :src="currentLocale.img"
-            :alt="currentLocale.locale"
+            src="@/assets/images/illustration/avtar.svg"
+            alt='profile'
             class="img-fluid12"
+            
           />
         </div>
       </template>

@@ -4,9 +4,10 @@
       <template #button-content>
         <div class="d-flex align-items-center img-fluid1">
           <img
-            :src="currentLocale.img"
-            :alt="currentLocale.locale"
+          src="@/assets/images/illustration/avtar.svg"
+            alt='profile'
             class="img-fluid12"
+            
           />
         </div>
       </template>
@@ -103,17 +104,27 @@
         {
           locale: 'en',
           img: require('@/assets/images/flags/en.svg'),
-          name: 'English',
+          name: 'Game History',
         },
         {
           locale: 'es',
           img: require('@/assets/images/flags/es.svg'),
-          name: 'Español',
+          name: 'Download',
         },
         {
           locale: 'ru',
           img: require('@/assets/images/flags/ru.svg'),
-          name: 'Русский',
+          name: 'Invite Friend',
+        },
+        {
+          locale: 'ru',
+          img: require('@/assets/images/flags/ru.svg'),
+          name: 'Whatsapp SUpport',
+        },
+        {
+          locale: 'ru',
+          img: require('@/assets/images/flags/ru.svg'),
+          name: 'Logout',
         },
       ];
       /* eslint-disable global-require */

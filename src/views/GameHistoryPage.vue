@@ -10,6 +10,21 @@
         :fields="tableColumns"
         :empty-text="$t('NoMatchingRecordsFound')"
       >
+      <template>
+        <b-form-group label="Table Options" label-cols-lg="2" v-slot="{ ariaDescribedby }">
+      <b-form-checkbox v-model="striped" :aria-describedby="ariaDescribedby" inline>Striped</b-form-checkbox>
+      <b-form-checkbox v-model="bordered" :aria-describedby="ariaDescribedby" inline>Bordered</b-form-checkbox>
+      <b-form-checkbox v-model="borderless" :aria-describedby="ariaDescribedby" inline>Borderless</b-form-checkbox>
+      <b-form-checkbox v-model="outlined" :aria-describedby="ariaDescribedby" inline>Outlined</b-form-checkbox>
+      <b-form-checkbox v-model="small" :aria-describedby="ariaDescribedby" inline>Small</b-form-checkbox>
+      <b-form-checkbox v-model="hover" :aria-describedby="ariaDescribedby" inline>Hover</b-form-checkbox>
+      <b-form-checkbox v-model="dark" :aria-describedby="ariaDescribedby" inline>Dark</b-form-checkbox>
+      <b-form-checkbox v-model="fixed" :aria-describedby="ariaDescribedby" inline>Fixed</b-form-checkbox>
+      <b-form-checkbox v-model="footClone" :aria-describedby="ariaDescribedby" inline>Foot Clone</b-form-checkbox>
+      <b-form-checkbox v-model="noCollapse" :aria-describedby="ariaDescribedby" inline>No border collapse</b-form-checkbox>
+    </b-form-group>
+      </template>
+      
       </b-table>
       <div class="mx-2">
         <b-row>
@@ -61,7 +76,9 @@ import {
   BLink,
   BPagination,
   VBTooltip,
-  BSkeletonTable
+  BSkeletonTable,
+  BFormCheckBox
+  
 } from "bootstrap-vue";
  import BCardCode from '@core/components/b-card-code/BCardCode.vue';
 import Ripple from "vue-ripple-directive";
@@ -80,7 +97,8 @@ export default {
     BPagination,
     VBTooltip,
     BSkeletonTable,
-    BCardCode
+    BCardCode,
+    BFormCheckBox
   },
   directives: {
     "b-tooltip": VBTooltip,

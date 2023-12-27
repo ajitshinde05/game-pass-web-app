@@ -94,7 +94,7 @@ export default {
     },
   },
   WithDrawal: {
-    Title: 'WithDrawal',
+    Title: 'With Drawal',
     RefreshBtn: 'Refresh',
     Statuses: {
       COMPLETED: 'COMPLETED',
