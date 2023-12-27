@@ -76,14 +76,24 @@
 }
 
 .summary-text {
-  font-size: 1.2rem;
-  font-weight: 300;
+  color: #fff;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   margin-bottom: 1.5rem;
 }
 
 .summary-balance {
-  font-size: 2rem;
-  letter-spacing: 1.5px;
+  color: #fff;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   margin-bottom: 0.8rem;
 }
 

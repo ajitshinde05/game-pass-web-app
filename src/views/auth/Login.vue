@@ -231,11 +231,9 @@
             useJwt.jwtConfig.storageTokenKeyName,
             res.accessToken,
           );
-          console.log(
-            localStorage.getItem(useJwt.jwtConfig.storageTokenKeyName),
-          );
+
           if (res.username)
-            localStorage.setItem('username', JSON.stringify(res));
+            localStorage.setItem('userData', JSON.stringify(res));
           this.$router.push({
             name: 'home',
           });

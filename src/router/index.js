@@ -70,6 +70,87 @@ const router = new VueRouter({
       //  TODO: START FROM HERE
       path: '/search-transaction-details',
       name: 'search-transaction-details',
+      beforeEnter: protectedRoute,
+      component: () => import('@/views/SearchTransactionDetails.vue'),
+      meta: {
+        pageTitle: 'TransactionDetails',
+        breadcrumb: [
+          {
+            text: 'TransactionDetails',
+            active: true,
+          },
+        ],
+      },
+    },
+
+    {
+      path: '/balance-report',
+      name: 'balance-report',
+      // beforeEnter: protectedRoute,
+      component: () => import('@/views/BalanceReport/BalanceReportPage.vue'),
+      meta: {
+        pageTitle: 'BalanceReport',
+        breadcrumb: [
+          {
+            text: 'BalanceReport',
+            active: true,
+          },
+        ],
+      },
+    },
+
+    {
+      path: '/create-wallet',
+      name: 'create-wallet',
+      beforeEnter: protectedRoute,
+      component: () => import('@/views/CreateWallet.vue'),
+      meta: {
+        pageTitle: 'CreateWallet',
+        breadcrumb: [
+          {
+            text: 'CreateWallet',
+            active: true,
+          },
+        ],
+      },
+    },
+
+    {
+      path: '/pricing',
+      name: 'pricing',
+      beforeEnter: protectedRoute,
+      component: () => import('@/views/Pricing/Pricing.vue'),
+      meta: {
+        pageTitle: 'Pricing',
+        breadcrumb: [
+          {
+            text: 'Pricing',
+            active: true,
+          },
+        ],
+      },
+    },
+
+    {
+      path: '/change-password',
+      name: 'change-password',
+      beforeEnter: protectedRoute,
+      component: () => import('@/views/ChangePassword.vue'),
+      meta: {
+        pageTitle: 'ChangePassword',
+        breadcrumb: [
+          {
+            text: 'ChangePassword',
+            active: true,
+          },
+        ],
+      },
+    },
+
+    {
+      //  TODO: START FROM HERE
+      path: '/search-transaction-details',
+      name: 'search-transaction-details',
       // beforeEnter: protectedRoute,
       component: () => import('@/views/SearchTransactionDetails.vue'),
       meta: {
@@ -189,22 +270,6 @@ const router = new VueRouter({
     },
 
     {
-      path: '/payment-history',
-      name: 'payment-history',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/PaymentHistoryPage.vue'),
-      meta: {
-        pageTitle: 'PaymentList',
-        breadcrumb: [
-          {
-            text: 'PaymentList',
-            active: true,
-          },
-        ],
-      },
-    },
-
-    {
       path: '/generate-tx-cost-report',
       name: 'generate-tx-cost-report',
       // beforeEnter: protectedRoute,
@@ -259,15 +324,39 @@ const router = new VueRouter({
       // beforeEnter: protectedRoute,
       component: () =>
         import('@/views/MonitorAddress/AddMonitorAddressReport.vue'),
-      // meta: {
-      //   pageTitle: 'EditMonitorAddress',
-      //   breadcrumb: [
-      //     {
-      //       text: 'EditMonitorAddress',
-      //       active: true,
-      //     },
-      //   ],
-      // },
+      meta: {
+        pageTitle: 'EditMonitorAddress',
+        breadcrumb: [
+          {
+            text: 'EditMonitorAddress',
+            active: true,
+          },
+        ],
+      },
+    },
+    {
+      path: `/game-history`,
+      name: 'game-history',
+      component: () => import('@/views/GameHistoryPage.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: `/withdrawal`,
+      name: 'withdrawal',
+      component: () => import('@/views/withdrawal/WithDrawal.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: `/view-profile`,
+      name: 'view-history',
+      component: () => import('@/views/profile/ViewProfile.vue'),
+      meta: {
+        layout: 'full',
+      },
     },
 
     {
@@ -363,6 +452,14 @@ const router = new VueRouter({
     {
       path: '*',
       redirect: 'error-404',
+    },
+    {
+      path: `/add-balance`,
+      name: 'add-balance',
+      component: () => import('@/views/AddBalance.vue'),
+      meta: {
+        layout: 'full',
+      },
     },
   ],
 });

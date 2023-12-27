@@ -5,8 +5,7 @@
         <div class="header">
           <div class="header-summary">
             <div class="summary-text">My Balance</div>
-            <div class="summary-balance">&#8377; 293.00</div>
-            <!-- <div class="summary-text-2">+&nbsp;280.00</div> -->
+            <div class="summary-balance">&#8377; {{ balance }}</div>
           </div>
           <div class="user-profile">
             <b-img
@@ -21,7 +20,13 @@
             <div class="upper-row">
               <div class="card-item">
                 <span>Withdrawal</span>
-                <div>
+                <div
+                  @click="
+                    $router.push({
+                      name: 'withdrawal',
+                    })
+                  "
+                >
                   <b-img
                     :src="require('@/assets/images/pages/wallet/wallet.svg')"
                   />
@@ -29,7 +34,13 @@
               </div>
               <div class="card-item">
                 <span>Add Balance</span>
-                <div>
+                <div
+                  @click="
+                    $router.push({
+                      name: 'add-balance',
+                    })
+                  "
+                >
                   <b-img
                     :src="require('@/assets/images/pages/wallet/addBlance.svg')"
                   />
@@ -39,56 +50,51 @@
           </div>
           <div class="transactions">
             <span class="t-desc">Recent Transactions</span>
-            <div class="transaction">
-              <div class="t-icon-container">
-                <img
-                  src="https://99designs.ca/og-image.png?utm_source=google&utm_medium=cpc&utm_network=g&utm_creative=323294316363&utm_term=99designs&utm_placement=&utm_device=c&utm_campaign=CA%20-%2099designs%20Branded&utm_content=99designs%20-%20exact&gclid=Cj0KCQjw4qvlBRDiARIsAHme6ouhXyscC85e3wUS5loKQ1rgpHSs2IyrD4Z_DwuWQLNXgClEeEebi48aAujREALw_wcB"
-                  class="t-icon"
-                />
-              </div>
-              <div class="t-details">
-                <div class="t-title">99 designs</div>
-                <div class="t-time">03.45PM</div>
-              </div>
-              <div class="t-amount">+&nbsp;750&#8377;</div>
-            </div>
-
-            <div class="transaction">
-              <div class="t-icon-container">
-                <img
-                  src="https://www.paypalobjects.com/webstatic/icon/pp144.png"
-                  class="t-icon"
-                />
-              </div>
-              <div class="t-details">
-                <div class="t-title">Paypal</div>
-                <div class="t-time">03.45 AM</div>
-              </div>
-              <div class="t-amount">+&nbsp;200&#8377;</div>
-            </div>
-
-            <div class="transaction">
-              <div class="t-icon-container">
-                <img
-                  src="https://cdn.dribbble.com/assets/dribbble-ball-192-ec064e49e6f63d9a5fa911518781bee0c90688d052a038f8876ef0824f65eaf2.png"
-                  class="t-icon"
-                />
-              </div>
-              <div class="t-details">
-                <div class="t-title">99 designs</div>
-                <div class="t-time">08.00PM</div>
-              </div>
-              <div class="t-amount red">-&nbsp;120&#8377;</div>
+            <b-table
+              class="position-relative no-headers userlist-table child-1-30-percent"
+              responsive
+              show-empty
+              align-v="end"
+              :items="items"
+              :fields="tableColumns"
+              :empty-text="$t('NoMatchingRecordsFound')"
+            ></b-table>
+            <div class="mx-2">
+              <b-row>
+                <b-col
+                  cols="12"
+                  sm="6"
+                  class="d-flex align-items-center justify-content-center justify-content-sm-start"
+                >
+                  &nbsp;
+                </b-col>
+                <!-- Pagination -->
+                <b-col
+                  cols="12"
+                  sm="6"
+                  class="d-flex align-items-center justify-content-center justify-content-sm-end"
+                >
+                  <b-pagination
+                    v-model="currentPage"
+                    :total-rows="totalNotification"
+                    :per-page="perPage"
+                    first-number
+                    last-number
+                    class="mb-0 mt-1 mt-sm-0"
+                    prev-class="prev-item"
+                    next-class="next-item"
+                  >
+                    <template #prev-text>
+                      <feather-icon icon="ChevronLeftIcon" size="18" />
+                    </template>
+                    <template #next-text>
+                      <feather-icon icon="ChevronRightIcon" size="18" />
+                    </template>
+                  </b-pagination>
+                </b-col>
+              </b-row>
             </div>
           </div>
-        </div>
-        <div class="drawer">
-          <span><i class="fal fa-home"></i></span>
-          <span><i class="fal fa-chart-bar"></i></span>
-          <div class="menu-btn"><i class="fal fa-plus"></i></div>
-          <span><!---to evenly space icons---></span>
-          <span><i class="fal fa-sticky-note"></i></span>
-          <span><i class="fal fa-user"></i></span>
         </div>
       </div>
     </div>
@@ -97,28 +103,65 @@
 
 <script>
   import Loader from '@/layouts/components/Loader.vue';
-  import { BTooltip, BImg } from 'bootstrap-vue';
+  import {
+    BTooltip,
+    BImg,
+    BCard,
+    BRow,
+    BCol,
+    BTable,
+    BMedia,
+    BAvatar,
+    BLink,
+    BPagination,
+    VBTooltip,
+    BSkeletonTable,
+  } from 'bootstrap-vue';
   import APIService from '@/libs/api/api';
   import ToastificationContent from '@core/components/toastification/ToastificationContent.vue';
-  import moment from 'moment';
   import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
-
+  import Ripple from 'vue-ripple-directive';
   export default {
     components: {
       BTooltip,
       Loader,
       BImg,
+      BCard,
+      BRow,
+      BCol,
+      BTable,
+      BMedia,
+      BPagination,
+      VBTooltip,
+      BSkeletonTable,
     },
-
+    directives: {
+      'b-tooltip': VBTooltip,
+      Ripple,
+    },
     data() {
       return {
-        address: null,
-        coinTypeItems: [],
-        walletData: null,
-        isLoading: false,
-        coinType: null,
-        requiredPoints: null,
-        required,
+        tableColumns: [
+          {
+            key: 'Date/Time',
+            label: this.$t('WalletPage.Columns.DateTime'),
+          },
+          {
+            key: 'amount',
+            label: this.$t('WalletPage.Columns.Amount'),
+          },
+          {
+            key: 'status',
+            label: this.$t('WalletPage.Columns.Status'),
+          },
+        ],
+        totalNotification: 0,
+        currentPage: 1,
+        perPage: 100,
+        items: [],
+        removedNotificationData: {},
+        show: false,
+        balance: 0,
       };
     },
     computed: {},
@@ -130,88 +173,63 @@
       },
     },
     mounted() {
-      // this.getCoinTypes();
+      this.getUserByUserName();
+      this.getTransitionHistory();
     },
     methods: {
-      async getCoinTypes() {
+      async getUserByUserName() {
+        let userData = localStorage.getItem('userData');
+        if (!userData) {
+          return new APIService().logout();
+        }
+        userData = JSON.parse(userData);
+
         const res = await new APIService().api(
-          { method: 'GET', url: 'report/refdata' },
+          { method: 'GET', url: `test/getUserByUserName/${userData.username}` },
           {},
           {},
         );
-        if (res && res.supportedCoinTypes) {
-          this.coinTypeItems = res.supportedCoinTypes;
-          this.requiredPoints = res.requestRates.WALLET_CREATE;
-        } else if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
-        ) {
+        console.log('getUserByUserName', res);
+        if (res) {
+          this.balance = res.userBalance || 0;
+        } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: res.result.errors[0].message,
+              title: res.error.message,
               icon: 'EditIcon',
               variant: 'danger',
             },
           });
         }
       },
-      async createWallet() {
-        if (!this.coinType) {
-          return;
+      async getTransitionHistory() {
+        let userData = localStorage.getItem('userData');
+        if (!userData) {
+          return new APIService().logout();
         }
+        userData = JSON.parse(userData);
 
-        this.walletData = null;
-        this.isLoading = true;
         const res = await new APIService().api(
           {
-            method: 'post',
-            url: `wallet/create/${this.coinType.toLowerCase()}`,
+            method: 'GET',
+            url: `test/getAllRechargeHistoryByUserName/${userData.username}`,
+
+            url: `test/getAllRechargeHistoryByUserName/100/${userData.username}`,
+            url: `test/getAllRechargeHistoryByUserName/`,
           },
           {},
           {},
         );
-        if (res && res.address) {
-          this.walletData = res;
-        } else if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
-        ) {
+        console.log('getAllRechargeHistoryByUserName', res);
+        if (res && res.supportedCoinTypes) {
+          this.coinTypeItems = res.supportedCoinTypes;
+          this.requiredPoints = res.requestRates.WALLET_CREATE;
+        } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: res.result.errors[0].message,
-              icon: 'EditIcon',
-              variant: 'danger',
-            },
-          });
-        }
-        this.getRequestPointBalance();
-        this.isLoading = false;
-      },
-
-      async getRequestPointBalance() {
-        const res = await new APIService().api(
-          { method: 'GET', url: 'user/requestPointBalance' },
-          {},
-          {},
-        );
-        if (res && res.requestPointBalance) {
-          this.setRequestPointBalance(res.requestPointBalance);
-        } else if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
-        ) {
-          this.$toast({
-            component: ToastificationContent,
-            props: {
-              title: res.result.errors[0].message,
+              title: res.error.message,
               icon: 'EditIcon',
               variant: 'danger',
             },
@@ -221,10 +239,39 @@
     },
   };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+  .page-padding {
+    padding: 0 !important;
+  }
+  .notification-action-width {
+    max-width: 110px;
+    width: 110px;
+    min-width: 110px;
+  }
+  .status-width {
+    max-width: 110px;
+    width: 110px;
+    min-width: 110px;
+    text-align: center;
+  }
+  .group-width {
+    text-align: right;
+  }
+  .badge-group {
+    height: 15px;
+    padding: 1px 9px 1px 9px;
+    font-size: 9px;
+    line-height: 11px;
+  }
+  .notification-search {
+    .search-filter {
+      margin-right: 15px;
+    }
+  }
+
   @import './wallet.css';
   // @import '@core/scss/vue/libs/vue-select.scss';
-  // @import '@core/scss/vue/libs/vue-good-table.scss';
-  // @import '@core/scss/vue/pages/all-pages.scss';
+  @import '@core/scss/vue/libs/vue-good-table.scss';
+  @import '@core/scss/vue/pages/all-pages.scss';
   // @import '@core/scss/vue/libs/vue-flatpicker.scss';
 </style>
