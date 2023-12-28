@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class="mt-sm-5">
+    <b-container class="mt-sm-5 mt-5">
       <b-row>
         <div class="col-md-10 ml-auto col-xl-6 mr-auto">
           <p class="category h4">Add Balance:</p>
@@ -232,7 +232,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import ToastificationContent from '@/@core/components/toastification/ToastificationContent.vue';
+  import APIService from '../libs/api/api';
   import {
     BImg,
     BCard,
@@ -243,6 +244,7 @@
     BContainer,
     BRow,
   } from 'bootstrap-vue';
+  import axios from 'axios';
   export default {
     name: '',
     props: [],
@@ -286,15 +288,22 @@
         }
         return isValid;
       },
-      addBalance() {
-        console.log('test');
-        if (this.isValidate()) {
-          let reqData = {
-            acceptTerms: this.status,
-            amount: this.amount,
-          };
-          //API Integration
-        }
+      async addBalance() {
+        this.isLoading = true;
+        let username = localStorage.getItem('username')
+          ? localStorage.getItem('username')
+          : '0987654311';
+        const res = await axios
+          .get(
+            `https://jwt-service.onrender.com/api/test/addUserbalance/${this.amount}/${username}`,
+          )
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        this.isLoading = false;
       },
     },
   };
