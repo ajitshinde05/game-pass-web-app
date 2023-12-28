@@ -334,6 +334,33 @@ const router = new VueRouter({
         ],
       },
     },
+    // {
+    //   path: `/game`,
+    //   name: 'game',
+
+    //   component: () => import('@/views/auth/VerificationCode.vue'),
+    //   meta: {
+    //     layout: 'full',
+    //   },
+    // },
+    {
+      path: `/game1/:gameId`,
+      name: 'game1',
+
+      component: () => import('@/views/auth/game1.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: `/game2`,
+      name: 'game2',
+
+      component: () => import('@/views/auth/game2.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
     {
       path: `/game-history`,
       name: 'game-history',
