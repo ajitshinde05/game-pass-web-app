@@ -25,6 +25,7 @@ import {
   validatorPassword,
   validatorCreditCard,
   validatorTxHash,
+  validatorAge,
 } from './validators';
 
 // ////////////////////////////////////////////////////////
@@ -79,7 +80,10 @@ export const url = extend('url', {
 export const txHash = extend('txHash', {
   validate: validatorTxHash,
 });
-
+export const ValidAge = extend('ValidAge', {
+  validate: validatorAge,
+  message: 'Enter valid age',
+});
 // Install localizations.
 localize({
   en,

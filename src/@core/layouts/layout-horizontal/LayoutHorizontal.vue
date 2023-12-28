@@ -6,7 +6,7 @@
     style="height: inherit"
   >
     <!-- NAVBAR -->
-    <b-navbar
+    <!-- <b-navbar
       :style="{
         backgroundColor:
           navbarType === 'static' && scrolledTo && skin === 'light'
@@ -27,7 +27,7 @@
           :toggle-vertical-menu-active="toggleVerticalMenuActive"
         />
       </slot>
-    </b-navbar>
+    </b-navbar> -->
     <!--/ NAVBAR -->
 
     <div class="horizontal-menu-wrapper">
@@ -80,11 +80,11 @@
     <!--/ CONTENT -->
 
     <!-- Footer -->
-    <footer class="footer750" :class="[footerTypeClass]">
+    <!-- <footer class="footer750" :class="[footerTypeClass]">
       <slot name="footer">
         <app-footer />
       </slot>
-    </footer>
+    </footer> -->
 
     <slot name="customizer" />
   </div>
@@ -94,7 +94,7 @@
   import AppBreadcrumb from '@core/layouts/components/AppBreadcrumb.vue';
   import AppNavbarHorizontalLayout from '@core/layouts/components/app-navbar/AppNavbarHorizontalLayout.vue';
   import AppNavbarHorizontalLayoutBrand from '@core/layouts/components/app-navbar/AppNavbarHorizontalLayoutBrand.vue';
-  import AppFooter from '@core/layouts/components/AppFooter.vue';
+  // import AppFooter from '@core/layouts/components/AppFooter.vue';
   import useAppConfig from '@core/app-config/useAppConfig';
   import { BNavbar } from 'bootstrap-vue';
   import { useScrollListener } from '@core/comp-functions/misc/event-listeners';
@@ -120,7 +120,7 @@
       AppBreadcrumb,
       AppNavbarHorizontalLayout,
       AppNavbarHorizontalLayoutBrand,
-      AppFooter,
+      // AppFooter,
       HorizontalNavMenu,
 
       BNavbar,

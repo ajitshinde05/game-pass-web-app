@@ -6,8 +6,8 @@
       $route.meta.contentClass,
     ]"
   >
-    <div class="content-overlay" />
-    <div class="header-navbar-shadow" />
+    <!-- <div class="content-overlay" /> -->
+    <!-- <div class="header-navbar-shadow" /> -->
     <div
       class="content-wrapper"
       :class="contentWidth === 'boxed' ? 'container p-0' : null"

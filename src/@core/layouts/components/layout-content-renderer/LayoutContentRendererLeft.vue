@@ -6,8 +6,8 @@
       $route.meta.contentClass,
     ]"
   >
-    <div class="content-overlay" />
-    <div class="header-navbar-shadow" />
+    <!-- <div class="content-overlay" /> -->
+    <!-- <div class="header-navbar-shadow" /> -->
     <transition :name="routerTransition" mode="out-in">
       <div
         class="content-area-wrapper"

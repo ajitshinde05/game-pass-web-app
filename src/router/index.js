@@ -9,35 +9,13 @@ import es from '@/router/PageTitleLocales/es';
 const titleLocales = { ru, en, es };
 
 function checkToken() {
+  console.log(localStorage.getItem(useJwt.jwtConfig.storageTokenKeyName));
   const isUserLoggedIn = localStorage.getItem(
     useJwt.jwtConfig.storageTokenKeyName,
   );
   return !!isUserLoggedIn;
 }
 
-// function environment(to, from, next) {
-//   console.log('environment', process.env.NODE_ENV, process.env.VUE_APP_API);
-//   if (process.env.NODE_ENV === 'development') {
-//     // gtag("event", "Downloads", {
-//     //   event_category: "MP3",
-//     //   event_label: "Debussy - Clair de lune"
-//     // });
-//     // window.dataLayer = window.dataLayer || [];
-//     // function gtag() {
-//     //   dataLayer.push(arguments);
-//     // }
-//     // gtag("js", new Date());
-//     // gtag("config", "G-PGXHVVXR97");
-//     window.dataLayer = window.dataLayer || [];
-
-//     function gtag() {
-//       dataLayer.push(arguments);
-//     }
-
-//     gtag('event', 'LANDING_LOGIN', {});
-//   }
-// }
-const LANGUAGES_STRING = ':lang(en|es|ru)?';
 async function protectedRoute(to, from, next) {
   if (checkToken()) {
     // environment(to, from, next);
@@ -55,57 +33,18 @@ const router = new VueRouter({
   },
   routes: [
     {
-      path: `/${LANGUAGES_STRING}`,
+      path: `/`,
       name: 'home',
-      beforeEnter: protectedRoute,
+      // beforeEnter: protectedRoute,
       component: () => import('@/views/Home.vue'),
-      children: [
-        {
-          path: '',
-          name: 'home',
-          beforeEnter: protectedRoute,
-          component: () => import('@/views/Home.vue'),
-          meta: {
-            pageTitle: 'Home',
-            breadcrumb: [
-              {
-                text: 'Home',
-                active: true,
-              },
-            ],
-          },
-        },
-      ],
       meta: {
-        pageTitle: 'Home',
-        breadcrumb: [
-          {
-            text: 'Home',
-            active: true,
-          },
-        ],
-      },
-    },
-
-    {
-      path: `/${LANGUAGES_STRING}/tx-cost-report`,
-      name: 'tx-cost-report',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/TxCostReport/TxCostReportPage.vue'),
-      meta: {
-        pageTitle: 'TxCostReport',
-        breadcrumb: [
-          {
-            text: 'TxCostReport',
-            active: true,
-          },
-        ],
+        layout: 'full',
       },
     },
     {
       path: '/tx-cost-report',
       name: 'tx-cost-report',
-      beforeEnter: protectedRoute,
+      // beforeEnter: protectedRoute,
       component: () => import('@/views/TxCostReport/TxCostReportPage.vue'),
       meta: {
         pageTitle: 'TxCostReport',
@@ -117,23 +56,16 @@ const router = new VueRouter({
         ],
       },
     },
-
     {
-      //  TODO: START FROM HERE
-      path: `/${LANGUAGES_STRING}/search-transaction-details`,
-      name: 'search-transaction-details',
+      path: `/wallet`,
+      name: 'wallet',
       beforeEnter: protectedRoute,
-      component: () => import('@/views/SearchTransactionDetails.vue'),
+      component: () => import('@/views/wallet/Wallet.vue'),
       meta: {
-        pageTitle: 'TransactionDetails',
-        breadcrumb: [
-          {
-            text: 'TransactionDetails',
-            active: true,
-          },
-        ],
+        layout: 'full',
       },
     },
+
     {
       //  TODO: START FROM HERE
       path: '/search-transaction-details',
@@ -150,21 +82,7 @@ const router = new VueRouter({
         ],
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/balance-report`,
-      name: 'balance-report',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/BalanceReport/BalanceReportPage.vue'),
-      meta: {
-        pageTitle: 'BalanceReport',
-        breadcrumb: [
-          {
-            text: 'BalanceReport',
-            active: true,
-          },
-        ],
-      },
-    },
+
     {
       path: '/balance-report',
       name: 'balance-report',
@@ -180,21 +98,7 @@ const router = new VueRouter({
         ],
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/create-wallet`,
-      name: 'create-wallet',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/CreateWallet.vue'),
-      meta: {
-        pageTitle: 'CreateWallet',
-        breadcrumb: [
-          {
-            text: 'CreateWallet',
-            active: true,
-          },
-        ],
-      },
-    },
+
     {
       path: '/create-wallet',
       name: 'create-wallet',
@@ -210,21 +114,7 @@ const router = new VueRouter({
         ],
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/pricing`,
-      name: 'pricing',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/Pricing/Pricing.vue'),
-      meta: {
-        pageTitle: 'Pricing',
-        breadcrumb: [
-          {
-            text: 'Pricing',
-            active: true,
-          },
-        ],
-      },
-    },
+
     {
       path: '/pricing',
       name: 'pricing',
@@ -240,21 +130,7 @@ const router = new VueRouter({
         ],
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/change-password`,
-      name: 'change-password',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/ChangePassword.vue'),
-      meta: {
-        pageTitle: 'ChangePassword',
-        breadcrumb: [
-          {
-            text: 'ChangePassword',
-            active: true,
-          },
-        ],
-      },
-    },
+
     {
       path: '/change-password',
       name: 'change-password',
@@ -270,14 +146,88 @@ const router = new VueRouter({
         ],
       },
     },
+
     {
-      path: `/${LANGUAGES_STRING}/auth/verify-account/:id`,
-      name: 'verify-account',
-      component: () => import('@/views/auth/VerifyAccount.vue'),
+      //  TODO: START FROM HERE
+      path: '/search-transaction-details',
+      name: 'search-transaction-details',
+      // beforeEnter: protectedRoute,
+      component: () => import('@/views/SearchTransactionDetails.vue'),
       meta: {
-        layout: 'full',
+        pageTitle: 'TransactionDetails',
+        breadcrumb: [
+          {
+            text: 'TransactionDetails',
+            active: true,
+          },
+        ],
       },
     },
+
+    {
+      path: '/balance-report',
+      name: 'balance-report',
+      // beforeEnter: protectedRoute,
+      component: () => import('@/views/BalanceReport/BalanceReportPage.vue'),
+      meta: {
+        pageTitle: 'BalanceReport',
+        breadcrumb: [
+          {
+            text: 'BalanceReport',
+            active: true,
+          },
+        ],
+      },
+    },
+
+    {
+      path: '/create-wallet',
+      name: 'create-wallet',
+      // beforeEnter: protectedRoute,
+      component: () => import('@/views/CreateWallet.vue'),
+      meta: {
+        pageTitle: 'CreateWallet',
+        breadcrumb: [
+          {
+            text: 'CreateWallet',
+            active: true,
+          },
+        ],
+      },
+    },
+
+    {
+      path: '/pricing',
+      name: 'pricing',
+      // beforeEnter: protectedRoute,
+      component: () => import('@/views/Pricing/Pricing.vue'),
+      meta: {
+        pageTitle: 'Pricing',
+        breadcrumb: [
+          {
+            text: 'Pricing',
+            active: true,
+          },
+        ],
+      },
+    },
+
+    {
+      path: '/change-password',
+      name: 'change-password',
+      // beforeEnter: protectedRoute,
+      component: () => import('@/views/ChangePassword.vue'),
+      meta: {
+        pageTitle: 'ChangePassword',
+        breadcrumb: [
+          {
+            text: 'ChangePassword',
+            active: true,
+          },
+        ],
+      },
+    },
+
     {
       path: '/auth/verify-account/:id',
       name: 'verify-account',
@@ -286,25 +236,11 @@ const router = new VueRouter({
         layout: 'full',
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/payment-method/:id`,
-      name: 'payment-method',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/Pricing/SelectYourPaymentMethod.vue'),
-      meta: {
-        pageTitle: 'PaymentMethod',
-        breadcrumb: [
-          {
-            text: 'PaymentMethod',
-            active: true,
-          },
-        ],
-      },
-    },
+
     {
       path: '/payment-method/:id',
       name: 'payment-method',
-      beforeEnter: protectedRoute,
+      // beforeEnter: protectedRoute,
       component: () => import('@/views/Pricing/SelectYourPaymentMethod.vue'),
       meta: {
         pageTitle: 'PaymentMethod',
@@ -316,25 +252,11 @@ const router = new VueRouter({
         ],
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/payment/:id`,
-      name: 'payment',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/Pricing/PaymentPage.vue'),
-      meta: {
-        pageTitle: 'Payment',
-        breadcrumb: [
-          {
-            text: 'Payment',
-            active: true,
-          },
-        ],
-      },
-    },
+
     {
       path: '/payment/:id',
       name: 'payment',
-      beforeEnter: protectedRoute,
+      // beforeEnter: protectedRoute,
       component: () => import('@/views/Pricing/PaymentPage.vue'),
       meta: {
         pageTitle: 'Payment',
@@ -346,55 +268,11 @@ const router = new VueRouter({
         ],
       },
     },
-    // {
-    //   path: `/${LANGUAGES_STRING}/payment-history`,
-    //   name: 'payment-history',
-    //   beforeEnter: protectedRoute,
-    //   component: () => import('@/views/PaymentHistoryPage.vue'),
-    //   meta: {
-    //     pageTitle: 'PaymentList',
-    //     breadcrumb: [
-    //       {
-    //         text: 'PaymentList',
-    //         active: true,
-    //       },
-    //     ],
-    //   },
-    // },
-    // {
-    //   path: '/payment-history',
-    //   name: 'payment-history',
-    //   beforeEnter: protectedRoute,
-    //   component: () => import('@/views/PaymentHistoryPage.vue'),
-    //   meta: {
-    //     pageTitle: 'PaymentList',
-    //     breadcrumb: [
-    //       {
-    //         text: 'PaymentList',
-    //         active: true,
-    //       },
-    //     ],
-    //   },
-    // },
-    {
-      path: `/${LANGUAGES_STRING}/generate-tx-cost-report`,
-      name: 'generate-tx-cost-report',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/TxCostReport/GenerateTxCostReport.vue'),
-      meta: {
-        pageTitle: 'GenerateTxCostReport',
-        breadcrumb: [
-          {
-            text: 'GenerateTxCostReport',
-            active: true,
-          },
-        ],
-      },
-    },
+
     {
       path: '/generate-tx-cost-report',
       name: 'generate-tx-cost-report',
-      beforeEnter: protectedRoute,
+      // beforeEnter: protectedRoute,
       component: () => import('@/views/TxCostReport/GenerateTxCostReport.vue'),
       meta: {
         pageTitle: 'GenerateTxCostReport',
@@ -408,24 +286,9 @@ const router = new VueRouter({
     },
 
     {
-      path: `/${LANGUAGES_STRING}/monitor-address`,
-      name: 'monitor-address',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/MonitorAddress/MonitorAddress.vue'),
-      meta: {
-        pageTitle: 'MonitorAddress',
-        breadcrumb: [
-          {
-            text: 'MonitorAddress',
-            active: true,
-          },
-        ],
-      },
-    },
-    {
       path: '/monitor-address',
       name: 'monitor-address',
-      beforeEnter: protectedRoute,
+      // beforeEnter: protectedRoute,
       component: () => import('@/views/MonitorAddress/MonitorAddress.vue'),
       meta: {
         pageTitle: 'MonitorAddress',
@@ -437,26 +300,11 @@ const router = new VueRouter({
         ],
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/add-monitor-address`,
-      name: 'add-monitor-address',
-      beforeEnter: protectedRoute,
-      component: () =>
-        import('@/views/MonitorAddress/AddMonitorAddressReport.vue'),
-      meta: {
-        pageTitle: 'AddMonitorAddress',
-        breadcrumb: [
-          {
-            text: 'AddMonitorAddress',
-            active: true,
-          },
-        ],
-      },
-    },
+
     {
       path: '/add-monitor-address',
       name: 'add-monitor-address',
-      beforeEnter: protectedRoute,
+      // beforeEnter: protectedRoute,
       component: () =>
         import('@/views/MonitorAddress/AddMonitorAddressReport.vue'),
       meta: {
@@ -469,26 +317,11 @@ const router = new VueRouter({
         ],
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/edit-monitor-address/:id`,
-      name: 'edit-monitor-address',
-      beforeEnter: protectedRoute,
-      component: () =>
-        import('@/views/MonitorAddress/AddMonitorAddressReport.vue'),
-      meta: {
-        pageTitle: 'EditMonitorAddress',
-        breadcrumb: [
-          {
-            text: 'EditMonitorAddress',
-            active: true,
-          },
-        ],
-      },
-    },
+
     {
       path: '/edit-monitor-address/:id',
       name: 'edit-monitor-address',
-      beforeEnter: protectedRoute,
+      // beforeEnter: protectedRoute,
       component: () =>
         import('@/views/MonitorAddress/AddMonitorAddressReport.vue'),
       meta: {
@@ -533,19 +366,7 @@ const router = new VueRouter({
         layout: 'full',
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/auth/login`,
-      name: 'auth-login',
-      beforeEnter(to, from, next) {
-        if (checkToken()) {
-          next('/');
-        } else next();
-      },
-      component: () => import('@/views/auth/Login.vue'),
-      meta: {
-        layout: 'full',
-      },
-    },
+
     {
       path: '/auth/login',
       name: 'auth-login',
@@ -559,19 +380,7 @@ const router = new VueRouter({
         layout: 'full',
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/auth/register`,
-      name: 'auth-register',
-      beforeEnter(to, from, next) {
-        if (checkToken()) {
-          next('/');
-        } else next();
-      },
-      component: () => import('@/views/auth/Register.vue'),
-      meta: {
-        layout: 'full',
-      },
-    },
+
     {
       path: '/auth/register',
       name: 'auth-register',
@@ -586,18 +395,32 @@ const router = new VueRouter({
       },
     },
     {
-      path: `/${LANGUAGES_STRING}/auth/forgot`,
-      name: 'auth-forgot',
+      path: '/auth/code-verify',
+      name: 'code-verify',
       beforeEnter(to, from, next) {
         if (checkToken()) {
           next('/');
         } else next();
       },
-      component: () => import('@/views/auth/ForgotPassword.vue'),
+      component: () => import('@/views/auth/VerificationCode.vue'),
       meta: {
         layout: 'full',
       },
     },
+    {
+      path: '/auth/password-updated',
+      name: 'password-updated',
+      beforeEnter(to, from, next) {
+        if (checkToken()) {
+          next('/');
+        } else next();
+      },
+      component: () => import('@/views/auth/PasswordUpdated.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+
     {
       path: '/auth/forgot',
       name: 'auth-forgot',
@@ -611,19 +434,7 @@ const router = new VueRouter({
         layout: 'full',
       },
     },
-    {
-      path: `/${LANGUAGES_STRING}/auth/reset-password/:token`,
-      name: 'auth-reset-password',
-      beforeEnter(to, from, next) {
-        if (checkToken()) {
-          next('/');
-        } else next();
-      },
-      component: () => import('@/views/auth/SetNewPassword.vue'),
-      meta: {
-        layout: 'full',
-      },
-    },
+
     {
       path: '/auth/reset-password/:token',
       name: 'auth-reset-password',

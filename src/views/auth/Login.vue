@@ -2,7 +2,7 @@
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner ml-0">
       <!-- Left Text-->
-      <PricingPlans />
+      <LoginImage />
       <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5">
         <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
           <b-card-title
@@ -21,21 +21,21 @@
               <!-- email -->
               <b-form-group
                 class="font-weight-bold"
-                label="Email"
-                label-for="login-email"
+                label="Enter Mobile Number"
+                label-for="mobile-number"
               >
                 <validation-provider
                   #default="{ errors }"
-                  name="Email"
-                  rules="required|email"
+                  name="Mobile Number"
+                  rules="required|regex:^[0-9]{10}$"
                 >
                   <b-form-input
-                    id="login-email"
-                    v-model="userEmail"
+                    type="number"
+                    id="mobile-number"
+                    v-model="mobileNumber"
                     :state="errors.length > 0 ? false : null"
-                    name="login-email"
-                    placeholder="john@example.com"
-                    autocomplete="username"
+                    name="mobile-number"
+                    placeholder="Enter Mobile Number"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -88,7 +88,7 @@
               </b-form-group>
 
               <!-- checkbox -->
-              <b-form-group>
+              <!-- <b-form-group>
                 <b-form-checkbox
                   id="remember-me"
                   v-model="status"
@@ -96,7 +96,7 @@
                 >
                   {{ $t('Login.RememberMe') }}
                 </b-form-checkbox>
-              </b-form-group>
+              </b-form-group> -->
 
               <!-- submit buttons -->
               <b-button
@@ -123,29 +123,7 @@
               <span>&nbsp;{{ $t('Login.CreateAccountBtn') }}</span>
             </b-link>
           </b-card-text>
-          <footer class="page-footer font-small blue mt-4 pt-3">
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center">
-              <div>
-                <h3 class="free d-flex justify-content-center">
-                  <b-img
-                    src="@/assets/images/illustration/Support.svg"
-                    class="Support mr-2"
-                    alt="basic svg img"
-                  />
-                </h3>
-                <span class="fill-filer-color">support@coinrex.in</span>
-              </div>
-            </div>
-
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center pt-1">
-              <div>
-                <p class="copyright">
-                  Copyright &copy;{{ new Date().getFullYear() }}
-                  {{ $t('Login.AllRightsReserved') }}
-                </p>
-              </div>
-            </div>
-          </footer>
+          s
         </b-col>
       </b-col>
       <!-- /Login-->
@@ -179,7 +157,7 @@
   import APIService from '@/libs/api/api';
   import useJwt from '@/auth/jwt/useJwt';
   import Ripple from 'vue-ripple-directive';
-  import PricingPlans from '@core/components/PricingPlans/pricingplans.vue';
+  import LoginImage from '@/@core/components/PricingPlans/LoginImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
   import tracking from '@/utils/tracking';
 
@@ -200,7 +178,7 @@
       BButton,
       ValidationProvider,
       ValidationObserver,
-      PricingPlans,
+      LoginImage,
       Loader,
     },
     directives: {
@@ -212,10 +190,9 @@
         isLoading: false,
         status: '',
         password: '',
-        userEmail: '',
+        mobileNumber: '',
         sideImg: require('@/assets/images/pages/login-v3.svg'),
         lang: this.$route.params.lang,
-        // validation rulesimport store from '@/store/index'
         required,
         email,
       };
@@ -244,33 +221,27 @@
       async login() {
         this.isLoading = true;
         const res = await new APIService().api(
-          { method: 'post', url: 'user/login' },
-          { username: this.userEmail, password: this.password },
+          { method: 'post', url: 'auth/signin' },
+          { username: this.mobileNumber, password: this.password },
           {},
         );
 
-        if (res && res.token) {
-          tracking('LOGIN', {});
+        if (res && res.accessToken) {
           localStorage.setItem(
             useJwt.jwtConfig.storageTokenKeyName,
-            res.token.accessToken,
+            res.accessToken,
           );
-          if (res.userInfo.username)
-            localStorage.setItem('username', res.userInfo.username);
+
+          if (res.username)
+            localStorage.setItem('userData', JSON.stringify(res));
           this.$router.push({
             name: 'home',
-            params: { lang: this.lang || undefined },
           });
-        } else if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
-        ) {
+        } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: res.result.errors[0].message,
+              title: res.error.message,
               icon: 'EditIcon',
               variant: 'danger',
             },

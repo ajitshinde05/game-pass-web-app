@@ -39,3 +39,10 @@ export const validatorTxHash = (val) => {
 
   return val.length >= 64 && val.length <= 100;
 };
+export const validatorAge = (val) => {
+  if (val === undefined || val === null || val >= 18) {
+    return true;
+  }
+
+  return false;
+};
