@@ -41,7 +41,7 @@ export default class APIService {
       ) {
         this.logout();
       }
-      if (res && res.data) {
+      if (res && (res.data || res.data === 0)) {
         return res.data;
       }
       return {
@@ -74,7 +74,7 @@ export default class APIService {
     localStorage.removeItem(useJwt.jwtConfig.storageTokenKeyName);
     localStorage.removeItem(useJwt.jwtConfig.storageRefreshTokenKeyName);
     localStorage.removeItem('username');
-    localStorage.removeItem('requestPointBalance');
+
     localStorage.removeItem('userData');
     location.reload(true);
     return true;

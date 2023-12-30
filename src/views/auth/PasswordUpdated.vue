@@ -69,7 +69,7 @@
   import APIService from '@/libs/api/api.js';
   import Ripple from 'vue-ripple-directive';
 
-  import VerificationCodeImage from '@/@core/components/PricingPlans/VerificationCodeImage.vue';
+  import VerificationCodeImage from '@/@core/components/ImagesComponent/VerificationCodeImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
 
   export default {

@@ -179,12 +179,15 @@
         userData = JSON.parse(userData);
 
         const res = await new APIService().api(
-          { method: 'GET', url: `test/getUserByUserName/${userData.username}` },
+          {
+            method: 'GET',
+            url: `user/getUserBalanceByUserName/${userData.username}1`,
+          },
           {},
           {},
         );
-        console.log('getUserByUserName', res);
-        if (res) {
+        console.log('getUserBalanceByUserName', res);
+        if (res && res.userBalance) {
           this.balance = res.userBalance || 0;
         } else if (res && res.error && res.error.message) {
           this.$toast({
@@ -207,10 +210,7 @@
         const res = await new APIService().api(
           {
             method: 'GET',
-            url: `test/getAllRechargeHistoryByUserName/${userData.username}`,
-
-            url: `test/getAllRechargeHistoryByUserName/100/${userData.username}`,
-            url: `test/getAllRechargeHistoryByUserName/`,
+            url: `rechage/getRechargeHistoryByUserName/${userData.username}`,
           },
           {},
           {},

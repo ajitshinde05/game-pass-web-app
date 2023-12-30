@@ -205,7 +205,7 @@
   import ToastificationContent from '@core/components/toastification/ToastificationContent.vue';
   import APIService from '@/libs/api/api.js';
   import useJwt from '@/auth/jwt/useJwt';
-  import LoginImage from '@/@core/components/PricingPlans/LoginImage.vue';
+  import LoginImage from '@/@core/components/ImagesComponent/LoginImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
   import tracking from '@/utils/tracking';
   import { regex } from 'vee-validate/dist/rules';

@@ -3,9 +3,7 @@
     <b-row class="auth-inner m-0">
       <!-- Left Text-->
       <ForgotPasswordImage />
-      <!-- /Left Text-->
 
-      <!-- Forgot password-->
       <b-col
         lg="4"
         class="d-flex align-items-center auth-bg px-2 p-lg-5 card-padding"
@@ -48,13 +46,7 @@
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
-              <!-- <vue-recaptcha
-                class="mb-1"
-                sitekey="6LdW5_MjAAAAAIltY9EXuuTxdhccunK2y-QJF2zd"
-                @verify="onCaptchaVerified"
-                @expired="onCaptchaExpired"
-              ></vue-recaptcha>
-              <small class="text-danger">{{ captchaErr }}</small> -->
+
               <b-button
                 :disabled="isLoading"
                 type="submit"
@@ -77,32 +69,8 @@
               {{ $t('ForgotPassword.BackToLogin') }}
             </b-link>
           </p>
-          <!-- <footer class="page-footer font-small blue mt-4 pt-3">
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center">
-              <div>
-                <h3 class="free d-flex justify-content-center">
-                  <b-img
-                    src="@/assets/images/illustration/Support.svg"
-                    class="Support mr-2"
-                    alt="basic svg img"
-                  />
-                </h3>
-                <span class="fill-filer-color">support@coinrex.in</span>
-              </div>
-            </div>
-
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center pt-1">
-              <div>
-                <p class="copyright">
-                  Copyright &copy;{{ new Date().getFullYear() }}
-                  {{ $t('ForgotPassword.AllRightsReserved') }}
-                </p>
-              </div>
-            </div>
-          </footer> -->
         </b-col>
       </b-col>
-      <!-- /Forgot password-->
     </b-row>
     <Loader :show="isLoading" />
   </div>
@@ -132,7 +100,7 @@
   import APIService from '@/libs/api/api.js';
   import Ripple from 'vue-ripple-directive';
 
-  import ForgotPasswordImage from '@/@core/components/PricingPlans/ForgotPasswordImage.vue';
+  import ForgotPasswordImage from '@/@core/components/ImagesComponent/ForgotPasswordImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
 
   export default {

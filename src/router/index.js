@@ -18,7 +18,6 @@ function checkToken() {
 
 async function protectedRoute(to, from, next) {
   if (checkToken()) {
-    // environment(to, from, next);
     next();
   } else next('/auth/login');
 }
@@ -41,7 +40,6 @@ const router = new VueRouter({
         layout: 'full',
       },
     },
-    
     {
       path: `/wallet`,
       name: 'wallet',
@@ -52,125 +50,6 @@ const router = new VueRouter({
       },
     },
 
-    
-
-    
-
-    
-
-   
-
-   
-   
-
-    
-   
-
-   
-
-    {
-      path: '/change-password',
-      name: 'change-password',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/ChangePassword.vue'),
-      meta: {
-        pageTitle: 'ChangePassword',
-        breadcrumb: [
-          {
-            text: 'ChangePassword',
-            active: true,
-          },
-        ],
-      },
-    },
-
-  
-    
-
-    
-   
-
-    {
-      path: '/payment/:id',
-      name: 'payment',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/Pricing/PaymentPage.vue'),
-      meta: {
-        pageTitle: 'Payment',
-        breadcrumb: [
-          {
-            text: 'Payment',
-            active: true,
-          },
-        ],
-      },
-    },
-
-    {
-      path: '/generate-tx-cost-report',
-      name: 'generate-tx-cost-report',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/TxCostReport/GenerateTxCostReport.vue'),
-      meta: {
-        pageTitle: 'GenerateTxCostReport',
-        breadcrumb: [
-          {
-            text: 'GenerateTxCostReport',
-            active: true,
-          },
-        ],
-      },
-    },
-
-    {
-      path: '/monitor-address',
-      name: 'monitor-address',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/MonitorAddress/MonitorAddress.vue'),
-      meta: {
-        pageTitle: 'MonitorAddress',
-        breadcrumb: [
-          {
-            text: 'MonitorAddress',
-            active: true,
-          },
-        ],
-      },
-    },
-
-    {
-      path: '/add-monitor-address',
-      name: 'add-monitor-address',
-      // beforeEnter: protectedRoute,
-      component: () =>
-        import('@/views/MonitorAddress/AddMonitorAddressReport.vue'),
-      meta: {
-        pageTitle: 'AddMonitorAddress',
-        breadcrumb: [
-          {
-            text: 'AddMonitorAddress',
-            active: true,
-          },
-        ],
-      },
-    },
-
-    {
-      path: '/edit-monitor-address/:id',
-      name: 'edit-monitor-address',
-      // beforeEnter: protectedRoute,
-      component: () =>
-        import('@/views/MonitorAddress/AddMonitorAddressReport.vue'),
-      meta: {
-        pageTitle: 'EditMonitorAddress',
-        breadcrumb: [
-          {
-            text: 'EditMonitorAddress',
-            active: true,
-          },
-        ],
-      },
-    },
     // {
     //   path: `/game`,
     //   name: 'game',
@@ -270,11 +149,11 @@ const router = new VueRouter({
     {
       path: '/auth/login',
       name: 'auth-login',
-      beforeEnter(to, from, next) {
-        if (checkToken()) {
-          next('/');
-        } else next();
-      },
+      // beforeEnter(to, from, next) {
+      //   if (checkToken()) {
+      //     next('/');
+      //   } else next();
+      // },
       component: () => import('@/views/auth/Login.vue'),
       meta: {
         layout: 'full',
@@ -284,24 +163,24 @@ const router = new VueRouter({
     {
       path: '/auth/register',
       name: 'auth-register',
-      beforeEnter(to, from, next) {
-        if (checkToken()) {
-          next('/');
-        } else next();
-      },
+      // beforeEnter(to, from, next) {
+      //   if (checkToken()) {
+      //     next('/');
+      //   } else next();
+      // },
       component: () => import('@/views/auth/Register.vue'),
       meta: {
         layout: 'full',
       },
     },
     {
-      path: '/auth/code-verify',
+      path: '/auth/code-verify/:username',
       name: 'code-verify',
-      beforeEnter(to, from, next) {
-        if (checkToken()) {
-          next('/');
-        } else next();
-      },
+      // beforeEnter(to, from, next) {
+      //   if (checkToken()) {
+      //     next('/');
+      //   } else next();
+      // },
       component: () => import('@/views/auth/VerificationCode.vue'),
       meta: {
         layout: 'full',
@@ -324,11 +203,11 @@ const router = new VueRouter({
     {
       path: '/auth/forgot',
       name: 'auth-forgot',
-      beforeEnter(to, from, next) {
-        if (checkToken()) {
-          next('/');
-        } else next();
-      },
+      // beforeEnter(to, from, next) {
+      //   if (checkToken()) {
+      //     next('/');
+      //   } else next();
+      // },
       component: () => import('@/views/auth/ForgotPassword.vue'),
       meta: {
         layout: 'full',
@@ -336,13 +215,13 @@ const router = new VueRouter({
     },
 
     {
-      path: '/auth/reset-password/:token',
+      path: '/auth/reset-password/:username',
       name: 'auth-reset-password',
-      beforeEnter(to, from, next) {
-        if (checkToken()) {
-          next('/');
-        } else next();
-      },
+      // beforeEnter(to, from, next) {
+      //   if (checkToken()) {
+      //     next('/');
+      //   } else next();
+      // },
       component: () => import('@/views/auth/SetNewPassword.vue'),
       meta: {
         layout: 'full',
@@ -372,10 +251,7 @@ const router = new VueRouter({
   ],
 });
 
-// ? For splash screen
-// Remove afterEach hook if you are not using splash screen
 router.afterEach(() => {
-  // Remove initial loading
   const appLoading = document.getElementById('loading-bg');
   if (appLoading) {
     appLoading.style.display = 'none';

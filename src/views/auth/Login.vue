@@ -1,7 +1,6 @@
 <template>
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner ml-0">
-      <!-- Left Text-->
       <LoginImage />
       <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5">
         <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
@@ -87,18 +86,6 @@
                 </validation-provider>
               </b-form-group>
 
-              <!-- checkbox -->
-              <!-- <b-form-group>
-                <b-form-checkbox
-                  id="remember-me"
-                  v-model="status"
-                  name="checkbox-1"
-                >
-                  {{ $t('Login.RememberMe') }}
-                </b-form-checkbox>
-              </b-form-group> -->
-
-              <!-- submit buttons -->
               <b-button
                 type="submit"
                 variant="primary"
@@ -118,48 +105,10 @@
                 name: 'auth-register',
                 params: { lang: lang || undefined },
               }"
-              @click="tracking('SIGNUP', {})"
             >
               <span>&nbsp;{{ $t('Login.CreateAccountBtn') }}</span>
             </b-link>
           </b-card-text>
-          <b-link
-            :to="{
-              name: 'game',
-            }"
-          >
-            <span>&nbsp;{{ $t('Login.CreateAccountBtn') }}</span>
-          </b-link>
-          <b-link
-            :to="{
-              name: 'game1',
-            }"
-          >
-            <span>&nbsp;{{ $t('Login.CreateAccountBtn') }}1</span>
-          </b-link>
-          <footer class="page-footer font-small blue mt-4 pt-3">
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center">
-              <div>
-                <h3 class="free d-flex justify-content-center">
-                  <b-img
-                    src="@/assets/images/illustration/Support.svg"
-                    class="Support mr-2"
-                    alt="basic svg img"
-                  />
-                </h3>
-                <span class="fill-filer-color">support@coinrex.in</span>
-              </div>
-            </div>
-
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center pt-1">
-              <div>
-                <p class="copyright">
-                  Copyright &copy;{{ new Date().getFullYear() }}
-                  {{ $t('Login.AllRightsReserved') }}
-                </p>
-              </div>
-            </div>
-          </footer>
         </b-col>
       </b-col>
       <!-- /Login-->
@@ -193,9 +142,8 @@
   import APIService from '@/libs/api/api';
   import useJwt from '@/auth/jwt/useJwt';
   import Ripple from 'vue-ripple-directive';
-  import LoginImage from '@/@core/components/PricingPlans/LoginImage.vue';
+  import LoginImage from '@/@core/components/ImagesComponent/LoginImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
-  import tracking from '@/utils/tracking';
 
   export default {
     components: {

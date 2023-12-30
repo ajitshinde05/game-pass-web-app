@@ -11,7 +11,7 @@
         <b-button
           variant="primary"
           class="mb-2 btn-sm-block"
-          :to="{ path: '/', params: { lang: this.lang || undefined } }"
+          :to="{ path: '/' }"
         >
           Back to home
         </b-button>

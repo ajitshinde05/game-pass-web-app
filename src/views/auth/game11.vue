@@ -1,11 +1,10 @@
 <template>
-<div>
-    <b-row >
-      <b-col md="12" lg="6" sm="12" class="pr-0">
-        <div class="tab-f-h ">
+  <section class="main-w-r">
+    <b-row class="d-flex justify-content-center align-items-center">
+      <b-col md="12" lg="6" sm="12" class="">
+        <div class="w-100 d-flex align-items-center justify-content-center">
           <div class="main-page">
             <div class="abs">
-              <!-- <Animated/> -->
               <div class="slot-game">
                 <div class="machine">
                   <div class="slots">
@@ -25,11 +24,10 @@
                       </li>
                     </ul>
                   </div>
-                  
                 </div>
               </div>
               <div class="number-select">
-                <b-card class="number-card-back">
+                <b-card style="background: #1911d0">
                   <b-row class="ml-0 mr-0">
                     <b-col>
                       <b-row class="justify-content-between mb-1">
@@ -40,10 +38,8 @@
                               sm="12"
                               class="d-flex justify-content-center"
                             >
-                           
                               <b-img
                                 @click="addAmount(0)"
-                                @click.prevent="playSound('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3')"
                                 src="../../assets/Group-0.svg"
                                 class="pricing-img"
                                 alt="basic svg img"
@@ -60,7 +56,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['0']
+                                  gameNumbers['0'] >= 0
                                     ? ` $ ${gameNumbers['0']}`
                                     : '-'
                                 }}
@@ -77,7 +73,6 @@
                             >
                               <b-img
                                 @click="addAmount(1)"
-                                 @click.prevent="playSound('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3')"
                                 src="../../assets/Group-1.svg"
                                 class="pricing-img"
                                 alt="basic svg img"
@@ -94,7 +89,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['1']
+                                  gameNumbers['1'] >= 0
                                     ? ` $ ${gameNumbers['1']}`
                                     : '-'
                                 }}
@@ -111,7 +106,6 @@
                             >
                               <b-img
                                 @click="addAmount(2)"
-                                 @click.prevent="playSound('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3')"
                                 src="../../assets/Group-2.svg"
                                 class="pricing-img"
                                 alt="basic svg img"
@@ -129,7 +123,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['2']
+                                  gameNumbers['2'] >= 0
                                     ? ` $ ${gameNumbers['2']}`
                                     : '-'
                                 }}
@@ -162,7 +156,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['3']
+                                  gameNumbers['3'] >= 0
                                     ? ` $ ${gameNumbers['3']}`
                                     : '-'
                                 }}
@@ -179,7 +173,6 @@
                             >
                               <b-img
                                 @click="addAmount(4)"
-                                 @click.prevent="playSound('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3')"
                                 src="../../assets/Group-4.svg"
                                 class="pricing-img"
                                 alt="basic svg img"
@@ -196,7 +189,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['4']
+                                  gameNumbers['4'] >= 0
                                     ? ` $ ${gameNumbers['4']}`
                                     : '-'
                                 }}
@@ -231,7 +224,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['5']
+                                  gameNumbers['5'] >= 0
                                     ? ` $ ${gameNumbers['5']}`
                                     : '-'
                                 }}
@@ -264,7 +257,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['6']
+                                  gameNumbers['6'] >= 0
                                     ? ` $ ${gameNumbers['6']}`
                                     : '-'
                                 }}
@@ -297,7 +290,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['7']
+                                  gameNumbers['7'] >= 0
                                     ? ` $ ${gameNumbers['7']}`
                                     : '-'
                                 }}
@@ -330,7 +323,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['8']
+                                  gameNumbers['8'] >= 0
                                     ? ` $ ${gameNumbers['8']}`
                                     : '-'
                                 }}
@@ -363,7 +356,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['9']
+                                  gameNumbers['9'] >= 0
                                     ? ` $ ${gameNumbers['9']}`
                                     : '-'
                                 }}
@@ -377,7 +370,7 @@
                 </b-card>
               </div>
               <b-col md="12" lg="12" sm="12" class="mt-2 pl-0 pr-0">
-                <b-card class="table-card-p">
+                <b-card>
                   <b-row>
                     <b-col>
                       <b-table
@@ -392,7 +385,7 @@
                         <template #cell(user)="row">
                           <b-media class="align-item-center">
                             <template #aside>
-                              <b-avatar size="30" src="RA" text="PN" />
+                              <b-avatar size="50" src="RA" text="PN" />
                             </template>
                             <h6 class="mb-0">
                               {{ row.item.name.toString() }}
@@ -403,7 +396,7 @@
                     </b-col>
                   </b-row>
                 </b-card>
-                <b-card class="mt-1 table-card-p">
+                <b-card class="mt-1">
                   <b-row>
                     <b-col>
                       <b-table
@@ -418,9 +411,9 @@
                         <template #cell(user)="row">
                           <b-media class="align-item-center">
                             <template #aside>
-                              <b-avatar size="30" src="RA" text="PN" />
+                              <b-avatar size="50" src="RA" text="PN" />
                             </template>
-                            <h6 class="mb-0" style="margin-top: 7px">
+                            <h6 class="mb-0" style="margin-top: 14px">
                               {{ row.item.user }}
                             </h6>
                           </b-media>
@@ -463,29 +456,12 @@
     </b-modal>
     <div class="text-center"></div>
     <Loader :show="isLoading" />
-    <div class="tab">
-    <div class="button active">
-      <i class="fas fa-home"></i>
-      <div class="text">HOME</div>
-    </div>
-   
-    <div class="button">
-      <i class="fas fa-wallet"></i>
-      <div class="text">Wallet </div>
-    </div>
-    <div class="button">
-      <i class="fas fa-user"></i>
-      <div class="text">Profile</div>
-    </div>
-  </div>
-</div>
-  
+  </section>
 </template>
 
 <script>
   import ToastificationContent from '@core/components/toastification/ToastificationContent.vue';
   import APIService from '@/libs/api/api';
-   import Time from "./time.vue";
   import {
     BIconFacebook,
     BIconTwitter,
@@ -512,7 +488,6 @@
   } from 'bootstrap-vue';
   export default {
     components: {
-      Time,
       BImg,
       BFormInput,
       BIconFacebook,
@@ -538,10 +513,21 @@
     },
     data() {
       return {
-        stopAtNumber: 362,
+        stopAtNumber: [3, 6, 2],
         selectedKey: null,
-        amount: 0,
-        gameNumbers: { 0: 0, 1: 0, 2: 0, 3: 0 },
+        amount: -1,
+        gameNumbers: {
+          0: -1,
+          1: -1,
+          2: -1,
+          3: -1,
+          4: -1,
+          5: -1,
+          6: -1,
+          7: -1,
+          8: -1,
+          9: -1,
+        },
         userTableColumns: [
           {
             key: 'user',
@@ -580,12 +566,6 @@
         const positions = ['3%', '35%', '67%'];
         return positions[index - 1];
       },
-       playSound (sound) {
-      if(sound) {
-        var audio = new Audio(sound);
-        audio.play();
-      }
-    },
       numberTransform(index) {
         const degrees = index * 36;
         return `rotateX(${degrees}deg) translateZ(30vw)`;
@@ -593,13 +573,13 @@
       getCurrentNumber(slotIndex, numberIndex) {
         if (this.stopped) {
           if (slotIndex === 1) {
-            return 5;
+            return this.stopAtNumber[0];
           }
           if (slotIndex === 2) {
-            return 3;
+            return this.stopAtNumber[1];
           }
           if (slotIndex === 3) {
-            return 7;
+            return this.stopAtNumber[2];
           }
         }
         return numberIndex;
@@ -609,8 +589,8 @@
         this.$bvModal.show('modal-sm-no-account');
       },
       close(val) {
-        this.gameNumbers[this.selectedKey] = this.amount;
-        this.amount = 0;
+        this.gameNumbers[this.selectedKey] = this.amount || -1;
+        this.amount = -1;
         this.$bvModal.hide('modal-sm-no-account');
       },
       stopMachine() {
@@ -766,7 +746,7 @@
         }
         this.isLoading = false;
       },
-      async getWinningUsers(id) {
+      async getUserBettingCountForGame(id) {
         this.isLoading = true;
         const res = await new APIService().api(
           {
@@ -806,16 +786,11 @@
     },
   };
 </script>
-<style lang="scss" >
+<style>
   .table th,
   .table td {
     padding: 0.72rem 0.72rem;
   }
-  .table th {
-    padding: 0.72rem;
-     border-top: 0px solid #ebe9f1 !important;
-     border-radius: 7px 7px 0px 0px;
-}
 </style>
 <style scoped>
   .contact-us {
@@ -927,11 +902,11 @@
 
   .machine {
     /* position: absolute;
- top: 50%;
- left: 50%;
- width: 100vw;
- height: 60vw;
- transform: translate3d(-50%, -50%, 0); */
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 60vw;
+  transform: translate3d(-50%, -50%, 0); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -939,25 +914,21 @@
   }
 
   .slots {
-    
     /* position: absolute; */
     /* top: 0%;
- left: 50%; */
-    width: 60vw;
-    height: 17vw;
+  left: 50%; */
+    width: 56vw;
+    height: 15vw;
     /* transform: translate3d(-50%, -50%, 0); */
     perspective: 800vw;
     overflow: hidden;
     /* background-color: #050505; */
- box-shadow: 1px 0px 5px 5px rgb(238 202 146);
-    -webkit-box-shadow: 1px 0px 5px 5px rgb(239 204 149);
-    -moz-box-shadow: 1px 0px 5px 5px rgba(207,107,107,0.91);
-
+    /* box-shadow: 1vw 1vw 2vw #ff8f8f, -1vw -1vw 2vw #000, -1vw 1vw 2vw #000, 1vw -1vw 2vw #000; */
   }
 
   @media (max-width: 410px) {
     .slot-game {
-      height: 43vw !important ;
+      height: 37vw !important ;
     }
     .number-select {
       margin-top: 3vh !important;
@@ -1009,7 +980,6 @@
       justify-content: center;
       align-items: center;
       font-size: 5vw;
-
       /* box-shadow: inset 0 0 2vw rgba(0, 0, 0, 0.8), inset 0 0 0.5vw rgba(0, 0, 0, 0.5); */
     }
 
@@ -1042,7 +1012,7 @@
 
   .slot {
     position: absolute;
-    top: 5.5vw;
+    top: 4.5vw;
     width: 30%;
     height: 20vw;
     margin: 0;
@@ -1312,15 +1282,13 @@
     background: #ffff;
     color: #0000;
     padding: 4px 9px !important;
-    /* min-width:10vw; */
-    margin-top:10px;
   }
   .col-2 {
     margin: 0px !important;
   }
   /* .col-sm-12 {
- margin: 1px !important;
- } */
+  margin: 1px !important;
+  } */
 
   .card-body {
     padding: 13px;
@@ -1331,63 +1299,4 @@
   .modal-footer {
     display: none !important;
   }
-  .number-card-back{
-   background: rgb(6,51,95);
-background: linear-gradient(0deg, rgba(6,51,95,1) 0%, rgba(6,51,95,1) 0%, rgba(23,127,227,1) 100%);
-  }
-  /* .main-w-r{
-    height:auto;
-    background-color:red;
-  } */
-
-
-
-
-.tab {
-  display: flex;
-  width: 100%;
-  height: 100px;
-  align-items: stretch;
-  justify-content: space-around;
-  background-color: #fff;
-  border-radius: 0 0 15px 15px;
-  position:fixed;
-}
-
-.button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-.button:first-child {
-  border-bottom-left-radius: 15px;
-}
-.button:last-child {
-  border-bottom-right-radius: 15px;
-}
-.button:hover {
-  background-color: #a1a1a1;
-  cursor: pointer;
-}
-.button i {
-  font-size: 25px;
-  width: 1.2em;
-  height: 1.2em;
-  margin-bottom: 5px;
-}
-.button .text {
-  font-size: 16px;
-  font-weight: bold;
-}
-.tab-f-h{
-  overflow: scroll;
-    height: 94vh;
-    background-color: #145ba8;
-}
-.table-card-p .card-body {
-  padding:0px;
-}
 </style>

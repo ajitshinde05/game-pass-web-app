@@ -10,7 +10,7 @@
       <b-img
         src="@/assets/images/illustration/Logo.svg"
         class="navbar-container__logo d-none d-sm-block"
-        alt="crypto report logo"
+        alt="khelogtto"
       />
     </b-navbar-brand>
 
@@ -59,7 +59,7 @@
           </div>
           <div class="vr"></div>
           <div>
-            <b-link @click="tracking1()">
+            <b-link>
               <h3
                 class="d-inline mr-25 font-weight-bolder font-medium-1 text-primary"
               >

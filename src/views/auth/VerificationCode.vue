@@ -111,7 +111,7 @@
   import APIService from '@/libs/api/api.js';
   import Ripple from 'vue-ripple-directive';
 
-  import VerificationCodeImage from '@/@core/components/PricingPlans/VerificationCodeImage.vue';
+  import VerificationCodeImage from '@/@core/components/ImagesComponent/VerificationCodeImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
 
   export default {
@@ -140,7 +140,7 @@
     data() {
       return {
         isLoading: false,
-        mobileNumber: 1000101011,
+        mobileNumber: '',
         time: 30,
         sideImg: require('@/assets/images/pages/forgot-password-v2.svg'),
         status: false,

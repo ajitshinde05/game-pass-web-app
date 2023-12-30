@@ -1,11 +1,8 @@
 <template>
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner m-0">
-      <!-- Left Text-->
       <LoginImage />
-      <!-- /Left Text-->
 
-      <!-- Login-->
       <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5">
         <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
           <b-card-title
@@ -19,7 +16,7 @@
           </b-card-text>
 
           <!-- form -->
-          <validation-observer ref="loginValidation">
+          <validation-observer ref="setPasswordValidation">
             <b-form class="auth-login-form mt-2" @submit.prevent>
               <!-- forgot password -->
               <b-form-group>
@@ -112,32 +109,8 @@
               </b-button>
             </b-form>
           </validation-observer>
-          <footer class="page-footer font-small blue mt-4 pt-3">
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center">
-              <div>
-                <h3 class="free d-flex justify-content-center">
-                  <b-img
-                    src="@/assets/images/illustration/Support.svg"
-                    class="Support mr-2"
-                    alt="basic svg img"
-                  />
-                </h3>
-                <span class="fill-filer-color">support@coinrex.in</span>
-              </div>
-            </div>
-
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center pt-1">
-              <div>
-                <p class="copyright">
-                  Copyright &copy;{{ new Date().getFullYear() }}
-                  {{ $t('SetNewPassword.AllRightsReserved') }}
-                </p>
-              </div>
-            </div>
-          </footer>
         </b-col>
       </b-col>
-      <!-- /Login-->
     </b-row>
     <Loader :show="isLoading" />
   </div>
@@ -164,7 +137,7 @@
   import store from '@/store/index';
   import ToastificationContent from '@core/components/toastification/ToastificationContent.vue';
   import APIService from '@/libs/api/api';
-  import LoginImage from '@/@core/components/PricingPlans/LoginImage.vue';
+  import LoginImage from '@/@core/components/ImagesComponent/LoginImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
 
   export default {
@@ -239,9 +212,9 @@
           this.passwordFieldTypeRetype === 'password' ? 'text' : 'password';
       },
       validationForm() {
-        this.$refs.loginValidation.validate().then((success) => {
+        this.$refs.setPasswordValidation.validate().then((success) => {
           if (success) {
-            if (this.$route.params.token) {
+            if (this.$route.params.username) {
               this.setPassword();
             }
           }
@@ -252,7 +225,7 @@
         const res = await new APIService().api(
           {
             method: 'GET',
-            url: `user/verifyAccountToken/${this.$route.params.token}`,
+            url: `user/verifyAccountToken/${this.$route.params.username}`,
           },
           {},
           {},
@@ -273,7 +246,7 @@
             },
           });
           this.$router.push({
-            name: 'home',
+            name: 'auth-login',
             params: { lang: this.lang || undefined },
           });
         }
@@ -283,7 +256,7 @@
         this.isLoading = true;
         const res = await new APIService().api(
           { method: 'post', url: 'user/resetPassword' },
-          { token: this.$route.params.token, password: this.password },
+          { username: this.$route.params.username, password: this.password },
           {},
         );
         if (res && res.result && res.result.requestStatus === 'COMPLETED') {
@@ -296,8 +269,7 @@
             },
           });
           this.$router.push({
-            name: 'home',
-            params: { lang: this.lang || undefined },
+            name: 'auth-login',
           });
         } else if (
           res &&
