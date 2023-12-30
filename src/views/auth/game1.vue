@@ -1,8 +1,8 @@
 <template>
-<div>
-    <b-row >
+  <div>
+    <b-row>
       <b-col md="12" lg="6" sm="12" class="pr-0">
-        <div class="tab-f-h ">
+        <div class="tab-f-h">
           <div class="main-page">
             <div class="abs">
               <!-- <Animated/> -->
@@ -25,7 +25,6 @@
                       </li>
                     </ul>
                   </div>
-                  
                 </div>
               </div>
               <div class="number-select">
@@ -40,10 +39,13 @@
                               sm="12"
                               class="d-flex justify-content-center"
                             >
-                           
                               <b-img
                                 @click="addAmount(0)"
-                                @click.prevent="playSound('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3')"
+                                @click.prevent="
+                                  playSound(
+                                    'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3',
+                                  )
+                                "
                                 src="../../assets/Group-0.svg"
                                 class="pricing-img"
                                 alt="basic svg img"
@@ -77,7 +79,11 @@
                             >
                               <b-img
                                 @click="addAmount(1)"
-                                 @click.prevent="playSound('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3')"
+                                @click.prevent="
+                                  playSound(
+                                    'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3',
+                                  )
+                                "
                                 src="../../assets/Group-1.svg"
                                 class="pricing-img"
                                 alt="basic svg img"
@@ -111,7 +117,11 @@
                             >
                               <b-img
                                 @click="addAmount(2)"
-                                 @click.prevent="playSound('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3')"
+                                @click.prevent="
+                                  playSound(
+                                    'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3',
+                                  )
+                                "
                                 src="../../assets/Group-2.svg"
                                 class="pricing-img"
                                 alt="basic svg img"
@@ -179,7 +189,11 @@
                             >
                               <b-img
                                 @click="addAmount(4)"
-                                 @click.prevent="playSound('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3')"
+                                @click.prevent="
+                                  playSound(
+                                    'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_short_004_79288.mp3',
+                                  )
+                                "
                                 src="../../assets/Group-4.svg"
                                 class="pricing-img"
                                 alt="basic svg img"
@@ -464,28 +478,27 @@
     <div class="text-center"></div>
     <Loader :show="isLoading" />
     <div class="tab">
-    <div class="button active">
-      <i class="fas fa-home"></i>
-      <div class="text">HOME</div>
-    </div>
-   
-    <div class="button">
-      <i class="fas fa-wallet"></i>
-      <div class="text">Wallet </div>
-    </div>
-    <div class="button">
-      <i class="fas fa-user"></i>
-      <div class="text">Profile</div>
+      <div class="button active">
+        <i class="fas fa-home"></i>
+        <div class="text">HOME</div>
+      </div>
+
+      <div class="button">
+        <i class="fas fa-wallet"></i>
+        <div class="text">Wallet</div>
+      </div>
+      <div class="button">
+        <i class="fas fa-user"></i>
+        <div class="text">Profile</div>
+      </div>
     </div>
   </div>
-</div>
-  
 </template>
 
 <script>
   import ToastificationContent from '@core/components/toastification/ToastificationContent.vue';
   import APIService from '@/libs/api/api';
-   import Time from "./time.vue";
+
   import {
     BIconFacebook,
     BIconTwitter,
@@ -512,7 +525,7 @@
   } from 'bootstrap-vue';
   export default {
     components: {
-      Time,
+      // Time,
       BImg,
       BFormInput,
       BIconFacebook,
@@ -580,12 +593,12 @@
         const positions = ['3%', '35%', '67%'];
         return positions[index - 1];
       },
-       playSound (sound) {
-      if(sound) {
-        var audio = new Audio(sound);
-        audio.play();
-      }
-    },
+      playSound(sound) {
+        if (sound) {
+          var audio = new Audio(sound);
+          audio.play();
+        }
+      },
       numberTransform(index) {
         const degrees = index * 36;
         return `rotateX(${degrees}deg) translateZ(30vw)`;
@@ -806,16 +819,16 @@
     },
   };
 </script>
-<style lang="scss" >
+<style lang="scss">
   .table th,
   .table td {
     padding: 0.72rem 0.72rem;
   }
   .table th {
     padding: 0.72rem;
-     border-top: 0px solid #ebe9f1 !important;
-     border-radius: 7px 7px 0px 0px;
-}
+    border-top: 0px solid #ebe9f1 !important;
+    border-radius: 7px 7px 0px 0px;
+  }
 </style>
 <style scoped>
   .contact-us {
@@ -939,7 +952,6 @@
   }
 
   .slots {
-    
     /* position: absolute; */
     /* top: 0%;
  left: 50%; */
@@ -949,10 +961,9 @@
     perspective: 800vw;
     overflow: hidden;
     /* background-color: #050505; */
- box-shadow: 1px 0px 5px 5px rgb(238 202 146);
+    box-shadow: 1px 0px 5px 5px rgb(238 202 146);
     -webkit-box-shadow: 1px 0px 5px 5px rgb(239 204 149);
-    -moz-box-shadow: 1px 0px 5px 5px rgba(207,107,107,0.91);
-
+    -moz-box-shadow: 1px 0px 5px 5px rgba(207, 107, 107, 0.91);
   }
 
   @media (max-width: 410px) {
@@ -1313,7 +1324,7 @@
     color: #0000;
     padding: 4px 9px !important;
     /* min-width:10vw; */
-    margin-top:10px;
+    margin-top: 10px;
   }
   .col-2 {
     margin: 0px !important;
@@ -1331,63 +1342,65 @@
   .modal-footer {
     display: none !important;
   }
-  .number-card-back{
-   background: rgb(6,51,95);
-background: linear-gradient(0deg, rgba(6,51,95,1) 0%, rgba(6,51,95,1) 0%, rgba(23,127,227,1) 100%);
+  .number-card-back {
+    background: rgb(6, 51, 95);
+    background: linear-gradient(
+      0deg,
+      rgba(6, 51, 95, 1) 0%,
+      rgba(6, 51, 95, 1) 0%,
+      rgba(23, 127, 227, 1) 100%
+    );
   }
   /* .main-w-r{
     height:auto;
     background-color:red;
   } */
 
+  .tab {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    align-items: stretch;
+    justify-content: space-around;
+    background-color: #fff;
+    border-radius: 0 0 15px 15px;
+    position: fixed;
+  }
 
-
-
-.tab {
-  display: flex;
-  width: 100%;
-  height: 100px;
-  align-items: stretch;
-  justify-content: space-around;
-  background-color: #fff;
-  border-radius: 0 0 15px 15px;
-  position:fixed;
-}
-
-.button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-.button:first-child {
-  border-bottom-left-radius: 15px;
-}
-.button:last-child {
-  border-bottom-right-radius: 15px;
-}
-.button:hover {
-  background-color: #a1a1a1;
-  cursor: pointer;
-}
-.button i {
-  font-size: 25px;
-  width: 1.2em;
-  height: 1.2em;
-  margin-bottom: 5px;
-}
-.button .text {
-  font-size: 16px;
-  font-weight: bold;
-}
-.tab-f-h{
-  overflow: scroll;
+  .button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .button:first-child {
+    border-bottom-left-radius: 15px;
+  }
+  .button:last-child {
+    border-bottom-right-radius: 15px;
+  }
+  .button:hover {
+    background-color: #a1a1a1;
+    cursor: pointer;
+  }
+  .button i {
+    font-size: 25px;
+    width: 1.2em;
+    height: 1.2em;
+    margin-bottom: 5px;
+  }
+  .button .text {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .tab-f-h {
+    overflow: scroll;
     height: 94vh;
     background-color: #145ba8;
-}
-.table-card-p .card-body {
-  padding:0px;
-}
+  }
+  .table-card-p .card-body {
+    padding: 0px;
+  }
 </style>
