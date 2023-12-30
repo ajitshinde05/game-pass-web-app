@@ -477,7 +477,8 @@
     </b-modal>
     <div class="text-center"></div>
     <Loader :show="isLoading" />
-    <div class="tab">
+    <Tab/>
+    <!-- <div class="tab">
       <div class="button active">
         <i class="fas fa-home"></i>
         <div class="text">HOME</div>
@@ -491,13 +492,14 @@
         <i class="fas fa-user"></i>
         <div class="text">Profile</div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
   import ToastificationContent from '@core/components/toastification/ToastificationContent.vue';
   import APIService from '@/libs/api/api';
+  import Tab from "./tab.vue"
 
   import {
     BIconFacebook,
@@ -526,6 +528,7 @@
   export default {
     components: {
       // Time,
+      Tab,
       BImg,
       BFormInput,
       BIconFacebook,

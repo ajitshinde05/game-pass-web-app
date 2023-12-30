@@ -134,39 +134,21 @@
             <b style="color: #000000">Sit n GoSit n Go</b>
           </b-card>
         </b-col>
-        
-        
-        
-      
       </b-row>
     </b-container>
-    
   </section>
-  <div class="tab">
-    <div class="button active">
-      <i class="fas fa-home"></i>
-      <div class="text">HOME</div>
-    </div>
-   
-    <div class="button">
-      <i class="fas fa-wallet"></i>
-      <div class="text">Wallet </div>
-    </div>
-    <div class="button">
-      <i class="fas fa-user"></i>
-      <div class="text">Profile</div>
-    </div>
-  </div>
+ <Tab/>
 </div>
 </template>
 
 <script>
   import { BCard, BImg, BRow, BCol,BAvatar } from 'bootstrap-vue';
-
+  import Tab from "./tab.vue"
   export default {
     components: {
+      Tab,
       BImg,
-BAvatar,
+      BAvatar,
       BCard,
       BRow,
       BCol,
