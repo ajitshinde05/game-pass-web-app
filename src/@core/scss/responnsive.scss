@@ -50,7 +50,7 @@
 
   .cont-padding {
     .tab-f-h {
-      height: 70vh !important;
+      height: 65vh !important;
 
       .main-page {
         height: 100%;
@@ -95,5 +95,33 @@
   .mobile-bottom-80 {
     margin-bottom: 80px;
     margin-top: 15px !important;
+  }
+
+  .slots {
+    ul li {
+      font-family: 'Arvo', serif;
+      font-size: 50px !important;
+      color: #3690e8;
+    }
+  }
+
+  .slot-game {
+    height: 225px;
+
+    .res-count {
+      height: 20px;
+      width: 20px;
+      font-size: 20px;
+      border-radius: 6px;
+    }
+
+    .slot-time {
+      bottom: 42px;
+
+      .sh-sp {
+        height: 20px;
+        font-size: 20px;
+      }
+    }
   }
 }

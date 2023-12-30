@@ -23,7 +23,7 @@
               <div class="dropdown-divider"></div>
               <b-card-text>
                 <p class="font-weight-light">
-                  Bank Name: Union Bank of India
+                  Bank Name: Axis Bank
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -31,7 +31,7 @@
                   </svg>
                 </p>
                 <p class="font-weight-light">
-                  A/C No: 507501510037769
+                  A/C No: 921020034277430
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -39,7 +39,7 @@
                   </svg>
                 </p>
                 <p class="font-weight-light">
-                  IFSC Code: UBIN0550738
+                  IFSC Code: UTIB0002979
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -47,7 +47,7 @@
                   </svg>
                 </p>
                 <p class="font-weight-light">
-                  Account Name: Rohit Sales and Service
+                  Account Name: JACKY DAMANI
                 </p>
                 <p class="font-weight-light">Min. Amount: 100</p>
                 <p class="font-weight-light">Max. Amount: 2000000</p>

@@ -17,6 +17,13 @@
                       </ul>
                     </div>
                   </div>
+                  <div class="slot-time">
+                    <div class="res-count">0</div>
+                    <div class="res-count">0</div>
+                    <div class="sh-sp">:</div>
+                    <div class="res-count">0</div>
+                    <div class="res-count">0</div>
+                  </div>
                 </div>
                 <div class="number-select">
                   <b-card class="number-card-back">
@@ -732,7 +739,7 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   width: 100%;
-  height: 34vh;
+  /* height: 34vh; */
   background-position: center;
   background-size: cover;
 }
@@ -775,9 +782,9 @@ export default {
     /* box-shadow: 1vw 1vw 2vw #ff8f8f, -1vw -1vw 2vw #000, -1vw 1vw 2vw #000, 1vw -1vw 2vw #000; */
   }
 
-  .slot-game {
-    height: 20vw !important;
-  }
+  /* .slot-game {
+      height: 20vw !important;
+    } */
 
   .slot {
     position: absolute;

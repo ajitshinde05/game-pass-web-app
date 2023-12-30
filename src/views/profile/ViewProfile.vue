@@ -41,15 +41,17 @@
               <feather-icon icon="ChevronRightIcon" />
             </b-button>
           </div>
-          <div class="d-flex justify-content-start align-items-center desk-50 disabled">
-            <b-avatar src="@/assets/whatapp.svg" class="mr-50" size="40" />
-            <div class="user-page-info">
-              <h6 class="mb-0 ">WhatsApp Support</h6>
+          <a href="https://jwt-service.onrender.com/api/auth/redirect" target="_blank">
+            <div class="d-flex justify-content-start align-items-center desk-50">
+              <b-avatar src="@/assets/whatapp.svg" class="mr-50" size="40" />
+              <div class="user-page-info">
+                <h6 class="mb-0 ">WhatsApp Support</h6>
+              </div>
+              <b-button variant="primary" class="btn-icon ml-auto left-30" size="sm">
+                <feather-icon icon="ChevronRightIcon" />
+              </b-button>
             </div>
-            <b-button variant="primary" class="btn-icon ml-auto left-30" size="sm">
-              <feather-icon icon="ChevronRightIcon" />
-            </b-button>
-          </div>
+          </a>
           <div class="d-flex justify-content-start align-items-center desk-50" @click="logOut()">
             <b-avatar src="@/assets/logout.svg" class="mr-50" size="40" />
             <div class="user-page-info">
@@ -178,6 +180,7 @@ export default {
         {},
         {},
       );
+      console.log(res, "res")
       if (res) {
         this.userName = res;
         this.mobile = userData.username
@@ -192,6 +195,7 @@ export default {
         });
       }
     },
+
   },
 };
 </script>

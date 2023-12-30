@@ -103,3 +103,58 @@ label.font-weight-normal {
   padding-left: 15px !important;
   padding-right: 15px !important;
 }
+
+.slots {
+  ul li {
+    font-family: 'Arvo', serif;
+    font-size: 100px !important;
+    color: #3690e8;
+  }
+}
+
+.pricing-img {
+  height: 45px;
+  width: 45px;
+}
+
+.slot-game {
+  height: 310px;
+  position: relative;
+
+  .slot-time {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+
+    .sh-sp {
+      font-size: 30px;
+      color: #fff;
+      font-weight: 700;
+      margin-left: 3px;
+      margin-right: 3px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .res-count {
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 3px;
+    margin-right: 3px;
+    font-size: 30px;
+    color: #000;
+    font-weight: 700;
+  }
+}
