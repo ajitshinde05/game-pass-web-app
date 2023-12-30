@@ -46,3 +46,13 @@ export const validatorAge = (val) => {
 
   return false;
 };
+export const validatorAmount = (val,max) => {
+  if (val === undefined || val === null ) {
+    return true;
+  }else if(max && max.length && val<=max[0]){
+    return true;
+  }
+
+  return false;
+};
+

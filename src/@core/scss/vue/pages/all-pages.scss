@@ -2,7 +2,9 @@
   font-size: 3rem !important;
   font-weight: 1000 !important;
 }
-
+.card-width{
+  width: 112% !important;
+}  
 .register-card-title {
   font-size: 2rem !important;
   font-weight: 1000 !important;
@@ -68,6 +70,9 @@
     font-size: 1.4rem !important;
     font-weight: 1000 !important;
   }
+  .card-width{
+    width: 100% !important;
+  }  
 }
 
 @media (max-width: 460px) {
@@ -92,6 +97,7 @@
   .max-width-address {
     max-width: 300px;
   }
+  
 }
 
 @media (min-width: 1024px) {

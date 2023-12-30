@@ -26,6 +26,8 @@ import {
   validatorCreditCard,
   validatorTxHash,
   validatorAge,
+  validatorAmount
+
 } from './validators';
 
 // ////////////////////////////////////////////////////////
@@ -84,6 +86,10 @@ export const ValidAge = extend('ValidAge', {
   validate: validatorAge,
   message: 'Enter valid age',
 });
+export const maxAmount = extend('maxAmount', {
+  validate: validatorAmount,
+  message: 'Enter valid amount',
+});
 // Install localizations.
 localize({
   en,
@@ -138,13 +144,13 @@ localize(localStorage.getItem('appLocale') || 'en');
 //   return /^-?[\d]+\/[0-1]\d\/[0-3]\d$/.test(val) || 'Date is invalid'
 // }
 
-// export const max = (val, max) => {
+export const max = (val, max) => {
 
-//   // If blank return
-//   if (val === undefined || val === null) return true
+  // If blank return
+  if (val === undefined || val === null) return true
 
-//   return val.length <= max || `More than ${max} characters are not allowed`
-// }
+  return val <= max || `More than ${max} are not allowed`
+}
 
 // export const max_arr = (val, max) => {
 //   return val.length <= max || `More than ${max} values are not allowed`

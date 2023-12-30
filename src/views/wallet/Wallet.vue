@@ -12,11 +12,11 @@
               :src="require('@/assets/images/pages/wallet/coin.svg')"
               class="user-photo"
             />
-            />
+            
           </div>
         </div>
         <div class="content">
-          <div class="card">
+          <div class="card card-width">
             <div class="upper-row">
               <div class="card-item">
                 <span>Withdrawal</span>
@@ -48,7 +48,7 @@
               </div>
             </div>
           </div>
-          <div class="transactions">
+          <div class="transactions card-width">
             <span class="t-desc">Recent Transactions</span>
             <b-table
               class="position-relative no-headers userlist-table child-1-30-percent"
@@ -165,13 +165,7 @@
       };
     },
     computed: {},
-    watch: {
-      coinType(newValue) {
-        if (newValue === null) {
-          this.$refs.formValidator.reset();
-        }
-      },
-    },
+  
     mounted() {
       this.getUserByUserName();
       this.getTransitionHistory();
@@ -222,9 +216,8 @@
           {},
         );
         console.log('getAllRechargeHistoryByUserName', res);
-        if (res && res.supportedCoinTypes) {
-          this.coinTypeItems = res.supportedCoinTypes;
-          this.requiredPoints = res.requestRates.WALLET_CREATE;
+        if (res) {
+      
         } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,

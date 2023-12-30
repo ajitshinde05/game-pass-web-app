@@ -35,27 +35,13 @@ const router = new VueRouter({
     {
       path: `/`,
       name: 'home',
-      // beforeEnter: protectedRoute,
+      beforeEnter: protectedRoute,
       component: () => import('@/views/Home.vue'),
       meta: {
         layout: 'full',
       },
     },
-    {
-      path: '/tx-cost-report',
-      name: 'tx-cost-report',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/TxCostReport/TxCostReportPage.vue'),
-      meta: {
-        pageTitle: 'TxCostReport',
-        breadcrumb: [
-          {
-            text: 'TxCostReport',
-            active: true,
-          },
-        ],
-      },
-    },
+    
     {
       path: `/wallet`,
       name: 'wallet',
@@ -66,151 +52,21 @@ const router = new VueRouter({
       },
     },
 
-    {
-      //  TODO: START FROM HERE
-      path: '/search-transaction-details',
-      name: 'search-transaction-details',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/SearchTransactionDetails.vue'),
-      meta: {
-        pageTitle: 'TransactionDetails',
-        breadcrumb: [
-          {
-            text: 'TransactionDetails',
-            active: true,
-          },
-        ],
-      },
-    },
+    
 
-    {
-      path: '/balance-report',
-      name: 'balance-report',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/BalanceReport/BalanceReportPage.vue'),
-      meta: {
-        pageTitle: 'BalanceReport',
-        breadcrumb: [
-          {
-            text: 'BalanceReport',
-            active: true,
-          },
-        ],
-      },
-    },
+    
 
-    {
-      path: '/create-wallet',
-      name: 'create-wallet',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/CreateWallet.vue'),
-      meta: {
-        pageTitle: 'CreateWallet',
-        breadcrumb: [
-          {
-            text: 'CreateWallet',
-            active: true,
-          },
-        ],
-      },
-    },
+    
 
-    {
-      path: '/pricing',
-      name: 'pricing',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/Pricing/Pricing.vue'),
-      meta: {
-        pageTitle: 'Pricing',
-        breadcrumb: [
-          {
-            text: 'Pricing',
-            active: true,
-          },
-        ],
-      },
-    },
+   
 
-    {
-      path: '/change-password',
-      name: 'change-password',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/ChangePassword.vue'),
-      meta: {
-        pageTitle: 'ChangePassword',
-        breadcrumb: [
-          {
-            text: 'ChangePassword',
-            active: true,
-          },
-        ],
-      },
-    },
+   
+   
 
-    {
-      //  TODO: START FROM HERE
-      path: '/search-transaction-details',
-      name: 'search-transaction-details',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/SearchTransactionDetails.vue'),
-      meta: {
-        pageTitle: 'TransactionDetails',
-        breadcrumb: [
-          {
-            text: 'TransactionDetails',
-            active: true,
-          },
-        ],
-      },
-    },
+    
+   
 
-    {
-      path: '/balance-report',
-      name: 'balance-report',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/BalanceReport/BalanceReportPage.vue'),
-      meta: {
-        pageTitle: 'BalanceReport',
-        breadcrumb: [
-          {
-            text: 'BalanceReport',
-            active: true,
-          },
-        ],
-      },
-    },
-
-    {
-      path: '/create-wallet',
-      name: 'create-wallet',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/CreateWallet.vue'),
-      meta: {
-        pageTitle: 'CreateWallet',
-        breadcrumb: [
-          {
-            text: 'CreateWallet',
-            active: true,
-          },
-        ],
-      },
-    },
-
-    {
-      path: '/pricing',
-      name: 'pricing',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/Pricing/Pricing.vue'),
-      meta: {
-        pageTitle: 'Pricing',
-        breadcrumb: [
-          {
-            text: 'Pricing',
-            active: true,
-          },
-        ],
-      },
-    },
+   
 
     {
       path: '/change-password',
@@ -228,30 +84,11 @@ const router = new VueRouter({
       },
     },
 
-    {
-      path: '/auth/verify-account/:id',
-      name: 'verify-account',
-      component: () => import('@/views/auth/VerifyAccount.vue'),
-      meta: {
-        layout: 'full',
-      },
-    },
+  
+    
 
-    {
-      path: '/payment-method/:id',
-      name: 'payment-method',
-      // beforeEnter: protectedRoute,
-      component: () => import('@/views/Pricing/SelectYourPaymentMethod.vue'),
-      meta: {
-        pageTitle: 'PaymentMethod',
-        breadcrumb: [
-          {
-            text: 'PaymentMethod',
-            active: true,
-          },
-        ],
-      },
-    },
+    
+   
 
     {
       path: '/payment/:id',
