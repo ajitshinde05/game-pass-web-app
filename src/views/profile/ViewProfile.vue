@@ -9,12 +9,12 @@
             <div class="user-desc">Mobile no : {{ mobile }}</div>
 
           </div>
-          <b-button variant="primary" class="btn-icon ml-auto left-30" size="sm">
+          <!-- <b-button variant="primary" class="btn-icon ml-auto left-30" size="sm">
             <feather-icon icon="EditIcon" />
-          </b-button>
+          </b-button> -->
         </div>
         <div class="profile-menu-list">
-          <div class="d-flex justify-content-start align-items-center desk-50">
+          <!-- <div class="d-flex justify-content-start align-items-center desk-50">
             <b-avatar src="@/assets/game-history.svg" class="mr-50" size="40" />
             <div class="user-page-info">
               <h6 class="mb-0" @click="gameHistory()">Game History</h6>
@@ -22,7 +22,7 @@
             <b-button variant="primary" class="btn-icon ml-auto left-30" size="sm">
               <feather-icon icon="ChevronRightIcon" />
             </b-button>
-          </div>
+          </div> -->
           <div class="d-flex justify-content-start align-items-center desk-50 disabled">
             <b-avatar src="@/assets/download.svg" class="mr-50" size="40" />
             <div class="user-page-info">
