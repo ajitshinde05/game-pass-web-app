@@ -21,9 +21,12 @@
           </b-card-title>
           <b-card-text class="mb-2">
             {{
-              $t('VerificationCode.VerificationCodeInstructions', {
-                mobile: `46577`,
-              })
+              mobileNumber.length === 10
+                ? $t('VerificationCode.VerificationCodeInstructions', {
+                    firstNumber: mobileNumber.substring(0, 3),
+                    lastNumber: mobileNumber.substring(mobileNumber.length - 3),
+                  })
+                : ''
             }}
           </b-card-text>
 
@@ -66,14 +69,14 @@
                 variant="primary"
                 block
               >
-                {{ $t('VerificationCode.Verify ') }}
+                {{ $t('VerificationCode.Verify') }}
               </b-button>
             </b-form>
           </validation-observer>
 
           <b-card-text class="text-center mt-2 mb-0">
             <span>{{ $t('VerificationCode.DidNotReceiveCode') }}</span>
-            <b-link>
+            <b-link @click="reSendCode">
               <span>&nbsp;{{ $t('VerificationCode.ResendAgain') }}</span>
             </b-link>
           </b-card-text>
@@ -140,7 +143,7 @@
     data() {
       return {
         isLoading: false,
-        mobileNumber: '',
+        mobileNumber: this.$route.params.username,
         time: 30,
         sideImg: require('@/assets/images/pages/forgot-password-v2.svg'),
         status: false,
@@ -162,7 +165,23 @@
         return this.sideImg;
       },
     },
+    created() {
+      this.verifyAccountUsername();
+    },
     methods: {
+      async verifyAccountUsername() {
+        const regex = /^[0-9]{10}$/;
+        if (
+          this.$route.params &&
+          this.$route.params.username &&
+          regex.test(this.$route.params.username)
+        ) {
+        } else {
+          this.$router.push({
+            name: 'auth-login',
+          });
+        }
+      },
       handleInput(index) {
         // Move to the next input field when a digit is entered
         if (this.otpDigits[index] !== '' && index < this.otpDigits.length - 1) {
@@ -172,33 +191,67 @@
       validationForm() {
         const me = this;
         this.$refs.simpleRules.validate().then((success) => {
-          if (success) {
+          const regex = /^[0-9]{10}$/;
+          if (
+            success &&
+            me.$route.params &&
+            me.$route.params.username &&
+            regex.test(me.$route.params.username)
+          ) {
             this.recoverAccount();
-            // if (me.status) {
-            //   me.captchaErr = '';
-
-            //   me.recoverAccount();
-            // } else {
-            //   me.captchaErr = 'Captcha check required';
-            // }
           }
         });
       },
-      onCaptchaVerified(response) {
-        this.captcha = response;
-        this.status = true;
-      },
-      onCaptchaExpired() {
-        this.status = false;
-        this.$refs.recaptcha.reset();
-      },
+
       async recoverAccount() {
         this.isLoading = true;
 
+        const otpNumber = this.otpDigits.join('');
         const res = await new APIService().api(
-          { method: 'post', url: 'user/recoverAccount' },
-          { username: this.mobileNumber },
+          { method: 'post', url: 'auth/validate-otp' },
+          {
+            phoneNumber: '+91' + this.mobileNumber,
+            otpNumber,
+          },
           {},
+        );
+        if (res && res === 'OTP is valid!') {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res,
+              icon: 'EditIcon',
+              variant: 'success',
+            },
+          });
+          this.$router.push({
+            name: 'auth-reset-password',
+            params: { username: this.mobileNumber },
+          });
+        } else if (res && res.error && res.error.message) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.error.message,
+              icon: 'EditIcon',
+              variant: 'danger',
+            },
+          });
+        }
+        this.isLoading = false;
+      },
+      async reSendCode() {
+        this.isLoading = true;
+
+        const res = await new APIService().api(
+          { method: 'POST', url: `auth/send-otp/+91${this.mobileNumber}` },
+          {},
+          {
+            http_headers: {
+              'Access-Control-Allow-Headers':
+                'Origin, X-Requested-With, Content-Type, Accept',
+            },
+          },
         );
         if (res && res.message) {
           this.$toast({
@@ -210,19 +263,14 @@
             },
           });
           this.$router.push({
-            name: 'home',
-            params: { lang: this.lang || undefined },
+            name: 'code-verify',
+            params: { username: this.mobileNumber },
           });
-        } else if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
-        ) {
+        } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: res.result.errors[0].message,
+              title: res.error.message,
               icon: 'EditIcon',
               variant: 'danger',
             },

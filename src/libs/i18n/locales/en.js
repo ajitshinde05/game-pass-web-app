@@ -54,7 +54,7 @@ export default {
   VerificationCode: {
     VerificationCode: 'Enter Verification Code',
     VerificationCodeInstructions:
-      'Please enter the 6-digit code sent to your mobile no {mobile} for verification.',
+      'Please enter the 6-digit code sent to your mobile no {firstNumber}****{lastNumber} for verification.',
     Verify: 'Verify',
     DidNotReceiveCode: 'Didn’t receive any code?',
     ResendAgain: 'ResendAgain',

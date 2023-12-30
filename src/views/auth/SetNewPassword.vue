@@ -164,7 +164,6 @@
         isLoading: false,
         status: '',
         password: '',
-        userEmail: '',
         confirmPassword: '',
         sideImg: require('@/assets/images/pages/login-v3.svg'),
         passwordFieldTypeNew: 'password',
@@ -199,7 +198,7 @@
       },
     },
     created() {
-      this.verifyAccountToken();
+      this.verifyAccountUsername();
     },
 
     methods: {
@@ -214,73 +213,57 @@
       validationForm() {
         this.$refs.setPasswordValidation.validate().then((success) => {
           if (success) {
-            if (this.$route.params.username) {
+            const regex = /^[0-9]{10}$/;
+            if (
+              this.$route.params &&
+              this.$route.params.username &&
+              regex.test(this.$route.params.username)
+            ) {
               this.setPassword();
             }
           }
         });
       },
-      async verifyAccountToken() {
-        this.isLoading = true;
-        const res = await new APIService().api(
-          {
-            method: 'GET',
-            url: `user/verifyAccountToken/${this.$route.params.username}`,
-          },
-          {},
-          {},
-        );
-
+      async verifyAccountUsername() {
+        const regex = /^[0-9]{10}$/;
         if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
+          this.$route.params &&
+          this.$route.params.username &&
+          regex.test(this.$route.params.username)
         ) {
-          this.$toast({
-            component: ToastificationContent,
-            props: {
-              title: res.result.errors[0].message,
-              icon: 'EditIcon',
-              variant: 'danger',
-            },
-          });
+        } else {
           this.$router.push({
             name: 'auth-login',
-            params: { lang: this.lang || undefined },
           });
         }
-        this.isLoading = false;
       },
       async setPassword() {
         this.isLoading = true;
         const res = await new APIService().api(
-          { method: 'post', url: 'user/resetPassword' },
-          { username: this.$route.params.username, password: this.password },
+          { method: 'post', url: 'auth/forget-pwd' },
+          {
+            username: this.$route.params.username,
+            newPassword: this.password,
+          },
           {},
         );
-        if (res && res.result && res.result.requestStatus === 'COMPLETED') {
+        if (res && res.message) {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: 'Your password has been reset successfully',
+              title: res.message,
               icon: 'EditIcon',
               variant: 'success',
             },
           });
           this.$router.push({
-            name: 'auth-login',
+            name: 'password-updated',
           });
-        } else if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
-        ) {
+        } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: res.result.errors[0].message,
+              title: res.error.message,
               icon: 'EditIcon',
               variant: 'danger',
             },

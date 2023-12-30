@@ -155,13 +155,6 @@
         this.$refs.simpleRules.validate().then((success) => {
           if (success) {
             this.recoverAccount();
-            // if (me.status) {
-            //   me.captchaErr = '';
-
-            //   me.recoverAccount();
-            // } else {
-            //   me.captchaErr = 'Captcha check required';
-            // }
           }
         });
       },
@@ -177,8 +170,8 @@
         this.isLoading = true;
 
         const res = await new APIService().api(
-          { method: 'post', url: 'user/recoverAccount' },
-          { username: this.mobileNumber },
+          { method: 'POST', url: `auth/send-otp/+91${this.mobileNumber}` },
+          {},
           {},
         );
         if (res && res.message) {
@@ -191,19 +184,14 @@
             },
           });
           this.$router.push({
-            name: 'home',
-            params: { lang: this.lang || undefined },
+            name: 'code-verify',
+            params: { username: this.mobileNumber },
           });
-        } else if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
-        ) {
+        } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: res.result.errors[0].message,
+              title: res.error.message,
               icon: 'EditIcon',
               variant: 'danger',
             },
