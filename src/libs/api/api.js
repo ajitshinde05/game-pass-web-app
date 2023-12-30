@@ -74,9 +74,8 @@ export default class APIService {
     localStorage.removeItem(useJwt.jwtConfig.storageTokenKeyName);
     localStorage.removeItem(useJwt.jwtConfig.storageRefreshTokenKeyName);
     localStorage.removeItem('username');
-
     localStorage.removeItem('userData');
-    location.reload(true);
+    // location.reload(true);
     return true;
   }
 }

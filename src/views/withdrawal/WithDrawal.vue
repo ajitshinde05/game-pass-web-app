@@ -8,42 +8,74 @@
             <div class="my-responsive-card">
               <b-card style="background: #0C75DB;">
                 <div class="header">
-          <div class="header-summary">
-            <div class="summary-text">My Balance</div>
-            <div class="summary-balance">&#8377; {{ balance }}</div>
-          </div>
-          <div class="user-profile">
-            <b-img
-              :src="require('@/assets/images/pages/wallet/coin.svg')"
-              class="user-photo"
-            />
-          </div>
-        </div>
-                <!-- <b-row>
-                    <div class="d-flex justify-content-start">
-                      <h2 style="color: white">My Balance</h2>
-                      <h1 style="color: white">&#8377;{{ balance }}</h1>
-                    </div>
+                  <div class="header-summary">
+                    <div class="summary-text">My Balance</div>
+                    <div class="summary-balance">&#8377; {{ balance }}</div>
+                  </div>
                   <div class="user-profile">
                     <b-img :src="require('@/assets/images/pages/wallet/coin.svg')" class="user-photo" />
                   </div>
-                </b-row> -->
+                </div>
               </b-card>
               <div>
                 <h6>{{ $t('Amount.Title') }}</h6>
-                <validation-provider #default="{ errors }" name="Amount" :rules="{required:true,maxAmount:100}">
+                <validation-provider #default="{ errors }" name="Amount" :rules="{ required: true, maxAmount: 100 }">
                   <b-form-input type="number" id="amount" v-model="amount" :state="errors.length > 0 ? false : null"
                     name="amount" placeholder="Enter Amount" />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </div>
               <div class="mt-2">
-                <h6>Select UPI</h6>
+                <b-row>
+                  <b-col>
+                    <h6>Select UPI</h6>
+                  </b-col>
+                  <b-col>
+                    <b-button @click="openUpi()" class="mb-2 ml-2" variant="primary">
+                      Add UPI
+                    </b-button>
+                  </b-col>
+                </b-row>
+
+
+                <b-modal id="modal-add-upi" hide-footer size="sm">
+                  <div>
+                    <h3 class="d-block text-center"> Add UPI</h3>
+                    <validation-observer ref="addupiValidation">
+                      <validation-provider #default="{ errors }" name="accountname" :rules="{ required: true }">
+                        <h6>Account name *</h6>
+                        <b-form-input id="accountname" v-model="accountName" :state="errors.length > 0 ? false : null"
+                          name="accountname" placeholder="Enter Account Name" />
+                        <small class="text-danger">{{ errors[0] }}</small>
+                        <h6 class="mt-1">UPI ID *</h6>
+                        <b-form-input id="upi" v-model="upi" :state="errors.length > 0 ? false : null" name="upi"
+                          placeholder="Enter UPI" />
+                        <small class="text-danger">{{ errors[0] }}</small>
+                        <h6 class="mt-1">QR code</h6>
+                        <input type="file" id="inputPassword6" class="mt-1 sm-2" />
+                      </validation-provider>
+                      <b-row>
+                        <b-col>
+                          <b-button class="mt-2" type="submit" block :disabled="isLoading" @click="closeModal()">
+                            Cancel
+                          </b-button>
+                        </b-col>
+                        <b-col>
+                          <b-button class="mt-2" type="submit" variant="primary" block :disabled="isLoading"
+                            @click="validationForm">
+                            Continue
+                          </b-button>
+                        </b-col>
+                      </b-row>
+                    </validation-observer>
+                  </div>
+
+                </b-modal>
                 <b-table :items="items" :fields="tableColumns" show-select>
                   <template #cell(upi)="row">
 
-                    <b-form-checkbox  class="curserPointer"
-                      @change="selectedTelParameters(row.item)" v-model="row.item.selected">
+                    <b-form-checkbox class="curserPointer" @change="selectedTelParameters(row.item)"
+                      v-model="row.item.selected">
                       <span class="link-label">
                         {{ row.item.upi }}</span></b-form-checkbox>
                   </template>
@@ -108,6 +140,7 @@
         </div>
       </div>
     </validation-observer>
+    <Tab />
   </b-card-code>
 </template>
 
@@ -140,11 +173,14 @@ import {
   BCardTitle,
   BSkeletonTable,
   BFormCheckbox,
+  BModal
 } from "bootstrap-vue";
 import BCardCode from '@core/components/b-card-code/BCardCode.vue';
-import { required,maxAmount } from '@validations';
+import { required, maxAmount } from '@validations';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
-import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'; import APIService from '@/libs/api/api';
+import ToastificationContent from '@core/components/toastification/ToastificationContent.vue';
+import APIService from '@/libs/api/api';
+import Tab from '../tab.vue'
 export default {
   name: '',
   props: [],
@@ -179,7 +215,8 @@ export default {
     BInputGroupAppend,
     BSkeletonTable,
     BFormCheckbox,
-
+    BModal,
+    Tab
   },
   data() {
     return {
@@ -197,8 +234,8 @@ export default {
       balance: 0,
       required,
       maxAmount,
-      status:false,
-      isLoading:false
+      status: false,
+      isLoading: false
     };
   },
   mounted() {
@@ -225,7 +262,6 @@ export default {
         {},
         {},
       );
-      console.log('getUserByUserName', res);
       if (res) {
         this.balance = res.userBalance || 0;
       } else if (res && res.error && res.error.message) {
@@ -241,6 +277,12 @@ export default {
     },
     async withDrawal() {
       console.log("hii")
+    },
+    openUpi() {
+      this.$bvModal.show('modal-add-upi');
+    },
+    closeModal() {
+      this.$bvModal.hide('modal-add-upi');
     }
   },
 };
@@ -249,6 +291,7 @@ export default {
 <style  lang="scss">
 @import '@core/scss/vue/pages/all-pages.scss';
 @import './withdrawal.css';
+
 /* Custom CSS to set the background color for the active tab */
 .card {
   background: transparent;
@@ -393,5 +436,5 @@ export default {
   font-weight: 500;
   letter-spacing: 0.42px;
   word-wrap: break-word;
-} 
+}
 </style>

@@ -31,15 +31,7 @@ const router = new VueRouter({
     return { x: 0, y: 0 };
   },
   routes: [
-    {
-      path: `/`,
-      name: 'home',
-      beforeEnter: protectedRoute,
-      component: () => import('@/views/Home.vue'),
-      meta: {
-        layout: 'full',
-      },
-    },
+
     {
       path: `/wallet`,
       name: 'wallet',
@@ -62,8 +54,7 @@ const router = new VueRouter({
     {
       path: `/game1/:gameId`,
       name: 'game1',
-
-      component: () => import('@/views/auth/game1.vue'),
+      component: () => import('@/views/game/game1.vue'),
       meta: {
         layout: 'full',
       },
@@ -72,7 +63,7 @@ const router = new VueRouter({
       path: `/game/one-min`,
       name: 'game-one-min',
 
-      component: () => import('@/views/auth/game1.vue'),
+      component: () => import('@/views/game/game1.vue'),
       meta: {
         layout: 'full',
       },
@@ -81,7 +72,7 @@ const router = new VueRouter({
       path: `/game/three-min`,
       name: 'game-three-min',
 
-      component: () => import('@/views/auth/game1.vue'),
+      component: () => import('@/views/game/game1.vue'),
       meta: {
         layout: 'full',
       },
@@ -90,7 +81,7 @@ const router = new VueRouter({
       path: `/game/five-min`,
       name: 'game-five-min',
 
-      component: () => import('@/views/auth/game1.vue'),
+      component: () => import('@/views/game/game1.vue'),
       meta: {
         layout: 'full',
       },
@@ -99,16 +90,15 @@ const router = new VueRouter({
       path: `/game/fifteen-min`,
       name: 'game-fifteen-min',
 
-      component: () => import('@/views/auth/game1.vue'),
+      component: () => import('@/views/game/game1.vue'),
       meta: {
         layout: 'full',
       },
     },
     {
-      path: `/game2`,
-      name: 'game2',
-
-      component: () => import('@/views/auth/game2.vue'),
+      path: `/home`,
+      name: 'home',
+      component: () => import('@/views/game/game2.vue'),
       meta: {
         layout: 'full',
       },
