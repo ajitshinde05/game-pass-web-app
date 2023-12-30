@@ -30,11 +30,11 @@
                   <b-col>
                     <h6>Select UPI</h6>
                   </b-col>
-                  <b-col>
+                  <!-- <b-col>
                     <b-button @click="openUpi()" class="mb-2 ml-2" variant="primary">
                       Add UPI
                     </b-button>
-                  </b-col>
+                  </b-col> -->
                 </b-row>
 
 
