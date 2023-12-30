@@ -353,6 +353,42 @@ const router = new VueRouter({
       },
     },
     {
+      path: `/game/one-min`,
+      name: 'game-one-min',
+
+      component: () => import('@/views/auth/game1.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: `/game/three-min`,
+      name: 'game-three-min',
+
+      component: () => import('@/views/auth/game1.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: `/game/five-min`,
+      name: 'game-five-min',
+
+      component: () => import('@/views/auth/game1.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: `/game/fifteen-min`,
+      name: 'game-fifteen-min',
+
+      component: () => import('@/views/auth/game1.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
       path: `/game2`,
       name: 'game2',
 

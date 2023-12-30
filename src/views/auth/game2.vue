@@ -2,11 +2,7 @@
   <section class="main-w-r">
     <b-row class="d-flex justify-content-center align-items-center">
       <b-col md="12" lg="6" sm="12" class="">
-        <b-img
-          src="../../assets/home.svg"
-          @click="redirectOnGame(4)"
-          alt="basic svg img"
-        />
+        <b-img src="../../assets/home.svg" alt="basic svg img" />
       </b-col>
     </b-row>
     <div><h1>Game Slot's</h1></div>
@@ -17,7 +13,7 @@
             <b-col>
               <b-img
                 src="../../assets/home-1.svg"
-                @click="redirectOnGame(1)"
+                @click="redirectOnGame('one')"
                 alt="basic svg img"
               />
             </b-col>
@@ -34,7 +30,7 @@
             <b-col>
               <b-img
                 src="../../assets/home-2.svg"
-                @click="redirectOnGame(2)"
+                @click="redirectOnGame('three')"
                 alt="basic svg img"
               />
             </b-col>
@@ -50,7 +46,7 @@
             <b-col>
               <b-img
                 src="../../assets/home-3.svg"
-                @click="redirectOnGame(3)"
+                @click="redirectOnGame('five')"
                 alt="basic svg img"
               />
             </b-col>
@@ -67,7 +63,7 @@
               <b-img
                 src="../../assets/home-4.svg"
                 class="pricing-img"
-                @click="redirectOnGame(4)"
+                @click="redirectOnGame('fifteen')"
                 alt="basic svg img"
               />
             </b-col>
@@ -105,10 +101,9 @@
       close() {
         this.$bvModal.hide();
       },
-      redirectOnGame(id) {
+      redirectOnGame(game) {
         this.$router.push({
-          name: 'game1',
-          params: { gameId: '6585605863a7b420174820bb' },
+          name: `game-${game}-min`,
         });
       },
     },

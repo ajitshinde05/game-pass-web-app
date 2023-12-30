@@ -56,7 +56,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['0']
+                                  gameNumbers['0'] >= 0
                                     ? ` $ ${gameNumbers['0']}`
                                     : '-'
                                 }}
@@ -89,7 +89,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['1']
+                                  gameNumbers['1'] >= 0
                                     ? ` $ ${gameNumbers['1']}`
                                     : '-'
                                 }}
@@ -123,7 +123,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['2']
+                                  gameNumbers['2'] >= 0
                                     ? ` $ ${gameNumbers['2']}`
                                     : '-'
                                 }}
@@ -156,7 +156,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['3']
+                                  gameNumbers['3'] >= 0
                                     ? ` $ ${gameNumbers['3']}`
                                     : '-'
                                 }}
@@ -189,7 +189,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['4']
+                                  gameNumbers['4'] >= 0
                                     ? ` $ ${gameNumbers['4']}`
                                     : '-'
                                 }}
@@ -224,7 +224,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['5']
+                                  gameNumbers['5'] >= 0
                                     ? ` $ ${gameNumbers['5']}`
                                     : '-'
                                 }}
@@ -257,7 +257,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['6']
+                                  gameNumbers['6'] >= 0
                                     ? ` $ ${gameNumbers['6']}`
                                     : '-'
                                 }}
@@ -290,7 +290,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['7']
+                                  gameNumbers['7'] >= 0
                                     ? ` $ ${gameNumbers['7']}`
                                     : '-'
                                 }}
@@ -323,7 +323,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['8']
+                                  gameNumbers['8'] >= 0
                                     ? ` $ ${gameNumbers['8']}`
                                     : '-'
                                 }}
@@ -356,7 +356,7 @@
                                 variant="light-success"
                               >
                                 {{
-                                  gameNumbers['9']
+                                  gameNumbers['9'] >= 0
                                     ? ` $ ${gameNumbers['9']}`
                                     : '-'
                                 }}
@@ -513,10 +513,21 @@
     },
     data() {
       return {
-        stopAtNumber: 362,
+        stopAtNumber: [3, 6, 2],
         selectedKey: null,
-        amount: 0,
-        gameNumbers: { 0: 0, 1: 0, 2: 0, 3: 0 },
+        amount: -1,
+        gameNumbers: {
+          0: -1,
+          1: -1,
+          2: -1,
+          3: -1,
+          4: -1,
+          5: -1,
+          6: -1,
+          7: -1,
+          8: -1,
+          9: -1,
+        },
         userTableColumns: [
           {
             key: 'user',
@@ -562,13 +573,13 @@
       getCurrentNumber(slotIndex, numberIndex) {
         if (this.stopped) {
           if (slotIndex === 1) {
-            return 5;
+            return this.stopAtNumber[0];
           }
           if (slotIndex === 2) {
-            return 3;
+            return this.stopAtNumber[1];
           }
           if (slotIndex === 3) {
-            return 7;
+            return this.stopAtNumber[2];
           }
         }
         return numberIndex;
@@ -578,8 +589,8 @@
         this.$bvModal.show('modal-sm-no-account');
       },
       close(val) {
-        this.gameNumbers[this.selectedKey] = this.amount;
-        this.amount = 0;
+        this.gameNumbers[this.selectedKey] = this.amount || -1;
+        this.amount = -1;
         this.$bvModal.hide('modal-sm-no-account');
       },
       stopMachine() {
@@ -735,7 +746,7 @@
         }
         this.isLoading = false;
       },
-      async getWinningUsers(id) {
+      async getUserBettingCountForGame(id) {
         this.isLoading = true;
         const res = await new APIService().api(
           {
@@ -891,11 +902,11 @@
 
   .machine {
     /* position: absolute;
- top: 50%;
- left: 50%;
- width: 100vw;
- height: 60vw;
- transform: translate3d(-50%, -50%, 0); */
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 60vw;
+  transform: translate3d(-50%, -50%, 0); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -905,7 +916,7 @@
   .slots {
     /* position: absolute; */
     /* top: 0%;
- left: 50%; */
+  left: 50%; */
     width: 56vw;
     height: 15vw;
     /* transform: translate3d(-50%, -50%, 0); */
@@ -1276,8 +1287,8 @@
     margin: 0px !important;
   }
   /* .col-sm-12 {
- margin: 1px !important;
- } */
+  margin: 1px !important;
+  } */
 
   .card-body {
     padding: 13px;
