@@ -30,10 +30,9 @@
                   {{ remeningTime }}
                   <div class="slot-time">
                     <div class="res-count">{{ remeningTime['zero'] }}</div>
-                    <div class="res-count">{{ remeningTime['one'] }}</div>
+
                     <div class="sh-sp">:</div>
-                    <div class="res-count">{{ remeningTime['two'] }}</div>
-                    <div class="res-count">{{ remeningTime['three'] }}</div>
+                    <div class="res-count">{{ remeningTime['one'] }}</div>
                   </div>
                 </div>
                 <div class="number-select">
@@ -554,7 +553,7 @@
         selectedKey: null,
         amount: 0,
         currentActiveGame: '',
-        targetDate: moment(),
+        targetDate: null,
         remeningTime: { zero: 0, one: 0, two: 0, three: 0 },
         gameNumbers: { 0: 0, 1: 0, 2: 0, 3: 0 },
         userTableColumns: [
@@ -624,18 +623,18 @@
         this.$bvModal.show('modal-sm-no-account');
       },
       updateCountdown() {
+        if (!this.targetDate) {
+          return;
+        }
         const currentDate = moment();
         const timeRemaining = moment.duration(
           this.targetDate.diff(currentDate),
         );
-        const min = timeRemaining.minutes().toString().replace('-', '');
-        const seconds = timeRemaining.seconds().toString().replace('-', '');
-        this.remeningTime.zero = min.length === 1 ? 0 : min[0];
+        // const min = timeRemaining.minutes().toString().replace('-', '');
+        // const seconds = timeRemaining.seconds().toString().replace('-', '');
+        this.remeningTime.zero = timeRemaining.minutes();
 
-        this.remeningTime.one = min.length === 2 ? min[0] : min[1];
-        this.remeningTime.two = seconds.length === 1 ? 0 : seconds[0];
-        this.remeningTime.three =
-          seconds.length === 2 ? seconds[0] : seconds[1];
+        this.remeningTime.one = timeRemaining.seconds();
 
         console.log(this.remeningTime);
       },
