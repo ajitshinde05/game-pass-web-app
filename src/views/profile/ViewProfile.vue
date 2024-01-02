@@ -14,7 +14,7 @@
           </b-button> -->
         </div>
         <div class="profile-menu-list">
-          <!-- <div class="d-flex justify-content-start align-items-center desk-50">
+          <div class="d-flex justify-content-start align-items-center desk-50">
             <b-avatar src="@/assets/game-history.svg" class="mr-50" size="40" />
             <div class="user-page-info">
               <h6 class="mb-0" @click="gameHistory()">Game History</h6>
@@ -22,7 +22,7 @@
             <b-button variant="primary" class="btn-icon ml-auto left-30" size="sm">
               <feather-icon icon="ChevronRightIcon" />
             </b-button>
-          </div> -->
+          </div>
           <div class="d-flex justify-content-start align-items-center desk-50 disabled">
             <b-avatar src="@/assets/download.svg" class="mr-50" size="40" />
             <div class="user-page-info">
@@ -41,7 +41,7 @@
               <feather-icon icon="ChevronRightIcon" />
             </b-button>
           </div>
-          <a href="https://jwt-service.onrender.com/api/auth/redirect" target="_blank">
+          <a href="https://game-service-4q3r.onrender.com/api/auth/redirect/whatsapp" target="_blank">
             <div class="d-flex justify-content-start align-items-center desk-50">
               <b-avatar src="@/assets/whatapp.svg" class="mr-50" size="40" />
               <div class="user-page-info">
@@ -146,7 +146,7 @@ export default {
       new APIService().logout();
       this.closeModal();
       this.$router.push({
-        name: 'login',
+        name: 'auth-login',
       });
     },
     logOut() {
@@ -176,13 +176,12 @@ export default {
       }
       userData = JSON.parse(userData);
       const res = await new APIService().api(
-        { method: 'GET', url: `user/getNameByUserName/${userData.username}` },
+        { method: 'GET', url: `api/user/getUserByUserName/${userData.username}` },
         {},
         {},
       );
-      console.log(res, "res")
       if (res) {
-        this.userName = res;
+        this.userName = res.name;
         this.mobile = userData.username
       } else if (res && res.error && res.error.message) {
         this.$toast({

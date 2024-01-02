@@ -30,11 +30,11 @@
                   <b-col>
                     <h6>Select UPI</h6>
                   </b-col>
-                  <!-- <b-col>
+                  <b-col>
                     <b-button @click="openUpi()" class="mb-2 ml-2" variant="primary">
                       Add UPI
                     </b-button>
-                  </b-col> -->
+                  </b-col>
                 </b-row>
 
 
@@ -45,24 +45,23 @@
                       <validation-provider #default="{ errors }" name="accountname" :rules="{ required: true }">
                         <h6>Account name *</h6>
                         <b-form-input id="accountname" v-model="accountName" :state="errors.length > 0 ? false : null"
-                          name="accountname" placeholder="Enter Account Name" />
+                          name="accountname" placeholder="Enter Account Name" class="disabled" />
                         <small class="text-danger">{{ errors[0] }}</small>
                         <h6 class="mt-1">UPI ID *</h6>
                         <b-form-input id="upi" v-model="upi" :state="errors.length > 0 ? false : null" name="upi"
-                          placeholder="Enter UPI" />
+                          placeholder="Enter UPI" @input="validateUPI" />
+
                         <small class="text-danger">{{ errors[0] }}</small>
-                        <h6 class="mt-1">QR code</h6>
-                        <input type="file" id="inputPassword6" class="mt-1 sm-2" />
                       </validation-provider>
                       <b-row>
                         <b-col>
-                          <b-button class="mt-2" type="submit" block :disabled="isLoading" @click="closeModal()">
+                          <b-button class="mt-2" block :disabled="isLoading" @click="closeModal()">
                             Cancel
                           </b-button>
                         </b-col>
                         <b-col>
                           <b-button class="mt-2" type="submit" variant="primary" block :disabled="isLoading"
-                            @click="validationForm">
+                            @click="addUpiValidationForm">
                             Continue
                           </b-button>
                         </b-col>
@@ -226,7 +225,8 @@ export default {
         { key: "upi", label: "UPI" },
 
       ],
-      items: [{ upi: "34582688546@iklpvb" }],
+      selectedUpi: "",
+      items: [],
       totalNotification: 0,
       currentPage: 1,
       removedNotificationData: {},
@@ -235,14 +235,39 @@ export default {
       required,
       maxAmount,
       status: false,
-      isLoading: false
+      isLoading: false,
+      accountName: "",
+      upi: "",
+      errors: []
     };
   },
   mounted() {
     this.getUserByUserName();
-
+    this.getAllUpi()
   },
   methods: {
+    selectedTelParameters(row) {
+      console.log(row, "row")
+      this.selectedUpi = row.upi
+    },
+    validateUPI() {
+      const upiRegex = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      if (upiRegex.test(this.upi)) {
+        this.errors = [];
+      } else {
+
+        this.errors = ['Invalid UPI format'];
+        console.log(this.errors, "dswsnj")
+      }
+    },
+    addUpiValidationForm() {
+      console.log("hi12")
+      this.$refs.addupiValidation.validate().then((success) => {
+        if (success) {
+          this.addUpi();
+        }
+      });
+    },
     validationForm() {
       this.$refs.withdrwalValidation.validate().then((success) => {
         if (success) {
@@ -256,14 +281,14 @@ export default {
         return new APIService().logout();
       }
       userData = JSON.parse(userData);
-
       const res = await new APIService().api(
-        { method: 'GET', url: `getUserByUserName/${userData.username}` },
+        { method: 'GET', url: `api/user/getUserByUserName/${userData.username}` },
         {},
         {},
       );
       if (res) {
         this.balance = res.userBalance || 0;
+        this.accountName = res.name
       } else if (res && res.error && res.error.message) {
         this.$toast({
           component: ToastificationContent,
@@ -276,13 +301,128 @@ export default {
       }
     },
     async withDrawal() {
-      console.log("hii")
+      try {
+        let userData = localStorage.getItem('userData');
+        userData = JSON.parse(userData);
+        const res = await new APIService().api(
+          { method: 'GET', url: `api/withdrawal/withdrawalRequest/${userData.username}/${this.amount}/${this.selectedUpi}` },
+          {},
+          {},
+        );
+        if (res && res.length) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.message,
+              icon: 'SuccessIcon',
+              variant: 'success',
+            },
+          });
+        } else if (res && res.error && res.error.message) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.error.message,
+              icon: 'EditIcon',
+              variant: 'danger',
+            },
+          });
+        }
+      } catch (error) {
+        this.$toast({
+          component: ToastificationContent,
+          props: {
+            title: error,
+            icon: 'EditIcon',
+            variant: 'danger',
+          },
+        });
+      }
     },
     openUpi() {
       this.$bvModal.show('modal-add-upi');
     },
     closeModal() {
       this.$bvModal.hide('modal-add-upi');
+    },
+    async getAllUpi() {
+      try {
+        let userData = localStorage.getItem('userData');
+        userData = JSON.parse(userData);
+        const res = await new APIService().api(
+          { method: 'GET', url: `api/upi/getUserUpiList/${userData.username}` },
+          {},
+          {},
+        );
+        if (res && res.length) {
+          this.items = res.map((r) => {
+            return {
+              upi: r
+            }
+          })
+        } else if (res && res.error && res.error.message) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.error.message,
+              icon: 'EditIcon',
+              variant: 'danger',
+            },
+          });
+        }
+      } catch (error) {
+        this.$toast({
+          component: ToastificationContent,
+          props: {
+            title: error,
+            icon: 'EditIcon',
+            variant: 'danger',
+          },
+        });
+      }
+    },
+    async addUpi() {
+      try {
+        this.isLoading = true
+        let userData = localStorage.getItem('userData');
+        userData = JSON.parse(userData);
+        const res = await new APIService().api(
+          { method: 'POST', url: `api/upi/addUpiToUser/${userData.username}/${this.upi}` },
+          {},
+          {},
+        );
+        if (res) {
+          this.isLoading = false
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.message,
+              icon: 'SuccessIcon',
+              variant: 'success',
+            },
+          });
+          this.closeModal();
+          this.getAllUpi();
+        } else if (res && res.error && res.error.message) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.error.message,
+              icon: 'EditIcon',
+              variant: 'danger',
+            },
+          });
+        }
+      } catch (error) {
+        this.$toast({
+          component: ToastificationContent,
+          props: {
+            title: error,
+            icon: 'EditIcon',
+            variant: 'danger',
+          },
+        });
+      }
     }
   },
 };
@@ -436,5 +576,10 @@ export default {
   font-weight: 500;
   letter-spacing: 0.42px;
   word-wrap: break-word;
+}
+
+.disabled {
+  opacity: 1.5;
+  pointer-events: none;
 }
 </style>
