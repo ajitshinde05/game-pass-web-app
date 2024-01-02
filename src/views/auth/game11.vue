@@ -515,6 +515,8 @@
       return {
         stopAtNumber: [3, 6, 2],
         selectedKey: null,
+        currentActiveGame: '',
+        remeningTime: 0,
         amount: -1,
         gameNumbers: {
           0: -1,
@@ -608,7 +610,7 @@
         );
 
         if (res && res.data) {
-          console.log('d');
+          const data = res.data.endTime;
         } else if (
           res &&
           res.result &&
@@ -776,13 +778,144 @@
         }
         this.isLoading = false;
       },
+      async getCurrentOneMinuteRunningGame() {
+        this.isLoading = true;
+        const res = await new APIService().api(
+          {
+            method: 'get',
+            url: `game/OneMinuteGameController/getCurrentOneMinuteRunningGame`,
+          },
+          {},
+          {},
+        );
+
+        if (res && res.data) {
+          this.currentActiveGame = res.data.gameId;
+          this.remeningTime = res.data.startTime;
+        } else if (
+          res &&
+          res.result &&
+          res.result.errors &&
+          res.result.errors[0].message
+        ) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.result.errors[0].message,
+              icon: 'EditIcon',
+              variant: 'danger',
+            },
+          });
+        }
+        this.isLoading = false;
+      },
+      async getCurrentThreeMinuteRunningGame() {
+        this.isLoading = true;
+        const res = await new APIService().api(
+          {
+            method: 'get',
+            url: `game/OneMinuteGameController/getCurrentThreeMinuteRunningGame`,
+          },
+          {},
+          {},
+        );
+
+        if (res && res.data) {
+          console.log('d');
+        } else if (
+          res &&
+          res.result &&
+          res.result.errors &&
+          res.result.errors[0].message
+        ) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.result.errors[0].message,
+              icon: 'EditIcon',
+              variant: 'danger',
+            },
+          });
+        }
+        this.isLoading = false;
+      },
+      async getCurrentFiveMinuteRunningGame() {
+        this.isLoading = true;
+        const res = await new APIService().api(
+          {
+            method: 'get',
+            url: `game/OneMinuteGameController/getCurrentFiveMinuteRunningGame`,
+          },
+          {},
+          {},
+        );
+
+        if (res && res.data) {
+          console.log('d');
+        } else if (
+          res &&
+          res.result &&
+          res.result.errors &&
+          res.result.errors[0].message
+        ) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.result.errors[0].message,
+              icon: 'EditIcon',
+              variant: 'danger',
+            },
+          });
+        }
+        this.isLoading = false;
+      },
+      async getCurrentFifteenMinuteRunningGame() {
+        this.isLoading = true;
+        const res = await new APIService().api(
+          {
+            method: 'get',
+            url: `game/OneMinuteGameController/getCurrentFifteenMinuteRunningGame`,
+          },
+          {},
+          {},
+        );
+
+        if (res && res.data) {
+          console.log('d');
+        } else if (
+          res &&
+          res.result &&
+          res.result.errors &&
+          res.result.errors[0].message
+        ) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.result.errors[0].message,
+              icon: 'EditIcon',
+              variant: 'danger',
+            },
+          });
+        }
+        this.isLoading = false;
+      },
     },
-    mounted() {
+    async mounted() {
       // You can call the stopMachine method after a certain condition is met
       // For example, after a button click or after a specific time
       setTimeout(() => {
         this.stopMachine();
       }, 5000); // Stop after 5 seconds (adjust as needed)
+
+      if (this.$route.name === 'game-one-min') {
+        await this.getCurrentOneMinuteRunningGame();
+      } else if (this.$route.name === 'game-three-min') {
+        await this.getCurrentThreeMinuteRunningGame();
+      } else if (this.$route.name === 'game-five-min') {
+        await this.getCurrentFiveMinuteRunningGame();
+      } else if (this.$route.name === 'game-fifteen-min') {
+        await this.getCurrentFifteenMinuteRunningGame();
+      }
     },
   };
 </script>
