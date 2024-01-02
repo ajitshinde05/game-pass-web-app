@@ -31,6 +31,7 @@ export default {
     AllRightsReserved: 'All rights reserved',
   },
   Register: {
+    Continue: 'Continue',
     CreateAccount: 'Create Account',
     PleaseSignin: 'Please Sign-up to your account and start the adventure',
     SigninAccount: 'Sign in instead',

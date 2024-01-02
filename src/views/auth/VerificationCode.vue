@@ -76,7 +76,7 @@
 
           <b-card-text class="text-center mt-2 mb-0">
             <span>{{ $t('VerificationCode.DidNotReceiveCode') }}</span>
-            <b-link @click="reSendCode">
+            <b-link :disabled="!!timer" @click="reSendCode">
               <span>&nbsp;{{ $t('VerificationCode.ResendAgain') }}</span>
             </b-link>
           </b-card-text>
@@ -144,7 +144,8 @@
       return {
         isLoading: false,
         mobileNumber: this.$route.params.username,
-        time: 30,
+        countdown: 30,
+        timer: null,
         sideImg: require('@/assets/images/pages/forgot-password-v2.svg'),
         status: false,
         captchaErr: '',
@@ -164,11 +165,34 @@
         }
         return this.sideImg;
       },
+
+      time() {
+        const minutes = Math.floor(this.countdown / 60);
+        const seconds = this.countdown % 60;
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      },
     },
     created() {
       this.verifyAccountUsername();
     },
+    mounted() {
+      this.startTimer();
+    },
+    beforeDestroy() {
+      clearInterval(this.timer);
+    },
     methods: {
+      startTimer() {
+        this.timer = setInterval(() => {
+          if (this.countdown > 0) {
+            this.countdown--;
+          } else {
+            clearInterval(this.timer);
+            // Perform any action when the countdown reaches zero
+            console.log('Countdown reached zero!');
+          }
+        }, 1000);
+      },
       async verifyAccountUsername() {
         const regex = /^[0-9]{10}$/;
         if (
@@ -210,7 +234,7 @@
         const res = await new APIService().api(
           { method: 'post', url: 'auth/validate-otp' },
           {
-            phoneNumber: '+91' + this.mobileNumber,
+            phoneNumber: this.mobileNumber,
             otpNumber,
           },
           {},
@@ -244,7 +268,7 @@
         this.isLoading = true;
 
         const res = await new APIService().api(
-          { method: 'POST', url: `auth/send-otp/+91${this.mobileNumber}` },
+          { method: 'POST', url: `auth/send-otp/${this.mobileNumber}` },
           {},
           {
             http_headers: {
@@ -262,10 +286,9 @@
               variant: 'success',
             },
           });
-          this.$router.push({
-            name: 'code-verify',
-            params: { username: this.mobileNumber },
-          });
+          clearInterval(this.timer);
+          this.countdown = 30;
+          this.startTimer();
         } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,

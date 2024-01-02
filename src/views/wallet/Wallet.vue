@@ -14,10 +14,10 @@
             />
           </div>
         </div>
-        <div class="content">
-          <div class="card card-width">
-            <div class="upper-row">
-              <div class="card-item">
+        <div class="wallet-content">
+          <div class="wallet-card card-width">
+            <div class="wallet-upper-row">
+              <div class="wallet-card-item">
                 <span>Withdrawal</span>
                 <div
                   @click="
@@ -31,7 +31,7 @@
                   />
                 </div>
               </div>
-              <div class="card-item">
+              <div class="wallet-card-item">
                 <span>Add Balance</span>
                 <div
                   @click="
@@ -184,14 +184,14 @@
         const res = await new APIService().api(
           {
             method: 'GET',
-            url: `user/getUserBalanceByUserName/${userData.username}1`,
+            url: `user/getUserBalanceByUserName/${userData.username}`,
           },
           {},
           {},
         );
         console.log('getUserBalanceByUserName', res);
-        if (res || res === 0) {
-          this.balance = res;
+        if ((res && res.balance) || res.balance === 0) {
+          this.balance = res.balance;
         } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,
@@ -213,7 +213,7 @@
         const res = await new APIService().api(
           {
             method: 'GET',
-            url: `rechage/getRechargeHistoryByUserName/${userData.username}`,
+            url: `recharge/getRecentTransactionHistory/${userData.username}`,
           },
           {},
           {},

@@ -53,7 +53,11 @@ export default class APIService {
     } catch (err) {
       console.log(JSON.stringify(err));
 
-      if (err && err.message && !err.response.data.message) {
+      if (
+        err &&
+        err.message &&
+        !(err.response && err.response.data && err.response.data.message)
+      ) {
         return {
           error: {
             message: err.message,

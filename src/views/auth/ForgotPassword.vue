@@ -170,7 +170,7 @@
         this.isLoading = true;
 
         const res = await new APIService().api(
-          { method: 'POST', url: `auth/send-otp/+91${this.mobileNumber}` },
+          { method: 'POST', url: `auth/send-otp/${this.mobileNumber}` },
           {},
           {},
         );

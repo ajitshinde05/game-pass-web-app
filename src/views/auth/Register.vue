@@ -178,6 +178,76 @@
       <!-- /Login-->
     </b-row>
     <Loader :show="isLoading" />
+    <b-modal
+      id="termsModal"
+      ref="myModal"
+      title="Terms and Conditions"
+      centered
+      hide-footer
+      size="sm"
+      modal-class="no-footer-modal max-higth"
+    >
+      <div>
+        <p>
+          1) Company reserves the right to suspend/void any id/bets if the same
+          is found to be illegitimate. For example incase of
+          vpn/robot-use/multiple entry from same IP/ multiple bets at same time
+          (Punching) and others. Note : only winning bets will be voided...
+        </p>
+        <br />
+        <p>
+          2) By participating in Khelogtto games, users agree to abide by these
+          terms and conditions. Users must read, understand, and accept all the
+          terms before participating in the Game. If you do not agree with any
+          part of these terms, please do not use our Services and you can exit
+          the game/application/web application.
+        </p>
+        <br />
+        <p>3) You are over 18 years of age.</p>
+        <br />
+        <p>
+          4) We may amend these Terms and Conditions at any time. It is your
+          responsibility to regularly review these terms for updates.
+        </p>
+        <br />
+        <p>5) Play at own risk, it includes risk of addiction.</p>
+        <br />
+        <p>
+          6) Past performances do not guarantee success in the future. There are
+          no dead certainties when it comes to betting so only risk money that
+          you can comfortable afford to lose.
+        </p>
+        <br />
+        <p>
+          7) While we do our best to find the best odds for for all of our bets
+          we cannot ensure they are always accurate as betting odds fluctuate
+          from one minute to the next. All odds are subject to change and were
+          correct at the time of publishing.
+        </p>
+        <br />
+        <p>
+          8) Gambling involves risk. Please only gamble with funds that you can
+          afford to lose.
+        </p>
+        <br />
+        <p>
+          9) Khelogtto is not answerable to any of the loss made by you in the
+          game while playing.
+        </p>
+        <br />
+        <br />
+        <b-button
+          class="text-center mt-2"
+          type="submit"
+          variant="primary"
+          block
+          :disabled="isLoading"
+          @click="registerAccount"
+        >
+          {{ $t('Register.Continue') }}
+        </b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -198,17 +268,15 @@
     BImg,
     BForm,
     BButton,
+    BVModal,
   } from 'bootstrap-vue';
   import { required, email, ValidAge } from '@validations';
   import { togglePasswordVisibility } from '@core/mixins/ui/forms';
   import store from '@/store/index';
   import ToastificationContent from '@core/components/toastification/ToastificationContent.vue';
   import APIService from '@/libs/api/api.js';
-  import useJwt from '@/auth/jwt/useJwt';
   import LoginImage from '@/@core/components/ImagesComponent/LoginImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
-  import tracking from '@/utils/tracking';
-  import { regex } from 'vee-validate/dist/rules';
 
   export default {
     components: {
@@ -229,6 +297,7 @@
       ValidationObserver,
       LoginImage,
       Loader,
+      BVModal,
     },
     mixins: [togglePasswordVisibility],
     data() {
@@ -266,7 +335,8 @@
       validationForm() {
         this.$refs.loginValidation.validate().then((success) => {
           if (success) {
-            this.registerAccount();
+            this.$refs.myModal.show();
+            // this.registerAccount();
           }
         });
       },
@@ -306,6 +376,7 @@
             },
           });
         }
+        this.$refs.myModal.hide();
         this.isLoading = false;
       },
     },
@@ -315,4 +386,20 @@
 <style lang="scss">
   @import '@core/scss/vue/pages/page-auth.scss';
   @import '@core/scss/vue/pages/all-pages.scss';
+  .modal-dialog {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal {
+    padding-left: 1rem !important;
+  }
+  .max-higth {
+    .modal-body {
+      overflow: scroll !important;
+      height: 50vh !important;
+      padding: 0.8rem 1.4rem !important;
+    }
+  }
 </style>
