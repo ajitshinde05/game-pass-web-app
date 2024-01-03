@@ -58,7 +58,7 @@
                   <label for="inputPassword6" class="h5 font-weight-normal">
                     Upload Payment Proof*:
                   </label>
-                  <input type="file" id="inputPassword6" class="mx-sm-2" />
+                  <input type="file" id="inputPassword6" class="mx-sm-2" @change="handleFileChange" />
                 </div>
                 <div class="form-group mt-2">
                   <label for="inputEmail4" class="h5 font-weight-normal mr-2">
@@ -102,7 +102,7 @@
                   <label for="inputPassword6" class="h5 font-weight-normal">
                     Upload Payment Proof*:
                   </label>
-                  <input type="file" id="inputPassword6" class="mx-sm-2" />
+                  <input type="file" id="inputPassword6" class="mx-sm-2" @change="handleFileChange" />
                 </div>
                 <div class="form-group my-2 my-check">
                   <input type="checkbox" id="inputPassword6" />
@@ -223,22 +223,61 @@ export default {
       }
       return isValid;
     },
+    handleFileChange(event) {
+      console.log(event, "event")
+      const fileInput = event.target;
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        console.log('File:', formData);
+
+      } else {
+        console.error('No file selected');
+      }
+    },
     async addBalance() {
-      this.isLoading = true;
-      let username = localStorage.getItem('username')
-        ? localStorage.getItem('username')
-        : '0987654311';
-      const res = await axios
-        .get(
-          `https://jwt-service.onrender.com/api/test/addUserbalance/${this.amount}/${username}`,
-        )
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
+      try {
+        this.isLoading = true;
+        let userData = localStorage.getItem('userData');
+        userData = JSON.parse(userData);
+        const res = await new APIService().api(
+          { method: 'POST', url: `api/recharge/addUserbalance/${this.amount}/${userData.username}` },
+          {},
+          {},
+        );
+        if (res && res.length) {
+          this.isLoading = false;
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.message,
+              icon: 'SuccessIcon',
+              variant: 'success',
+            },
+          });
+        } else if (res && res.error && res.error.message) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: res.error.message,
+              icon: 'EditIcon',
+              variant: 'danger',
+            },
+          });
+        }
+
+      } catch (error) {
+        this.$toast({
+          component: ToastificationContent,
+          props: {
+            title: error,
+            icon: 'EditIcon',
+            variant: 'danger',
+          },
         });
-      this.isLoading = false;
+      }
+
     },
   },
 };
