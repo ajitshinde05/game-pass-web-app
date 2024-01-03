@@ -41,7 +41,7 @@ export default class APIService {
       ) {
         this.logout();
       }
-      if (res && res.data) {
+      if (res && (res.data || res.data === 0)) {
         return res.data;
       }
       return {
@@ -51,8 +51,21 @@ export default class APIService {
         },
       };
     } catch (err) {
+      console.log(JSON.stringify(err));
+
+      if (
+        err &&
+        err.message &&
+        !(err.response && err.response.data && err.response.data.message)
+      ) {
+        return {
+          error: {
+            message: err.message,
+          },
+        };
+      }
       if (err.response) {
-        return err.response.data;
+        return { error: { ...err.response.data } };
       }
       console.log(JSON.stringify(err));
       return {
@@ -65,9 +78,8 @@ export default class APIService {
     localStorage.removeItem(useJwt.jwtConfig.storageTokenKeyName);
     localStorage.removeItem(useJwt.jwtConfig.storageRefreshTokenKeyName);
     localStorage.removeItem('username');
-    localStorage.removeItem('requestPointBalance');
     localStorage.removeItem('userData');
-    location.reload(true);
+    // location.reload(true);
     return true;
   }
 }

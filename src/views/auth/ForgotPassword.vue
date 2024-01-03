@@ -2,10 +2,8 @@
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner m-0">
       <!-- Left Text-->
-      <PricingPlans />
-      <!-- /Left Text-->
+      <ForgotPasswordImage />
 
-      <!-- Forgot password-->
       <b-col
         lg="4"
         class="d-flex align-items-center auth-bg px-2 p-lg-5 card-padding"
@@ -29,38 +27,33 @@
             >
               <b-form-group
                 class="font-weight-bold"
-                label="Email"
-                label-for="forgot-password-email"
+                label="Enter Mobile Number"
+                label-for="mobile-number"
               >
                 <validation-provider
                   #default="{ errors }"
-                  name="Email"
-                  rules="required|email"
+                  name="Mobile Number"
+                  rules="required|regex:^[0-9]{10}$"
                 >
                   <b-form-input
-                    id="forgot-password-email"
-                    v-model="userEmail"
+                    type="number"
+                    id="mobile-number"
+                    v-model="mobileNumber"
                     :state="errors.length > 0 ? false : null"
-                    name="forgot-password-email"
-                    placeholder="john@example.com"
+                    name="mobile-number"
+                    placeholder="Enter Mobile Number"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
-              <vue-recaptcha
-                class="mb-1"
-                sitekey="6LdW5_MjAAAAAIltY9EXuuTxdhccunK2y-QJF2zd"
-                @verify="onCaptchaVerified"
-                @expired="onCaptchaExpired"
-              ></vue-recaptcha>
-              <small class="text-danger">{{ captchaErr }}</small>
+
               <b-button
                 :disabled="isLoading"
                 type="submit"
                 variant="primary"
                 block
               >
-                {{ $t('ForgotPassword.SendResetLink') }}
+                {{ $t('ForgotPassword.Send') }}
               </b-button>
             </b-form>
           </validation-observer>
@@ -76,32 +69,8 @@
               {{ $t('ForgotPassword.BackToLogin') }}
             </b-link>
           </p>
-          <footer class="page-footer font-small blue mt-4 pt-3">
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center">
-              <div>
-                <h3 class="free d-flex justify-content-center">
-                  <b-img
-                    src="@/assets/images/illustration/Support.svg"
-                    class="Support mr-2"
-                    alt="basic svg img"
-                  />
-                </h3>
-                <span class="fill-filer-color">support@coinrex.in</span>
-              </div>
-            </div>
-
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center pt-1">
-              <div>
-                <p class="copyright">
-                  Copyright &copy;{{ new Date().getFullYear() }}
-                  {{ $t('ForgotPassword.AllRightsReserved') }}
-                </p>
-              </div>
-            </div>
-          </footer>
         </b-col>
       </b-col>
-      <!-- /Forgot password-->
     </b-row>
     <Loader :show="isLoading" />
   </div>
@@ -130,8 +99,8 @@
   import { VueRecaptcha } from 'vue-recaptcha';
   import APIService from '@/libs/api/api.js';
   import Ripple from 'vue-ripple-directive';
-  import qs from 'qs';
-  import PricingPlans from '@core/components/PricingPlans/pricingplans.vue';
+
+  import ForgotPasswordImage from '@/@core/components/ImagesComponent/ForgotPasswordImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
 
   export default {
@@ -151,7 +120,7 @@
       ValidationObserver,
       BCard,
       BBadge,
-      PricingPlans,
+      ForgotPasswordImage,
       Loader,
     },
     directives: {
@@ -160,7 +129,7 @@
     data() {
       return {
         isLoading: false,
-        userEmail: '',
+        mobileNumber: '',
         sideImg: require('@/assets/images/pages/forgot-password-v2.svg'),
         status: false,
         captchaErr: '',
@@ -185,14 +154,7 @@
         const me = this;
         this.$refs.simpleRules.validate().then((success) => {
           if (success) {
-            // this.recoverAccount();
-            if (me.status) {
-              me.captchaErr = '';
-
-              me.recoverAccount();
-            } else {
-              me.captchaErr = 'Captcha check required';
-            }
+            this.recoverAccount();
           }
         });
       },
@@ -208,8 +170,8 @@
         this.isLoading = true;
 
         const res = await new APIService().api(
-          { method: 'post', url: 'user/recoverAccount' },
-          { email: this.userEmail, recaptchaResponse: this.captcha },
+          { method: 'POST', url: `auth/send-otp/${this.mobileNumber}` },
+          {},
           {},
         );
         if (res && res.message) {
@@ -222,19 +184,14 @@
             },
           });
           this.$router.push({
-            name: 'home',
-            params: { lang: this.lang || undefined },
+            name: 'code-verify',
+            params: { username: this.mobileNumber },
           });
-        } else if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
-        ) {
+        } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: res.result.errors[0].message,
+              title: res.error.message,
               icon: 'EditIcon',
               variant: 'danger',
             },

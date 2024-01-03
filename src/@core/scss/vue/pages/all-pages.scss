@@ -2,7 +2,9 @@
   font-size: 3rem !important;
   font-weight: 1000 !important;
 }
-
+.card-width{
+  width: 112% !important;
+}  
 .register-card-title {
   font-size: 2rem !important;
   font-weight: 1000 !important;
@@ -68,6 +70,9 @@
     font-size: 1.4rem !important;
     font-weight: 1000 !important;
   }
+  .card-width{
+    width: 100% !important;
+  }  
 }
 
 @media (max-width: 460px) {
@@ -92,6 +97,7 @@
   .max-width-address {
     max-width: 300px;
   }
+  
 }
 
 @media (min-width: 1024px) {
@@ -107,8 +113,8 @@
 }
 
 .fill-filer-color {
-  color: #7367f0;
-  fill: #7367f0;
+  color:#0081FF;
+  fill:#0081FF;
 }
 
 .clear-filter {
@@ -202,7 +208,7 @@
 }
 
 .primary-color {
-  color: #7367f0;
+  color: #0081FF;
 }
 
 .border-bottom-1px:not(:last-child) {
@@ -238,3 +244,15 @@
     margin-left: 6px !important;
     visibility: hidden;
 }
+.otp-input-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Adjust as needed */
+  }
+  .otp-input {
+    text-align: center;
+    width: 14%;
+  }
+  .max-heigth-50{
+    max-height: 50rem;
+  }

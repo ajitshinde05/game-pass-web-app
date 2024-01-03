@@ -1,0 +1,160 @@
+.profile-bg {
+  background-color: #0c75db;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.desk-50 {
+  width: 40%;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.left-30 {
+  margin-right: 30px;
+}
+
+.profile-menu-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.card-100 {
+  min-height: 90vh;
+}
+
+.mobile-tab {
+  height: 86px !important;
+  border-radius: 0px !important;
+  bottom: 0;
+
+  .icon-outer {
+    height: 30px;
+    display: flex;
+    width: 30px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .button-menu .text {
+    line-height: 30px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #484c52;
+  }
+
+  .button-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .active.button-menu {
+    .text {
+      color: #0081ff;
+      font-weight: 600;
+    }
+  }
+}
+
+html body {
+  background-color: #fff;
+}
+
+.add-bl-right {
+  margin-top: 85px;
+}
+
+.my-check {
+  display: flex;
+  align-items: flex-start;
+
+  label {
+    padding-left: 10px;
+  }
+}
+
+label.font-weight-normal {
+  font-weight: 500 !important;
+}
+
+.n-mb-0 {
+  margin-bottom: 0px !important;
+}
+
+.min-height-fix {
+  min-height: 86.5vh;
+}
+
+.cont-padding {
+  height: calc(100vh - 86px);
+  float: left;
+  width: 100%;
+}
+
+.hp-100 {
+  height: 100%;
+}
+
+.pd-r-l {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+.slots {
+  ul li {
+    font-family: 'Arvo', serif;
+    font-size: 100px !important;
+    color: #3690e8;
+  }
+}
+
+.pricing-img {
+  height: 45px;
+  width: 45px;
+}
+
+.slot-game {
+  height: 310px;
+  position: relative;
+
+  .slot-time {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+
+    .sh-sp {
+      font-size: 30px;
+      color: #fff;
+      font-weight: 700;
+      margin-left: 3px;
+      margin-right: 3px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .res-count {
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 3px;
+    margin-right: 3px;
+    font-size: 30px;
+    color: #000;
+    font-weight: 700;
+  }
+}

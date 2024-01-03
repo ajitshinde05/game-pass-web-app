@@ -3,14 +3,14 @@
     <b-row
       class="pricing-card d-flex justify-content-center align-items-center"
     >
-      <b-col md="12" lg="12" class="mx-auto mt-3">
+      <b-col sm="12" md="12" lg="12" class="mx-auto mt-1">
         <b-row class="heigth_100">
           <b-col
             v-for="(value, key) in cards"
             :key="key"
-            sm="12"
+            sm="6"
             md="6"
-            lg="4"
+            lg="6"
             class="mt-3"
           >
             <b-card align="center">

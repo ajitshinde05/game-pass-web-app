@@ -1,0 +1,127 @@
+@media (max-width: 767px) {
+  .desk-50 {
+    width: 100%;
+
+    .btn-primary {
+      border-color: transparent !important;
+      background-color: transparent !important;
+      color: rgb(0, 0, 0, 0.5) !important;
+      padding: 2px !important;
+      margin-right: 0px;
+
+      svg {
+        height: 20px;
+        width: 20px;
+      }
+    }
+  }
+
+  .add-bl-right {
+    margin-top: 0px;
+  }
+
+  .n-mb-0 {
+    margin-bottom: 0 !important;
+
+    form {
+      margin-bottom: 0px;
+    }
+
+    .my-check {
+      margin-bottom: 0px !important;
+    }
+
+    .card-text {
+      margin-bottom: 0px !important;
+    }
+  }
+
+  .mb-no-mr {
+    margin-top: 0px !important;
+  }
+
+  .add-bl-right {
+    margin-bottom: 0px !important;
+  }
+
+  .min-height-fix {
+    min-height: auto;
+  }
+
+  .cont-padding {
+    .tab-f-h {
+      height: 65vh !important;
+
+      .main-page {
+        height: 100%;
+      }
+    }
+
+    .no-pd-lf {
+      padding-left: 0px !important;
+    }
+
+    .table-card-p {
+      .card-body {
+        padding: 0px;
+        width: 100%;
+      }
+    }
+  }
+
+  .tab-f-h-bg {
+    background-color: #145ba8;
+  }
+
+  .cont-padding {
+    padding-left: 1em;
+    padding-right: 1em;
+
+    .pl-0 {
+      padding-left: 1em !important;
+      padding-right: 1em !important;
+    }
+  }
+
+  .last-table {
+    margin-bottom: 100px !important;
+  }
+
+  .number-select,
+  .abs {
+    margin-top: 0px !important;
+  }
+
+  .mobile-bottom-80 {
+    margin-bottom: 80px;
+    margin-top: 15px !important;
+  }
+
+  .slots {
+    ul li {
+      font-family: 'Arvo', serif;
+      font-size: 50px !important;
+      color: #3690e8;
+    }
+  }
+
+  .slot-game {
+    height: 225px;
+
+    .res-count {
+      height: 20px;
+      width: 20px;
+      font-size: 20px;
+      border-radius: 6px;
+    }
+
+    .slot-time {
+      bottom: 42px;
+
+      .sh-sp {
+        height: 20px;
+        font-size: 20px;
+      }
+    }
+  }
+}

@@ -1,11 +1,8 @@
 <template>
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner m-0">
-      <!-- Left Text-->
-      <PricingPlans />
-      <!-- /Left Text-->
+      <LoginImage />
 
-      <!-- Login-->
       <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5">
         <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
           <b-card-title
@@ -19,7 +16,7 @@
           </b-card-text>
 
           <!-- form -->
-          <validation-observer ref="loginValidation">
+          <validation-observer ref="setPasswordValidation">
             <b-form class="auth-login-form mt-2" @submit.prevent>
               <!-- forgot password -->
               <b-form-group>
@@ -112,32 +109,8 @@
               </b-button>
             </b-form>
           </validation-observer>
-          <footer class="page-footer font-small blue mt-4 pt-3">
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center">
-              <div>
-                <h3 class="free d-flex justify-content-center">
-                  <b-img
-                    src="@/assets/images/illustration/Support.svg"
-                    class="Support mr-2"
-                    alt="basic svg img"
-                  />
-                </h3>
-                <span class="fill-filer-color">support@coinrex.in</span>
-              </div>
-            </div>
-
-            <div class="col-md-12 col-lg-12 d-flex justify-content-center pt-1">
-              <div>
-                <p class="copyright">
-                  Copyright &copy;{{ new Date().getFullYear() }}
-                  {{ $t('SetNewPassword.AllRightsReserved') }}
-                </p>
-              </div>
-            </div>
-          </footer>
         </b-col>
       </b-col>
-      <!-- /Login-->
     </b-row>
     <Loader :show="isLoading" />
   </div>
@@ -164,7 +137,7 @@
   import store from '@/store/index';
   import ToastificationContent from '@core/components/toastification/ToastificationContent.vue';
   import APIService from '@/libs/api/api';
-  import PricingPlans from '@core/components/PricingPlans/pricingplans.vue';
+  import LoginImage from '@/@core/components/ImagesComponent/LoginImage.vue';
   import Loader from '@/layouts/components/Loader.vue';
 
   export default {
@@ -182,7 +155,7 @@
       BButton,
       ValidationProvider,
       ValidationObserver,
-      PricingPlans,
+      LoginImage,
       Loader,
     },
     mixins: [togglePasswordVisibility],
@@ -191,7 +164,6 @@
         isLoading: false,
         status: '',
         password: '',
-        userEmail: '',
         confirmPassword: '',
         sideImg: require('@/assets/images/pages/login-v3.svg'),
         passwordFieldTypeNew: 'password',
@@ -226,7 +198,7 @@
       },
     },
     created() {
-      this.verifyAccountToken();
+      this.verifyAccountUsername();
     },
 
     methods: {
@@ -239,76 +211,59 @@
           this.passwordFieldTypeRetype === 'password' ? 'text' : 'password';
       },
       validationForm() {
-        this.$refs.loginValidation.validate().then((success) => {
+        this.$refs.setPasswordValidation.validate().then((success) => {
           if (success) {
-            if (this.$route.params.token) {
+            const regex = /^[0-9]{10}$/;
+            if (
+              this.$route.params &&
+              this.$route.params.username &&
+              regex.test(this.$route.params.username)
+            ) {
               this.setPassword();
             }
           }
         });
       },
-      async verifyAccountToken() {
-        this.isLoading = true;
-        const res = await new APIService().api(
-          {
-            method: 'GET',
-            url: `user/verifyAccountToken/${this.$route.params.token}`,
-          },
-          {},
-          {},
-        );
-
+      async verifyAccountUsername() {
+        const regex = /^[0-9]{10}$/;
         if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
+          this.$route.params &&
+          this.$route.params.username &&
+          regex.test(this.$route.params.username)
         ) {
-          this.$toast({
-            component: ToastificationContent,
-            props: {
-              title: res.result.errors[0].message,
-              icon: 'EditIcon',
-              variant: 'danger',
-            },
-          });
+        } else {
           this.$router.push({
-            name: 'home',
-            params: { lang: this.lang || undefined },
+            name: 'auth-login',
           });
         }
-        this.isLoading = false;
       },
       async setPassword() {
         this.isLoading = true;
         const res = await new APIService().api(
-          { method: 'post', url: 'user/resetPassword' },
-          { token: this.$route.params.token, password: this.password },
+          { method: 'post', url: 'auth/forget-pwd' },
+          {
+            username: this.$route.params.username,
+            newPassword: this.password,
+          },
           {},
         );
-        if (res && res.result && res.result.requestStatus === 'COMPLETED') {
+        if (res && res.message) {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: 'Your password has been reset successfully',
+              title: res.message,
               icon: 'EditIcon',
               variant: 'success',
             },
           });
           this.$router.push({
-            name: 'home',
-            params: { lang: this.lang || undefined },
+            name: 'password-updated',
           });
-        } else if (
-          res &&
-          res.result &&
-          res.result.errors &&
-          res.result.errors[0].message
-        ) {
+        } else if (res && res.error && res.error.message) {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: res.result.errors[0].message,
+              title: res.error.message,
               icon: 'EditIcon',
               variant: 'danger',
             },

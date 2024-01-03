@@ -1,6 +1,6 @@
 <template>
   <div class="navbar-container main-menu-content">
-    <horizontal-nav-menu-items :items="navMenuItems" />
+    <!-- <horizontal-nav-menu-items :items="navMenuItems" /> -->
   </div>
 </template>
 
